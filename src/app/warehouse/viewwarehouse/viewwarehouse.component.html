@@ -1,0 +1,163 @@
+<ng-container *ngIf="ItemSelected">
+
+    <div style="background-color: whitesmoke; margin: 0;">
+        <div class="forminmargin">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>Item Name Here</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <div>
+                            <div>
+                                <div color="primary" >
+                                    <table>
+                                        <tr>
+                                            <td colspan="1" style="width: 150px;">Terminal</td>
+                                            <td>:</td>
+                                            <td colspan="1">---</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" style="width: 150px;">Creation Date</td>
+                                            <td>:</td>
+                                            <td colspan="1">Date-information</td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td colspan="1">Serial Number</td>
+                                            <td>:</td>
+                                            <td colspan="1">Data-Serial</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">Activation Code</td>
+                                            <td>:</td>
+                                            <td colspan="1">Activation-code</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">Warehouse</td>
+                                            <td>:</td>
+                                            <td colspan="1">Id-warehouse</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">Position Slot</td>
+                                            <td>:</td>
+                                            <td colspan="1">noslot</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">Supplier</td>
+                                            <td>:</td>
+                                            <td colspan="1">data</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+    
+                        </div>
+                        <ng-container style="padding-top: 20px;">
+                            <mat-divider></mat-divider>
+                        </ng-container>
+                        <mat-divider></mat-divider>
+                        <div>
+                            <h2>Item General Status</h2>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td colspan="1" style="width: 150px;">Location</td>
+                                                <td>:</td>
+                                                <td colspan="1">Transport / Agency / Warehouse / Technical Support</td>
+                                            </tr>
+        
+                                            <tr>
+                                                <td colspan="1">State</td>
+                                                <td>:</td>
+                                                <td colspan="1">Operative / Damaged</td>
+                                            </tr>
+        
+                                            <tr>
+                                                <td colspan="1">Details of status</td>
+                                                <td>:</td>
+                                                <td colspan="1">Info from technician</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                        </div>
+
+                        <ng-container style="padding-top: 20px;">
+                            <mat-divider></mat-divider>
+                        </ng-container>
+                        <mat-divider></mat-divider>
+                        <div>
+                            <h2>Item Warranty Info</h2>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td colspan="1" style="width: 150px;">Invoice Purchase Date</td>
+                                                <td>:</td>
+                                                <td colspan="1">date of purchase</td>
+                                            </tr>
+        
+                                            <tr>
+                                                <td colspan="1">Invoice No.</td>
+                                                <td>:</td>
+                                                <td colspan="1">888888888</td>
+                                            </tr>
+        
+                                            <tr>
+                                                <td colspan="1">Warranty Period (month)</td>
+                                                <td>:</td>
+                                                <td colspan="1">12 / 24 / 6</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td colspan="1">Supplier Service Name</td>
+                                                <td>:</td>
+                                                <td colspan="1">Name of Supplier of warranty</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                        </div>
+
+                        <div>
+                            <h2>Item History</h2>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td colspan="1" style="width: 150px;">Date</td>
+                                                <td colspan="1">Action</td>
+                                                <td colspan="1">Ticket Id</td>
+                                                <td colspan="1">User Modification</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                        </div>
+                      
+                    </mat-card-content>
+                </mat-card>
+                <ng-container style="padding-top: 20px;">
+                    <mat-divider></mat-divider>
+                </ng-container>
+        </div>
+    </div>
+    
+    <div style="position: fixed; right: 40px; bottom: 30px; display: inline-block;">
+        <div style="padding-bottom: 20px;">
+            <button mat-fab [routerLink]="[]"><mat-icon>edit-row</mat-icon></button>
+        </div>
+        <div style="padding-bottom: 20px;">
+            <button mat-fab
+            #tooltip="matTooltip"
+              matTooltip="Save changes"
+            ><mat-icon>save</mat-icon></button>
+        <!-- [routerLink]="['/edit-ticket/', theCustomerData.id]" -->
+        </div>
+        <div>
+            <button mat-fab color="warn" routerLink="/create-ticket"
+            #tooltip="matTooltip"
+            matTooltip="Return to List without changes">
+            <mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+</ng-container>

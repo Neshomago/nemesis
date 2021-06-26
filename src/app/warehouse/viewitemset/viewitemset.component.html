@@ -1,0 +1,113 @@
+<div class="filterboxes">
+    <div class="row">
+      &nbsp;
+      <mat-form-field class="col-12" appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search the ticket">
+      </mat-form-field>
+    </div>
+</div>
+<div class="table">
+    <router-outlet></router-outlet>
+    <table class="full-width table-stripped table-hover">
+        <thead>
+          <th>Resolved Warehouse Item</th>
+          <th>Item Status</th>
+          <th>Warehouse Item Units</th>
+        </thead>
+        <tbody>
+          <tr
+          *ngFor="let dataItem of itemListtotal; let i = index"
+            [class.active]="i == currentIndex"
+            (click)="setCurrentIndividualItem(dataItem, i)"
+            [routerLink]="['edit-item/',dataItem.id]"
+            style="cursor: pointer;"
+          >
+            <td>
+              <span class="customer-name">
+                {{dataItem.name}}
+              </span><br>
+              <span class="customer-name">
+                  Serial: {{dataItem.serial}}
+              </span>
+            </td>
+            <td>
+                <span>
+                      Item Status: {{dataItem.status}} - 
+                      <span *ngIf="dataItem.used == 0">
+                          New
+                      </span>
+                      <span *ngIf="dataItem.used == 1">
+                          Used
+                      </span>
+                </span><br>
+                <span>
+                  <ng-container *ngIf="dataItem.location == 'AGENCY'">
+                      <ng-container *ngIf="dataItem.warehouseId !=0">
+                          <span class="material-icons" style="vertical-align: middle;">store</span>
+                          <span style="font-size: 11px;">
+                              {{dataItem.warehouseId}}
+                              <ng-container *ngFor="let item of AgencyList; let i=index">
+                                  <ng-container *ngIf="item.id == dataItem.locationId">
+                                      {{item.name}}
+                                  </ng-container>
+                              </ng-container>
+                          </span>
+                      </ng-container>
+                  </ng-container>
+
+                  <ng-container *ngIf="dataItem.location == 'WAREHOUSE'">
+                      <ng-container *ngIf="dataItem.warehouseId !=0">
+                          <span class="material-icons" style="vertical-align: middle;">store</span>
+                          <span style="font-size: 11px;">
+                              {{dataItem.warehouseId}}
+                              <ng-container *ngFor="let item of warehouses; let i=index">
+                                  <ng-container *ngIf="item.id == dataItem.locationId">
+                                      {{item.name}}
+                                  </ng-container>
+                              </ng-container>
+                          </span>
+                      </ng-container>
+                  </ng-container>
+                  
+                  <ng-container *ngIf="dataItem.location == 'TRANSPORT' && dataItem.version == 1">
+                    <ng-container *ngIf="dataItem.warehouseId != 0">
+                      <span class="material-icons" style="vertical-align: middle;">local_shipping</span>
+                      <span style="font-size: 11px;">
+                        {{dataItem.locationId}}
+                        <!-- <ng-container *ngFor="let item of warehouses; let i=index">
+                          <ng-container *ngIf="item.id == dataItem.locationId">
+                            {{item.name}}
+                          </ng-container>
+                        </ng-container>   -->
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </span>
+            </td>
+            <td>
+                  1
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div>
+    <span style="display: none;">END OF ITEM SET LIST</span>&nbsp;
+</div>
+<div style="position: fixed; right: 40px; bottom: 30px; display: inline-block;">
+  <div>
+    <!-- routerLink="/create-item" -->
+    <button mat-fab 
+    #tooltip="matTooltip"
+    matTooltip="Add New Item to Warehouse"
+    (click)="abrirModal()"
+    ><mat-icon>add</mat-icon></button>
+  </div>  
+  <div style="padding-top: 20px;">
+        <button mat-fab color="accent" routerLink="/warehouse"
+        #tooltip="matTooltip"
+        matTooltip="Return to Warehouse list"
+        ><mat-icon>assignment_return</mat-icon></button>
+    </div>
+</div>

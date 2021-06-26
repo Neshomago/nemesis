@@ -1,0 +1,184 @@
+<div class="grid-container">
+  <h1 class="mat-h1">{{ 'home.bienvenido' | translate }}
+    {{nombre}}
+  </h1>
+  <table width="90%" align="center" style="color:gainsboro;">
+    <tr>
+      <ng-container *ngIf="zRoleA">
+
+        <td>
+          <mat-card [ngStyle]="{'background-color':'moccasin'}">
+            <mat-card-header>
+              <mat-card-title> Tickets
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item routerLink="/tickets">Go to Tickets</button>
+              </mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content *ngIf="ticketCount" class="dashboard-card-content">
+                  <h2 style="font-weight: 100;">{{ 'home.lostickets' | translate}}</h2>
+                  <span style="font-size: 45px; font-weight: 100;">
+                    {{ticketCount.length}}
+                  </span>
+                </mat-card-content>
+              </mat-card>
+            </td>
+            
+      <td>
+        <mat-card *ngIf="clientsCount" [ngStyle]="{'background-color':'lemonchiffon'}">
+          <mat-card-header>
+            <mat-card-title> {{ 'home.clientes' | translate }}
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="customer" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #customer="matMenu" xPosition="before">
+                <button mat-menu-item routerLink="/customers">Go to Customers</button>
+              </mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <h2 style="font-weight: 100;">{{ 'home.clientesfelices' | translate}}</h2>
+            <span style="font-size: 45px; font-weight: 100;">
+              {{clientsCount.length}}
+            </span>
+          </mat-card-content>
+        </mat-card>
+      </td>
+    </ng-container>
+    </tr>
+    <ng-container *ngIf="zRoleA">
+    <tr style="margin: 20px;">
+      <td colspan="2">
+        <mat-card [ngStyle]="{'background-color':'white'}">
+          <mat-card-header>
+            <mat-card-title> {{ 'home.beneficiototal' | translate}}
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="profit" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #profit="matMenu" xPosition="before">
+                <button mat-menu-item routerLink="/adminpanel">Go to Admin Panel</button></mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 100;">INS Tickets</h3>
+                <span style="font-size: 20px; font-weight: 100;">
+                  {{ TotalAdminInst | currency:'USD' }}
+                </span>
+              </div>
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 100;">DIS Tickets</h3>
+                <span style="font-size: 20px; font-weight: 100;">
+                  {{ TotalAdminDis | currency:'USD' }}
+                </span>
+              </div>
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 100;">INT Tickets</h3>
+                <span style="font-size: 20px; font-weight: 100;">
+                  {{ TotalAdminInt | currency:'USD' }}
+                </span>
+              </div>
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 400;">{{ 'home.totaltickets' | translate}}</h3>
+                <span style="font-size: 20px; font-weight: 500;">
+                  {{ TotalTicketsWorked | currency:'USD' }}
+                </span>
+              </div>
+              <div style="display: inline-block; margin-right: 10px; color:forestgreen;">
+                <h3 style="font-weight: 400;">{{ 'home.beneficiototal' | translate}}</h3>
+                <span style="font-size: 20px; font-weight: 500;">
+                  {{ TotalRevenue | currency:'USD' }}
+                </span>
+              </div>
+          </mat-card-content>
+        </mat-card>
+      </td>
+    </tr>
+  </ng-container>
+    <ng-container *ngIf="zRoleA">
+    <tr style="margin: 20px;">
+      <td>
+        <mat-card *ngIf="technicianCount" [ngStyle]="{'background-color':'gainsboro'}">
+          <mat-card-header>
+            <mat-card-title> {{ 'home.tecnicos' | translate}}
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="techniciansmenu" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #techniciansmenu="matMenu" xPosition="before">
+                <button mat-menu-item routerLink="">Go to Technicians List</button></mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+              <h2 style="font-weight: 100;">{{ 'home.tecnicoactivo' | translate}}</h2>
+              <span style="font-size: 45px; font-weight: 100;">
+                {{technicianCount.length}}
+              </span>
+          </mat-card-content>
+        </mat-card>
+      </td>
+      <td>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title> {{ 'home.bodegas' | translate}}
+              <button mat-icon-button class="more-button" [matMenuTriggerFor]="warehouse" aria-label="Toggle menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #warehouse="matMenu" xPosition="before">
+                <button mat-menu-item routerLink="/warehouse">Go to Admin Panel</button></mat-menu>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+              <h2 style="font-weight: 100;">{{ 'home.minimostock' | translate}}</h2>
+              <span style="font-size: 45px; font-weight: 100;">
+                {{technicianCount.length}}
+              </span>
+          </mat-card-content>
+        </mat-card>
+      </td>
+    </tr>
+  </ng-container>
+    <ng-container *ngIf="zRoleT">
+    
+    <tr style="margin: 20px;">
+      <td colspan="2">
+        <mat-card [ngStyle]="{'background-color':'white'}">
+          <mat-card-header>
+            <mat-card-title> {{ 'home.ticketstecnicos' | translate}}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 100;">INS Tickets</h3>
+                <span style="font-size: 20px; font-weight: 100;">
+                  {{ ValueA }}
+                </span>
+              </div>
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 100;">DIS Tickets</h3>
+                <span style="font-size: 20px; font-weight: 100;">
+                  {{ ValueB }}
+                </span>
+              </div>
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 100;">INT Tickets</h3>
+                <span style="font-size: 20px; font-weight: 100;">
+                  {{ ValueC }}
+                </span>
+              </div>
+              <div style="display: inline-block; margin-right: 10px;">
+                <h3 style="font-weight: 400;">{{ 'home.totaltickets' | translate}}</h3>
+                <span style="font-size: 20px; font-weight: 500;">
+                  {{ ValueT }}
+                </span>
+              </div>
+          </mat-card-content>
+        </mat-card>
+      </td>
+    </tr>
+    </ng-container>
+    
+  </table>
+</div>

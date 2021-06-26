@@ -1,0 +1,41 @@
+
+.TicketResolved{
+    border:none;
+    border-radius:5px;
+    width:50px;
+    height:30px;
+    margin: 10px 0px 5px 0px;
+    color:white;
+    background-color: green;
+  }
+  
+  .TicketOpened{
+    border:none;
+    border-radius:5px;
+    width:50px;
+    height:30px;
+    margin: 10px 0px 5px 0px;
+    color:black;
+    background-color:gold;
+  }
+  
+  .TicketAborted{
+    border:none;
+    border-radius:5px;
+    width:50px;
+    height:30px;
+    margin: 10px 0px 5px 0px;
+    color:white;
+    background-color: red;
+  }
+  
+  .TicketManaged{
+    border:none;
+    border-radius:5px;
+    width:50px;
+    height:30px;
+    margin: 10px 0px 5px 0px;
+    color:white;
+    // background-color:dodgerblue;
+    background-color:gold;
+  }

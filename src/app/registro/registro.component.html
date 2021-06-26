@@ -1,0 +1,28 @@
+
+<div class="registro-nemesis">
+    <!-- <div class="logo-registro" style="display: inline-flex ;align-self: center;"><img width=300 src="assets/img/logo-nemesisfull.png" /></div> -->
+    <h1  style="text-align: center; padding-top: 30px;">CREATE USERS - NEMESIS - STEP 1</h1>
+    <div class="inputs">
+        <div class="registro">
+            <form class="registroform" id="registro" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                
+                <span *ngIf="f.submitted && f.controls['email'].errors"
+                    class="text-danger animated fadeIn">The email is required</span>
+                <mat-form-field class="registrowidth">
+                    <mat-label>EMAIL</mat-label>
+                    <input matInput type="email" name="email" [(ngModel)]="usuario.email" email required autofocus placeholder="Email"><br>
+                </mat-form-field>
+                <span *ngIf="f.submitted && f.controls['password'].errors" 
+                    class="text-danger animated fadeIn">the password should be more than six letters</span>
+                <mat-form-field class="registrowidth">
+                    <mat-label>PASSWORD</mat-label>
+                    <input matInput type="password" name="password" [(ngModel)]="usuario.password" required minLength="6" placeholder="Password"><br>
+                </mat-form-field>
+                <input class="inputbutton" type="submit" value="Register"><br>
+            </form>
+        </div>
+        <div class="copyright">
+            <p>© Nemesis 2021</p>
+        </div>
+    </div>
+</div>

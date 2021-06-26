@@ -1,0 +1,75 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+
+      <ng-container *ngIf = "logueado == 'si'">
+        <!-- <mat-toolbar>Menu</mat-toolbar> -->
+      <div *ngIf="zRoleA || zRoleC || zRoleE || zRoleT" class="border_nav_low"> 
+      <!-- <div class="border_nav_low"> -->
+          <div>
+          <div class="align-self-center">
+            <div class="user_circle">
+              <div class="initials">{{nombre[0]}}</div>
+            </div>
+          </div>
+          <div class="text-center logged_in">{{ nombre }}</div>
+
+        </div>
+        <div class="text-center logged_in_below"><!-- {{ 'navbar.roles' | translate }}:  --><span></span>{{ zRoleA || zRoleC || zRoleE || zRoleT }}-</div>
+        <div class="text-center logout">
+          <button mat-raised-button style="transform: scale(0.75);" (click)="salir()">
+            {{ 'navbar.desconectar' | translate }}
+            <span class="material-icons" style="font-size: 16px;">
+              <!-- {{ 'navbar.cerrarsesion' | translate }} -->logout
+            </span>
+          </button> 
+        </div>
+      </div>
+      <mat-nav-list class="background-nemesis">
+        <a mat-list-item routerLink="/main" *ngIf="zRoleA || zRoleT" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >home</span> {{ 'navbar.principal' | translate }}</a>
+        <a mat-list-item routerLink="/contact" *ngIf="zRoleA || zRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >contacts</span>{{ 'navbar.usuarios' | translate }}</a>
+        <a mat-list-item routerLink="/adminpanel" *ngIf="zRoleA" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >admin_panel_settings</span>{{ 'navbar.administrador' | translate }}</a>
+        <a mat-list-item routerLink="/customers" *ngIf="zRoleA " routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >person_pin</span>{{ 'navbar.clientes' | translate }}</a>
+        <a mat-list-item routerLink="/tickets" *ngIf="zRoleA || zRoleE || zRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >local_play</span>{{ 'navbar.boletosadmin' | translate }}</a>
+        <a mat-list-item routerLink="/viewtickettech" *ngIf="xRoleT == true" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >local_play</span>Tickets</a>
+        <a mat-list-item routerLink="/agency" *ngIf="zRoleA || zRoleC || zRoleE" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >store_mall_directory</span>{{ 'navbar.agencias' | translate }}</a>
+        <a mat-list-item routerLink="/warehouse" *ngIf="zRoleA || zRoleE" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;">home_work</span>{{ 'navbar.bodegas' | translate }}</a>
+      </mat-nav-list>
+    </ng-container>  
+    <mat-nav-list>
+      <!-- <div><a mat-list-item (click)="openDialogSettingsBox()">
+        <span class="material-icons" style="padding-right: 20px;">miscellaneous_services</span>{{ 'navbar.configuraciones' | translate }}</a></div> -->
+    </mat-nav-list>
+    <!-- <mat-nav-list>
+      <div>
+        <a mat-list-item routerLink="/clients">Test Insert Data</a></div>
+    </mat-nav-list> -->
+    <div class="background-nemesis" style="display: flex; opacity: 0.3; position: fixed; bottom: 0;z-index: -2;">
+      <img src="../assets/img/logo-nemesisw.png" height="180">
+    </div>  
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon style="color: black;" aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <img src="../assets/img/logo-nemesisfull.png" height="50">
+      <span class="spacer"></span>
+      <div style="font-size: 0.7em; color: black; text-align: center; margin-bottom: -10px;">
+        {{ 'navbar.language' | translate }}:
+      </div>
+      <div style="margin-top: 0px; transform: scale(0.65);">
+        <button mat-stroked-button style="color: rgba(0, 0, 0, 0.527);" [disabled]="language == 'italian'" (click)="setLanguage()">Italian</button>
+        <button mat-stroked-button style="color: rgba(0, 0, 0, 0.527);" [disabled]="language == 'english'" (click)="setLanguage()">English</button>
+      </div>    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

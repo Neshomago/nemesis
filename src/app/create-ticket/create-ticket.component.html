@@ -1,0 +1,138 @@
+<div class="boxformcreate">
+  <div class="forminmargin">
+    <h1 class="h1-form">CREATE NEW TICKET</h1>
+    <form #ticketForm="ngForm" (ngSubmit)="saveTicket()">
+      <p>
+        <mat-form-field class="full-width" >
+          <mat-label>Request Type:</mat-label>
+          <mat-select matNativeControl id="type" name="type" [(ngModel)]="ticketModel.type">
+            <mat-option value="INS">INSTALATION</mat-option>
+            <mat-option value="INT">INTEGRATION</mat-option>
+            <mat-option value="MAN">MAINTENANCE</mat-option>
+            <mat-option value="DIS">UNINSTALL</mat-option>
+            <mat-option value="SUP">SUPPORT</mat-option>
+            <mat-option value="IND">INTEGRATION DELIVERY</mat-option>
+            <mat-option value="MND">MAINTENANCE DELIVERY</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      
+      <p>
+        <mat-form-field class="full-width" >
+          <mat-label>Priority:</mat-label>
+          <mat-select matNativeControl name="priority" id="priority" [(ngModel)]="ticketModel.priority">
+            <mat-option value="LOW">Low Priority</mat-option>
+            <mat-option value="NORMAL">Normal</mat-option>
+            <mat-option value="HIGH">High Priority</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      
+      <p>
+        <mat-form-field class="full-width" >
+          <mat-label>Ticket Code</mat-label>
+          <input matInput id="code" name="code" type="text" [(ngModel)]="ticketModel.code">
+        </mat-form-field>
+      </p>
+
+      <!-- <ng-container *ngIf="zRoleA">
+          <div class="row">
+            <div class="col-auto">
+              <mat-form-field>
+                <mat-label>Customer</mat-label> -->
+                <!-- <mat-select matNativeControl id="CustomerOption" name="CustomerOption" [(ngModel)]="ticketModel.customerId">
+                  <mat-option *ngFor="let customer of customerList; let i = index" [value]="customer.id">{{customer.name}}</mat-option>
+                </mat-select> -->
+                <!-- {{customerList[0] | json}} -->
+              <!-- </mat-form-field>
+            </div>
+      </ng-container> -->
+          
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Customer</mat-label>
+              <mat-select matNativeControl id="CustomerOption" name="CustomerOption" [(ngModel)]="ticketModel.customerId">
+                <mat-option *ngFor="let customer of customerList; let i = index" [value]="customer.id">{{customer.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-auto">
+            <mat-form-field>
+              <mat-label>Agency by:</mat-label>
+              <mat-select matNativeControl id="agencyOption" name="agencyOption" [(ngModel)]="valueSelected">
+                <mat-option *ngFor="let opt of listAgenciasBy" [value]="opt.value" (click)="consultarListadoAgencias(opt.value)">{{opt.viewValue}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <ng-container *ngIf="valueSelected === 'NAME' || valueSelected == null">
+              <mat-form-field class="full-width">
+                <input type="text" placeholder="Agency" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                [(ngModel)]="ticketModel.agencyId" (ngModelChange)="onSearchTerm($event)">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let agency of filteredResult; let i = index " [value]="agency.id">
+                    <!-- <div style="line-height: 12px; font-weight: 400;">{{agency.name}} | <span style="font-size: small; font-weight: 200;">{{agency.managerId}} / {{agency.certification}}</span>
+                      <br><span style="color: darkgrey; font-size: smaller;">{{agency.address}}</span>
+                    </div> -->
+                    <span style="line-height: 12px; font-weight: 400;">{{agency.name}} | ID: {{agency.id}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="valueSelected === 'AAMS'">
+              <mat-form-field class="full-width">
+                <input type="text" placeholder="Agency" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                [(ngModel)]="ticketModel.agencyId" (ngModelChange)="onSearchTerm($event)">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let agency of filteredResult; let i = index" [value]="agency.id">
+                    <ng-container *ngIf="agency.id === ticketModel.agencyId && ticketModel.agencyId !== ''">
+                      {{agency.name}} | Manager ID: {{agency.managerId}}
+                    </ng-container>
+                    <span style="line-height: 12px; font-weight: 400;"> {{agency.name}} | Manager ID: {{agency.managerId}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </ng-container>
+
+          </div>
+<!-- 
+          <div class="col">
+              <ng-container *ngIf="ticketModel.agencyId !== ''">
+                <ng-container *ngFor="let agency of filteredResult">
+                  <ng-container *ngIf="agency.id === ticketModel.agencyId">
+                    {{agency.name}} | Manager ID: {{agency.managerId}}
+                  </ng-container>
+                </ng-container>
+              </ng-container>       
+          </div> -->
+        </div>
+          <p>
+            <mat-form-field class="full-width">
+              <mat-label>Details</mat-label>
+              <textarea matInput name="description" id="description" [(ngModel)]="ticketModel.description"></textarea>
+            </mat-form-field>
+          </p>
+          <input type="hidden" name="status" id="status" [(ngModel)]="ticketModel.status">
+          <input type="hidden" name="createdBy" id="createdBy" [(ngModel)]="ticketModel.createdBy">
+
+          {{ticketModel | json}}
+
+          <div class="btncenter">
+            <div>
+              <button mat-raised-button class="cancel" routerLink="/tickets"><span class="material-icons">
+              clear</span>Cancel</button>
+            </div>
+            <div>
+              <button mat-raised-button class="savebtn" type="submit"><span class="material-icons">
+                done
+                </span> Save</button>
+            </div>
+          </div>
+      </form>
+
+  </div>
+</div>

@@ -1,0 +1,218 @@
+
+<div style="background-color: whitesmoke; margin: 0;">
+    <div class="forminmargin">
+        <div *ngIf="theAgencyData">
+            <mat-card class="example-card">
+                  <mat-card-title>Agency Information</mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                    <div>
+                        <div>
+                            <div color="primary" ><br>
+                                <table>
+                                    <tr>
+                                        <td colspan="1" style="width: 150px;">Agency Id</td>
+                                        <td>:</td>
+                                        <td colspan="1">{{theAgencyData.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" style="width: 150px;">Agency Name</td>
+                                        <td>:</td>
+                                        <td colspan="1">
+                                            <ng-container *ngIf="!edit">
+                                                {{theAgencyData.name}}
+                                            </ng-container>
+                                            <ng-container *ngIf="edit">
+                                                <mat-form-field>
+                                                    <input matInput type="text" name="name" id="name" [(ngModel)]="changesAgency.name" autofocus>
+                                                </mat-form-field>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" style="width: 150px;">VAT Number</td>
+                                        <td>:</td>
+                                        <td colspan="1">
+                                            <ng-container *ngIf="!edit">
+                                                {{theAgencyData.vat}}
+                                            </ng-container>
+                                            <ng-container *ngIf="edit">
+                                                <mat-form-field>
+                                                    <input matInput type="text" name="vat" id="vat" [(ngModel)]="changesAgency.vat">
+                                                </mat-form-field>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" style="width: 150px;">Manager ID</td>
+                                        <td>:</td>
+                                        <td colspan="1">
+                                            <ng-container *ngIf="!edit">
+                                                {{theAgencyData.managerId}}
+                                            </ng-container>
+                                            <ng-container *ngIf="edit">
+                                                <mat-form-field>
+                                                    <input matInput type="text" name="managerId" id="managerId" [(ngModel)]="changesAgency.managerId">
+                                                </mat-form-field>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="1">Certification Code</td>
+                                        <td>:</td>
+                                        <td colspan="1">
+                                            <ng-container *ngIf="!edit">
+                                                {{theAgencyData.certification}}
+                                            </ng-container>
+                                            <ng-container *ngIf="edit">
+                                                <mat-form-field>
+                                                    <input matInput type="text" name="certification" id="certification" [(ngModel)]="changesAgency.certification">
+                                                </mat-form-field>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div><br>
+                    <ng-container style="padding-top: 20px;">
+                        <mat-divider></mat-divider>
+                    </ng-container>
+                    <mat-divider></mat-divider>
+                    <div><br>
+                        <h2>Agency Contacts</h2>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td colspan="1" style="width: 150px;">Address</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                <ng-container *ngIf="!edit">
+                                                    {{theAgencyData.address}}
+                                                </ng-container>
+                                                <ng-container *ngIf="edit">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" name="address" id="address" [(ngModel)]="changesAgency.address">
+                                                    </mat-form-field>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td colspan="1">Email</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                <ng-container *ngIf="!edit">
+                                                    {{theAgencyData.email}}
+                                                </ng-container>
+                                                <ng-container *ngIf="edit">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" name="email" id="email" [(ngModel)]="changesAgency.email">
+                                                    </mat-form-field>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td colspan="1">Phone</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                <ng-container *ngIf="!edit">
+                                                    {{theAgencyData.phone}}
+                                                </ng-container>
+                                                <ng-container *ngIf="edit">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" name="phone" id="phone" [(ngModel)]="changesAgency.phone">
+                                                    </mat-form-field>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="1">Customer Id</td>
+                                            <td>:</td>
+                                            <td colspan="1">{{theAgencyData.customerId}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">More Info</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                <ng-container *ngIf="!edit">
+                                                    {{theAgencyData.moreInfo}}
+                                                </ng-container>
+                                                <ng-container *ngIf="edit">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" name="moreInfo" id="moreInfo" [(ngModel)]="changesAgency.moreInfo">
+                                                    </mat-form-field>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                    </div>
+                    <ng-container>
+                        <mat-divider></mat-divider>
+                    </ng-container>
+                    <br>
+                    <ng-container>
+                        <h2>
+                            All Agency items:
+                        </h2>
+                        <table width="80%">
+                            <thead style="border-bottom: 2px solid gray; height: 40px;">
+                                <td colspan="3">Item Name</td>
+                                <td colspan="2">Item category</td>
+                                <td colspan="1">Serial</td>
+                                <td colspan="1">Status</td>
+                            </thead>
+                            <ng-container *ngFor="let item of AgencyItems">
+                                <tr  style="border-bottom: 0.5px solid rgb(192, 192, 192); height: 40px;">
+                                    <td colspan="3">{{item.id}}</td>
+                                    <td colspan="2">{{item.name}}</td>
+                                    <td colspan="1">{{item.serial}}</td>
+                                    <td colspan="1">{{item.status}}</td>
+                                </tr>
+                            </ng-container>
+                            <ng-container *ngIf="AgencyItems == []">
+                                <h3>There are no items in this agency.</h3>
+                            </ng-container>
+                        </table>
+                    </ng-container>
+                    
+                </mat-card-content>
+            </mat-card>
+            <ng-container style="padding-top: 20px;">
+                <mat-divider></mat-divider>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div style="position: fixed; right: 40px; bottom: 30px; display: inline-block;">
+    <div *ngIf="!edit" style="padding-bottom: 20px;">
+        <button mat-fab (click)="editFields()"><mat-icon>edit-row</mat-icon></button>
+    </div>
+    <div style="padding-bottom: 20px;">
+        <button mat-fab
+        #tooltip="matTooltip"
+          matTooltip="Erase Button"
+          (click)="deleteItem(theAgencyData.id);"
+        ><mat-icon>delete_forever</mat-icon></button>
+    </div>
+    <div *ngIf="edit" style="padding-bottom: 20px;">
+        <button mat-fab
+        #tooltip="matTooltip"
+          matTooltip="Save changes"
+          (click)="updateChanges(theAgencyData.id); editFields()"
+        ><mat-icon>save</mat-icon></button>
+    <!-- [routerLink]="['/edit-ticket/', theAgencyDataDatatheAgencyData.id]" -->
+    </div>
+    <div>
+        <button mat-fab color="warn" routerLink="/agency"
+        #tooltip="matTooltip"
+        matTooltip="Return to List without changes">
+        <mat-icon>close</mat-icon></button>
+    </div>
+</div>

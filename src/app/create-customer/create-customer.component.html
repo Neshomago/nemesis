@@ -1,0 +1,51 @@
+<div class="boxformcreate">
+<div class="forminmargin">  
+    <h1 class="h1-form">CREATE NEW CUSTOMER</h1>
+  <form #customerForm="ngForm" (ngSubmit)="saveCustomer()">
+      <p>
+        <mat-form-field class="full-width" >
+          <mat-label>Name</mat-label>
+          <input name="name" id="name" matInput [(ngModel)]="customerModel.name" required>
+        </mat-form-field>
+      </p>
+      
+      <p>
+        <mat-form-field class="full-width">
+          <mat-label>VAT</mat-label>
+          <input matInput placeholder="0924496896001" name="vat" id="vat" [(ngModel)]="customerModel.vat">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="full-width">
+          <mat-label>Address</mat-label>
+          <input class="full-width" matInput placeholder="Ex. San Francisco" name="address" id="address" [(ngModel)]="customerModel.address">
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="full-width">
+          <mat-label>Email</mat-label>
+          <input class="full-width" matInput placeholder="mail@mail.com" type="email" name="email" id="email" [(ngModel)]="customerModel.email" required>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="full-width">
+        <mat-label>Phone</mat-label>
+        <input class="full-width" matInput name="phone" id="phone" [(ngModel)]="customerModel.phone">
+      </mat-form-field>
+      </p>
+
+      <div class="btncenter">
+        <div>
+          <button mat-raised-button class="cancel" routerLink="/customers"><span class="material-icons">
+            clear</span>Cancel</button>
+        </div>
+        <div>
+          <button mat-raised-button class="savebtn" type="submit"><span class="material-icons">done</span> Save</button>
+        </div>
+      </div>
+  </form>
+</div>
+</div>

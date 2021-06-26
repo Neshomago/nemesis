@@ -1,0 +1,152 @@
+{
+	"Error": "This is an error",
+	"app": {
+		"title": "Nemesis App"
+	},
+	"navbar": {
+		"desconectar": "Uscire",
+		"idioma": "linguaggio",
+		"cerrarsesion": "Esci",
+		"principal": "Inizio",
+		"language": "lingua",
+		"ingles": "English",
+        "italiano":"Italian",
+        "usuarios":"Utenti",
+        "administrador":"Admin",
+        "clientes":"Clienti",
+        "boletosadmin":"Gestione Ticket",
+        "boletosbodegatec":"Tickets",
+        "agencias":"Agenzie",
+        "bodegas":"Magazzino",
+        "configuraciones":"Configurazione",
+        "roles":"Ruoli"
+	},
+	"agency": {
+		"viewagency": {
+			"title": "Angular Multilanguage"
+		},
+		"title": "Angular Multilanguage"
+	},
+	"adminpanel": {
+		"valortickets": "Valore Tickets",
+		"editavalor": "Modifica valore",
+		"ticketinstalacion":"Ticket di installazione",
+		"ticketdesinstalacion":"Ticket di disinstallazione",
+		"ticketintegracion":"Ticket di integrazione",
+		"ticketsganancia":"Guadagno,",
+		"listatecnico":"Lista Tecnici",
+		"gananciatecnicos":"Tutti i tecnici nelle lloro postazioni",
+		"grabadisponibilidadtecnicos":"Salva la disponibilita dei tecnici",
+		"tecnicodisponible":"Disponibile",
+		"tecniconodisponible":"No disponibile",
+		"nombretecnico":"Nome Tecnico",
+		"contacto":"Contatto",
+		"disponible":"Disponibile",
+		"nodisponible":"Non Disponibile",
+		"totalganado":"Guadagno Totale"
+	},
+	"contact": {
+		"edit": {
+			"title": "Angular Multilanguage"
+		},
+		"view": {
+			"title": "Angular Multilanguage"
+		},
+		"buscar": "Ricerca",
+		"nombrecontacto":"Nome del Contatto",
+		"datoscontacto":"Dati del Contatto",
+		"finlistacontactos":"END OF CONTACT LIST"	
+	},
+	"creat-contact": {
+		"title": "Angular Multilanguage"
+	},
+	"create-agency": {
+		"title": "Angular Multilanguage"
+	},
+	"create-customer": {
+		"title": "Angular Multilanguage"
+	},
+	"create-ticket": {
+		"title": "Angular Multilanguage"
+	},
+	"customers": {
+		"edit": {
+			"title": "Angular Multilanguage"
+		},
+		"view": {
+			"title": "Angular Multilanguage"
+		},
+		"title": "Angular Multilanguage"	
+	},
+	"equipmententry": {
+		"title": "Angular Multilanguage"
+	},
+	"form-ticket": {
+		"title": "Angular Multilanguage"
+	},
+	"guards": {
+		"title": "Angular Multilanguage"
+	},
+	"home": {
+		"bienvenido": "Benvenuto",
+		"clientes":"Clienti",
+		"lostickets":"Tutti i tickets",
+		"clientesfelices":"Clienti soddisfatti",
+		"beneficiototal":"Guadagne totale",
+		"tecnicos":"Tecnici",
+		"bodegas":"Magazzino",
+		"tecnicoactivo":"Tecnico attivo",
+		"minimostock":"Quantità bassa",
+		"ticketstecnicos":"Ticket lavorati dal tecnico",
+		"totaltickets":"Tickets totale"
+	},
+	"login": {
+		"title": "Angular Multilanguage"
+	},
+	"registro": {
+		"title": "Angular Multilanguage"
+	},
+	"registro-user": {
+		"title": "Angular Multilanguage"
+	},
+	"tickets": {
+		"edit": {
+			"title": "Angular Multilanguage"
+		},
+		"massivetickets": {
+			"title": "Angular Multilanguage"
+		},
+		"viewticket": {
+			"title": "Angular Multilanguage"
+		},
+		"viewtickettech": {
+			"title": "Angular Multilanguage"
+		},
+		"tiketId": "Ticket ID",
+		"Estatus": "Stato",
+		"tikectAgency": "Agenzia",
+		"detalles": "Dettagli",
+		"fecha": "Data",
+		"prioridad": "Priorita",
+		"tecnico" : "Tecnico",
+		"noasignado" : "No Assegnato",
+		"finlistatickets":"FINE LISTA TICKETS"
+
+	},
+	"warehouse": {
+		"edititem": {
+			"title": "Angular Multilanguage"
+		},
+		"registeritem": {
+			"title": "Angular Multilanguage"
+		},
+		"viewitemset": {
+			"title": "Angular Multilanguage"
+		},
+		"viewwarehouse": {
+			"title": "Angular Multilanguage"
+		},
+		"title": "Angular Multilanguage",	
+		"other": "Angular Multilanguage"
+	}	
+}

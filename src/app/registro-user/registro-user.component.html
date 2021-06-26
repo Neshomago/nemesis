@@ -1,0 +1,35 @@
+<div class="boxformcreate">
+    <div class="forminmargin">
+      <!-- <h1 class="h1-form">New Nemesis User</h1> -->
+      <h1 class="h1-form">User Role - NEMESIS - STEP 2</h1>
+      <form id="miForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <!-- <p>
+        <mat-form-field class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput id="name" name="name" placeholder="Username" [(ngModel)]="nuevousuario.username" required>
+        </mat-form-field>
+      </p> -->
+    
+        <div>
+        <section id="rol" name="rol" class="checksection">
+            <mat-checkbox class="checkleftmargin" name="RoleA" [(ngModel)]="RoleA">Administrator</mat-checkbox>
+            <mat-checkbox class="checkleftmargin" name="RoleT" [(ngModel)]="RoleT">Technician</mat-checkbox>
+            <mat-checkbox class="checkleftmargin" name="RoleC" [(ngModel)]="RoleC">Customer</mat-checkbox>
+            <mat-checkbox class="checkleftmargin" name="RoleE" [(ngModel)]="RoleE">Warehouse</mat-checkbox>
+        </section>
+        </div>
+    <!-- {{contactModel | json}} -->
+    <div class="btncenter">
+      <div>
+        <button mat-raised-button class="cancel" [routerLink]="['/contacts']"><span class="material-icons">clear</span>Cancel</button>
+      </div>
+      <div>
+        <button mat-raised-button class="savebtn" type="submit"><span class="material-icons">done</span> Save</button>
+      </div>
+    </div>
+  </form>
+  </div>
+  </div>
+  
+
+

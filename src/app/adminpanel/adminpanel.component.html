@@ -1,0 +1,205 @@
+<div class="grid-container">
+    <h1 class="mat-h1"></h1>
+    <table width="90%" align="center" style="color:gainsboro;">
+      <tr>
+        <td>
+          <mat-card [ngStyle]="{'background-color':'white'}">
+            <mat-card-header> 
+        <mat-card-title> {{ "adminpanel.valortickets" | translate}}
+                <ng-container *ngIf="!toogleedit">
+                    <button mat-icon-button style="color:orange;" (click)="edit()">
+                        <mat-icon style="font-size: 18px;">edit</mat-icon> {{ "adminpanel.editavalor" | translate}}
+                      </button>
+                </ng-container>
+                <ng-container *ngIf="toogleedit">
+                    <button mat-icon-button style="color:orange;" (click)="edit()">
+                        <mat-icon style="font-size: 18px;">cancel</mat-icon> Cancel edit
+                      </button>
+                </ng-container>
+                
+              </mat-card-title>
+            </mat-card-header>
+            <ng-container *ngIf="!toogleedit">
+                <mat-card-content class="dashboard-card-content">
+                    <div class="row">
+                        <ng-container>    
+                            <div class="col">
+                                <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketinstalacion" | translate}}</div>
+                                <span style="font-size: 1em; font-weight: 100;">
+                                    <ng-container *ngIf="ticketValueperType[0].ticket_type == 'INST'">
+                                        {{ticketValueperType[0].ticket_value | currency}}
+                                    </ng-container>
+                                </span>
+                            </div>
+                            <div class="col">
+                                <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketdesinstalacion" | translate}}</div>
+                                <span style="font-size: 1em; font-weight: 100;">
+                                    <ng-container *ngIf="ticketValueperType[1].ticket_type == 'DIS'">
+                                        {{ticketValueperType[1].ticket_value | currency}}
+                                    </ng-container>
+                                </span>
+                            </div>
+                            <div class="col">
+                                <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketintegracion" | translate}}</div>
+                                <span style="font-size: 1em; font-weight: 100;">
+                                    <ng-container *ngIf="ticketValueperType[2].ticket_type == 'INT'">
+                                        {{ticketValueperType[2].ticket_value | currency}}
+                                    </ng-container>
+                                </span>
+                            </div>
+                        </ng-container>
+                        </div>
+                    </mat-card-content>
+                </ng-container>
+            <ng-container *ngIf="toogleedit">
+                <mat-card-content class="dashboard-card-content">
+                    <div class="row">
+                        <div class="col">
+                            <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketinstalacion" | translate}}</div>
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="New value" [(ngModel)]="ticketValueperType[0].ticket_value">
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketdesinstalacion" | translate}}</div>
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="New value" [(ngModel)]="ticketValueperType[1].ticket_value">
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketintegracion" | translate}}</div>
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="New value" [(ngModel)]="ticketValueperType[2].ticket_value">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button mat-raised-button>Ok</button>
+                </mat-card-content>
+            </ng-container>
+          </mat-card>
+
+          <!-- Tickets calculation  -->
+          <mat-card [ngStyle]="{'background-color':'white'}" style="margin-top: 20px;">
+            <mat-card-header>
+              <mat-card-title> {{ "adminpanel.ticketsganancia" | translate}}                
+              </mat-card-title>
+            </mat-card-header>
+            <ng-container>
+                <mat-card-content class="dashboard-card-content">
+                    <div class="row">
+                            <div class="col">
+                                <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketinstalacion" | translate}}:</div>
+                                <div style="display: inline-block;">
+                                    No. Tickets
+                                </div>&nbsp;
+                                <div style="display: inline-block;">
+                                    {{NoInsTickets}}
+                                </div>&nbsp;
+                                <span style="font-size: 1em; font-weight: 100; display: inline-block;">
+                                    <ng-container *ngIf="ticketValueperType[0].ticket_type == 'INST'">
+                                        ({{ticketValueperType[0].ticket_value | currency}})
+                                    </ng-container>
+                                </span>
+                                <div style="display: inline-block;">| Total Earned: {{ValueA}}</div>
+                            </div>
+                        </div>
+<br>
+                        <div class="row">
+                            <div class="col">
+                                <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketdesinstalacion" | translate}}:</div>
+                                <div style="display: inline-block;">
+                                    No. Tickets
+                                </div>&nbsp;
+                                <div style="display: inline-block;">
+                                    {{NoDisTickets}}
+                                </div>&nbsp;
+                                <span style="font-size: 1em; font-weight: 100; display: inline-block;">
+                                    <ng-container *ngIf="ticketValueperType[0].ticket_type == 'INST'">
+                                        ({{ticketValueperType[1].ticket_value | currency}})
+                                    </ng-container>
+                                </span>
+                                <div style="display: inline-block;">| Total Earned: {{ValueB}}</div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <div style="font-weight: 100; font-weight: 500;">{{ "adminpanel.ticketintegracion" | translate}}:</div>
+                                <div style="display: inline-block;">
+                                    No. Tickets
+                                </div>&nbsp;
+                                <div style="display: inline-block;">
+                                    {{NoIntTickets}}
+                                </div>&nbsp;
+                                <span style="font-size: 1em; font-weight: 100; display: inline-block;">
+                                    <ng-container *ngIf="ticketValueperType[0].ticket_type == 'INST'">
+                                        ({{ticketValueperType[2].ticket_value | currency}})
+                                    </ng-container>
+                                </span>
+                                <div style="display: inline-block;">| Total Earned: {{ValueC}}</div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </ng-container>
+          </mat-card>
+
+          <!-- Technician List -->
+
+          <mat-card  style="margin-top: 20px;">
+              <mat-card-header>
+                  <mat-card-title>{{ "adminpanel.listatecnico" | translate}}</mat-card-title>
+                  <mat-card-subtitle>{{ "adminpanel.gananciatecnicos" | translate}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+              
+                <div class="forminmargin">
+                    <table class="full-width table-stripped table-hover">
+                        <thead>
+                            <th>ID</th>
+                            <th>{{ "adminpanel.nombretecnico" | translate}}</th>
+                            <th>{{ "adminpanel.contacto" | translate}}</th>
+                            <th>{{ "adminpanel.disponible" | translate}}</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let technician of technicianCount; let i=index">
+                                <td>    
+                                    {{technician.bid}}
+                                </td>
+                                <td>
+                                    {{technician.name}} {{technician.surname}}
+                                </td>
+                                <td>{{technician.email}}</td>
+                                <td >
+                                    <mat-slide-toggle name="slide{{i}}" (change)="onChange($event)" [(ngModel)]="technician.IsAvailable">
+                                        <ng-container *ngIf="technician.IsAvailable == 1; else elseTemplate" >
+                                            <span style="color: green;">
+                                                {{ "adminpanel.disponible" | translate}}
+                                            </span>
+                                        </ng-container>
+                                        <ng-template #elseTemplate>
+                                            {{ "adminpanel.nodisponible" | translate}}
+                                        </ng-template>
+                                    </mat-slide-toggle>
+                                </td>                                
+                                    <!-- {{technician | json}} -->
+
+                                    <!-- {{DataFromUsers | json}} -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+              </mat-card-content>
+              <mat-card-actions>
+                  <button mat-raised-button (click)="saveAvailable();">{{ "adminpanel.grabadisponibilidadtecnicos" | translate}}</button>
+                  <!-- <button mat-button>Ok</button> -->
+              </mat-card-actions>
+          </mat-card>
+        </td>
+      </tr>
+    </table>
+    
+</div>
+<p>&nbsp;</p>

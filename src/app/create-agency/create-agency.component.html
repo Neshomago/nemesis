@@ -1,0 +1,63 @@
+
+<div class="boxformcreate">
+<div class="forminmargin">    
+    <form #agencyForm="ngForm" (ngSubmit)="saveAgency()">
+        <h1 class="h1-form">CREATE NEW AGENCY</h1>
+        {{agencyModel | json}}
+        
+        <p>
+            <mat-form-field class="full-width">
+                <mat-label>Name</mat-label>
+                <input class="full-width" name="name" id="name" matInput [(ngModel)]="agencyModel.name">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="full-width">
+                <mat-label>VAT</mat-label>
+                <input class="full-width" matInput placeholder="0924496896001" name="vat" id="vat" [(ngModel)]="agencyModel.vat">
+            </mat-form-field>
+            
+        </p>
+        <p>
+            <mat-form-field class="full-width">
+                <mat-label>Address</mat-label>
+                <input class="full-width" matInput placeholder="Ex. San Francisco" name="address" id="address" [(ngModel)]="agencyModel.address">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input class="full-width" matInput placeholder="mail@mail.com" type="email" name="email" id="email" [(ngModel)]="agencyModel.email">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="full-width">
+
+                <mat-label>Phone</mat-label>
+                <input class="full-width" matInput name="phone" id="phone" [(ngModel)]="agencyModel.phone">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="full-width">
+                <mat-label>Certification</mat-label>
+                <input class="full-width" matInput name="certification" id="certification" [(ngModel)]="agencyModel.certification">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field class="full-width">
+                <mat-label>Manager ID</mat-label>
+                <input class="full-width" matInput name="managerId" id="managerId" [(ngModel)]="agencyModel.managerId">
+            </mat-form-field>
+        </p>
+        <div class="btncenter">
+            <div>
+                <button mat-raised-button class="cancel" routerLink="/agency"><span class="material-icons">clear</span>Cancel</button>
+            </div>
+            <div>
+                <button mat-raised-button class="savebtn" type="submit"><span class="material-icons">done</span> Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<router-outlet></router-outlet>

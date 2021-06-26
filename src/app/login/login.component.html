@@ -1,0 +1,27 @@
+<div class="login-nemesis">
+    <div class="logo-login"><img width=300 src="assets/img/logo-nemesisfull.png" /></div>
+    <div class="inputs">
+        <div class="login">
+            <form class="loginform" id="login" (ngSubmit)="login(f)" #f="ngForm">
+                
+                <span *ngIf="f.submitted && f.controls['email'].errors"
+                    class="text-danger animated fadeIn">The email is required</span>
+                <mat-form-field class="loginwidth">
+                    <mat-label>EMAIL</mat-label>
+                    <input matInput type="email" name="email" [(ngModel)]="usuario.email" email required autofocus placeholder="Email" value=""><br>
+                </mat-form-field>
+                <span *ngIf="f.submitted && f.controls['password'].errors" 
+                    class="text-danger animated fadeIn">The password should have more than six letters</span>
+                <mat-form-field class="loginwidth">
+                    <mat-label>PASSWORD</mat-label>
+                    <input matInput type="password" name="password" [(ngModel)]="usuario.password" required minLength="6" placeholder="Password" value=""><br>
+                </mat-form-field>
+                <input class="inputbutton" type="submit" value="login"><br>
+
+            </form>
+        </div>
+        <div class="copyright">
+            <p>© Nemesis 2021</p>
+        </div>
+    </div>
+</div>

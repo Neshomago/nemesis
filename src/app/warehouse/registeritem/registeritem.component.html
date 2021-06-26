@@ -1,0 +1,142 @@
+<div class="boxformcreate">
+    <div class="forminmargin">
+      <h1 class="h1-form">REGISTER NEW ITEM</h1>
+      <form #ticketForm="ngForm" (ngSubmit)="saveItem();">
+          <!-- {{itemModel | json}} -->
+          <div class="row">
+
+              <div class="col">
+                    <mat-form-field>
+                        <mat-label>Item name:</mat-label>
+                        <mat-select [formControl]="itemCtrl" #SelectItems>
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="itemFilterCtrl"
+                                placeholderLabel="Buscar"
+                                noEntriesFoundLabel="No se encontró la Información">
+                                </ngx-mat-select-search>
+                            </mat-option>
+
+                            <mat-option *ngFor="let list of filteredItem | async"
+                                [value]="list.value">
+                                {{list.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width" >
+                        <mat-label>Description / Model</mat-label>
+                        <input matInput name="description" id="descripton" [(ngModel)]="itemModel.description" />
+                    </mat-form-field>
+                </div>
+                <div class="col-auto">
+                    <mat-form-field class="full-width" >
+                        <mat-label>Supplier</mat-label>
+                        <input matInput name="supplier" id="supplier" [(ngModel)]="itemModel.supplier" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Serial</mat-label>
+                            <mat-chip-list #serialList>
+                                <mat-chip
+                                *ngFor="let serial of seriales"
+                                [selectable]="selectable"
+                                [removable]="removable"
+                                (removed)="remove(serial)">
+                                {{serial.number}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                </mat-chip>
+                                <input
+                                placeholder="New serial..."
+                                [matChipInputFor]="serialList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="add($event)"
+                                name="code" id="code"/>
+                            </mat-chip-list>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-label>Warranty Period</mat-label>
+                        <input matInput name="warranty" id="warranty" [(ngModel)]="itemModel.warrantyPeriod"/>
+                    </mat-form-field>
+                    
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-label>Invoice Number</mat-label>
+                        <input matInput name="invoice_number" id="invoice_number" [(ngModel)]="itemModel.invoice_purchase"/>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                    <mat-label>Date of Purchase</mat-label>
+                    <input matInput name="warranty_invoiceDate" id="warranty_invoiceDate" [matDatepicker]="picker" [(ngModel)]="itemModel.invoiceDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                </div>
+                
+            </div>
+            <ng-container>
+                <mat-divider></mat-divider>
+            </ng-container>
+            <div class="row">
+                <p></p>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-label>Location</mat-label>
+                        <mat-select matInput name="condition" id="condition" [(ngModel)]="itemModel.warehouseId" [(value)]="selectedWarehouse">
+                            <mat-option disabled>Warehouse</mat-option>
+                            <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.id">
+                                <!-- <ng-container *ngIf="warehouse.owner == customerId"> -->
+                                    {{warehouse.name}}
+                                <!-- </ng-container> -->
+                            </mat-option>
+                            <mat-option disabled>Agency</mat-option>
+                            <mat-option *ngFor="let agency of agencies" [value]="agency.id">
+                                <!-- <ng-container *ngIf="agency.customerId == customerId"> -->
+                                    {{agency.name}}
+                                <!-- </ng-container> -->
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-label>Condition</mat-label>
+                        <mat-select matInput name="condition" id="condition" [(ngModel)]="itemModel.status">
+                            <mat-option value="OPERATIVE">OPERATIVE</mat-option>
+                            <mat-option value="BROKEN">BROKEN</mat-option>
+                            <mat-option value="WARRANTY">WARRANTY</mat-option>
+                            <mat-option value="LOST">LOST</mat-option>
+                            <mat-option value="PENDING">PENDING</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="btncenter">
+                <div>
+                    <!-- routerLink="/warehouse" -->
+                  <button mat-raised-button class="cancel"
+                  (click)="cerrarModal()"
+                   ><span class="material-icons">
+                  clear</span>Cancel</button>
+                </div>
+                <div>
+                  <button mat-raised-button class="savebtn" type="submit"><span class="material-icons">
+                    done
+                    </span> Save</button>
+                </div>
+              </div>
+            </form>
+            
+        </div>
+    </div>

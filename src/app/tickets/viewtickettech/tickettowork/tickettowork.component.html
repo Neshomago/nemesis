@@ -1,0 +1,829 @@
+
+<ng-container *ngIf="theTicketData" style="z-index: 1;">
+    <div style="background-color: whitesmoke; margin: 0;">
+        <div class="forminmargin">
+                <ng-template matStepLabel>Ticket general Information</ng-template>
+                <mat-card class="example-card">
+                      <mat-card-title>Created Ticket</mat-card-title>
+                      <mat-card-subtitle >Date: {{theTicketData.creationDate}}</mat-card-subtitle>
+                      <div style="border-left: 1px solid black; padding-left: 20px; border-left-style: dashed; padding-right: 20px;">
+                          Ticket Status:
+                          <div>
+                              <div style="width: 90px;" [ngClass]="{'TicketResolved':theTicketData.status === 'RESOLVED', 'TicketAborted': theTicketData.status === 'ABORTED', 'TicketManaged': theTicketData.status === 'MANAGING', 'TicketOpened':theTicketData.status ==='OPENED' || theTicketData.status === 'WORKING'}">
+                                <div style="display: flexbox; flex-flow: row; justify-self: center; text-align: center; align-self: center; padding-top: 5px;">
+                                    {{theTicketData.status}}
+                                </div>
+                                </div>
+                          </div>
+                      </div>
+                <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <div>
+                            <div>
+                                <h2>Ticket Data
+                                </h2>
+                                <div color="primary" >
+                                    <table>
+                                        <tr>
+                                            <td colspan="1" style="width: 150px;">Ticket ID</td>
+                                            <td>:</td>
+                                            <td colspan="1">{{theTicketData.id}}</td>
+                                        </tr>
+                                            <tr>
+                                                <td colspan="1">Code</td>
+                                                <td>:</td>
+                                                <td colspan="1">{{theTicketData.code}}</td>
+                                            </tr>
+    
+                                        <tr>
+                                            <td colspan="1">Creation Date</td>
+                                            <td>:</td>
+                                            <td colspan="1">{{theTicketData.creationDate}}</td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td colspan="1">Created by</td>
+                                            <td>:</td>
+                                            <td colspan="1">{{theTicketData.createdBy}}</td>
+                                        </tr>
+                                            <tr>
+                                                <td colspan="1">Ticket type</td>
+                                                <td >:</td>
+                                                <td colspan="1">{{theTicketData.type}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="1">Priority</td>
+                                                <td>:</td>
+                                                <td colspan="1">{{theTicketData.priority}}</td>
+                                            </tr>
+                                    </table>
+                                </div>
+                            </div>
+    
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div>
+                            <h2>Agency Information</h2>
+                                    <div>
+                                        <table>
+                                            <!-- Datos iniciales del ticket -->
+                                                <tr>
+                                                    <td colspan="1" style="width: 150px;">Agency Name</td>
+                                                    <td>:</td>
+                                                    <td colspan="1">{{theTicketData.name}}</td>
+                                                </tr>
+            
+                                                <tr>
+                                                    <td colspan="1">AAMS Code</td>
+                                                    <td>:</td>
+                                                    <td colspan="1">{{theTicketData.certification}}</td>
+                                                </tr>
+                                                
+                                                
+                                                <tr>
+                                                <td colspan="1">Address</td>
+                                                <td>:</td>
+                                                <td colspan="1">{{theTicketData.address}}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td colspan="1">Phone</td>
+                                                <td>:</td>
+                                                <td colspan="1">{{theTicketData.phone}}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td colspan="1">Email</td>
+                                                <td >:</td>
+                                                <td colspan="1">{{theTicketData.email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="1">Shop Code</td>
+                                                <td>:</td>
+                                                <td colspan="1">{{theTicketData.managerId}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                        </div>
+                        <div style="border-top: 1px dotted gray;">
+                            <div>
+                                <h2>Additional Information:</h2>
+                            </div>
+                                <mat-list>
+                                    <mat-list-item style="color: black;">{{theTicketData.description}}</mat-list-item>
+                                </mat-list>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <ng-container style="padding-top: 20px;">
+                    <mat-divider></mat-divider>
+                </ng-container>
+
+                <div>
+                    <!-- <app-equipmententry></app-equipmententry> -->
+                <mat-card class="full-width">
+                        <div>
+                                <h2>Equipment: 
+                                </h2>
+                        </div>
+                        <div  *ngIf="unserialTags != ''; else sinItems">
+                            <table>
+                                <tr style="border-bottom: 2px solid gray; height: 40px;">
+                                    <th width="25%">
+                                        Category
+                                    </th>
+                                    <th width="55%">
+                                        Name
+                                    </th>
+                                    <th width="20%">
+                                        Serial Number
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let tag of unserialTags" style="border-bottom: 0.5px solid rgb(192, 192, 192); height: 40px;">
+                                    <td>
+                                        <div>
+                                            <div>•<span *ngFor="let category of categoryList">
+                                                <span *ngIf="tag.item_description == category.id">{{category.category_name}}</span>
+                                            </span></div>
+                                        </div>
+                                    </td>
+                                    <td>{{tag.item}}</td>    
+                                    <td>{{tag.item_serial}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <ng-template #sinItems>
+                            <div>
+                                <h3>No Items were assigned to this Ticket.</h3>
+                            </div>
+                        </ng-template>
+                        
+                        <br>
+                    <!-- </div> -->
+                    </mat-card>
+                </div>
+              <mat-card>
+                  <mat-card-title>Technician Assigned:
+                  </mat-card-title>
+    
+                    <div class="col-6">
+                      <h2>Technician code: </h2>
+                      <div>
+                          <div>
+                              {{theTicketData.tech_assign}}
+                              <ng-container  *ngFor="let tech of TechnicianList; let i=index">
+                                <ng-container *ngIf="theTicketData.tech_assign == tech.id">
+                                    {{tech.name}} {{tech.surname}}
+                                </ng-container>  
+                              </ng-container>
+                          </div>
+
+                          &nbsp;
+                      </div>
+                      <mat-divider></mat-divider>
+                      <h2>Date of visit: </h2>
+                      <p>
+                        {{theTicketData.assignedDate | date:'MMMM dd, yyyy'}}
+                      </p>
+                    </div>
+                <!-- </div> -->
+              </mat-card>
+              <div style="height: 30px;"></div>
+               <mat-card>
+                           <h2>Items from technical review: 
+                            <span *ngIf="(theTicketData.version == 5 || theTicketData.version == 7) && theTicketData.status !== 'ABORTED'">
+                                   <button mat-icon-button (click)="addItem(theTicketData.id)"><mat-icon>add</mat-icon></button>
+                                   <!-- <button (click)="deactivateAddItem()">View Review</button> -->
+                               </span>
+                        </h2>
+                            <hr>
+                            <!-- {{ tagsarray_techreview | json }} -->
+                <ng-container *ngIf="(theTicketData.version == 5 || theTicketData.version == 7) && theTicketData.status !== 'ABORTED'">
+                        <div class="row" *ngFor="let obj of tagsarray; let i = index">
+                            <div class="col-1">
+                                <button mat-icon-button (click)="addItem(theTicketData.id)">
+                                <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                            <div class="col-1">
+                                <button mat-icon-button (click)="removeItem(i)">
+                                <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+
+                            <!-- Item from agency -->
+                            <div class="col">
+                                <div class="col">
+                                    <ng-container *ngIf="itemsreview === true">
+
+                                        <mat-form-field class="full-width">
+                                            <mat-label>Checked Item: </mat-label>
+                                            <mat-select matNativeControl name="item{{i}}" [(ngModel)]="obj.id" >
+                                                <ng-container *ngFor="let tag of AgencyItems; let i = index;" >
+                                                    <mat-option value="{{tag.id}}">
+                                                        {{tag.name}} - {{tag.location}}
+                                                    </mat-option>        
+                                                    
+                                                </ng-container>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="itemsreview == false && tagsarray != []">
+                                        <!-- {{obj.id}} -->
+                                        <ng-container *ngFor="let tag of AgencyItems; let i = index;" >
+                                            <ng-container *ngIf="tag.id == obj.id">
+                                                {{tag.name}} - {{tag.location}}
+                                            </ng-container>        
+
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            
+                            <div class="col">
+                                <ng-container *ngIf="itemsreview == true">
+
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Send to Location: </mat-label>
+                                        <mat-select matInput name="location" id="location" [(ngModel)]="obj.location">
+                                            <mat-option value="{{location.value}}" *ngFor="let location of locationSelect">{{location.viewValue}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+    
+                                    <mat-form-field class="full-width" *ngIf="obj.location == 'AGENCY'">
+                                        <mat-label>Agency</mat-label>
+                                        <mat-select matInput name="locationId" id="locationId" [(ngModel)]="obj.locationId">
+                                            <mat-option *ngFor="let Agency of AgencyList" [value]="Agency.id">{{Agency.name}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+    
+                                    <mat-form-field class="full-width" *ngIf="obj.location == 'WAREHOUSE'">
+                                        <mat-label>Warehouse</mat-label>
+                                        <mat-select matInput name="locationId" id="locationId" [(ngModel)]="obj.locationId">
+                                            <mat-option *ngFor="let warehouse of warehouses; let i = index" [value]="warehouse.id">
+                                                <ng-container>
+                                                    {{warehouse.name}}
+                                                </ng-container>
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+    
+                                    <mat-form-field class="full-width" *ngIf="obj.location == 'TRANSPORT'">
+                                        <mat-label>Transport Car Plate</mat-label>
+                                        <mat-form-field>
+                                            <input matInput type="text" name="locationId" id="locationId" [(ngModel)]="obj.locationId">
+                                        </mat-form-field>
+                                    </mat-form-field>
+                                </ng-container>
+
+                                <ng-container *ngIf="itemsreview == false && tagsarray != []">
+                                    {{obj.location[0]}}{{obj.location[1]}}{{obj.location[2]}} - 
+                                    <ng-container *ngIf="obj.location == 'AGENCY';">
+                                        <ng-container *ngFor="let tag of AgencyList">
+                                            <ng-container *ngIf="obj.locationId === tag.id">
+                                                {{tag.name}} - {{tag.location}}
+                                            </ng-container>
+                                        </ng-container> 
+                                    </ng-container>
+
+                                    <ng-container *ngIf="obj.location == 'WAREHOUSE';">
+                                        <ng-container *ngFor="let tag of warehouses">
+                                            <ng-container *ngIf="obj.locationId === tag.id">
+                                                {{tag.name}} - {{tag.location}}
+                                            </ng-container>
+                                        </ng-container> 
+                                    </ng-container>
+
+                                    <ng-container *ngIf="obj.location == 'TRANSPORT';">
+                                            <!-- <ng-container *ngIf="obj.locationId === tag.id"> -->
+                                                {{obj.location}}
+                                            <!-- </ng-container> -->
+                                    </ng-container>
+                                </ng-container>
+
+                            </div>
+
+                            <div class="col">
+                                <ng-container *ngIf="itemsreview == true">
+
+                                    <mat-form-field class="full-width">
+                                        <mat-label>Condition</mat-label>
+                                        <mat-select matInput name="status" id="status" [(ngModel)]="obj.status">
+                                            <mat-option value="OPERATIVE">OPERATIVE</mat-option>
+                                            <mat-option value="BROKEN">BROKEN</mat-option>
+                                            <mat-option value="WARRANTY">WARRANTY</mat-option>
+                                            <mat-option value="LOST">LOST</mat-option>
+                                            <mat-option value="PENDING">PENDING</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
+                                <ng-container *ngIf="itemsreview == false && tagsarray != []">
+                                    {{obj.status}}
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- {{tagsarray | json}} -->
+                </ng-container>
+                <div *ngIf="(theTicketData.version == 5 || theTicketData.version == 7) && theTicketData.status !== 'ABORTED'">
+                    <button mat-icon-button [disabled]="tagsarray == '' || itemsreview == false" (click)="deactivateAddItem()"><mat-icon>save</mat-icon>Confirm Items</button>
+                </div>
+                <mat-container *ngIf="theTicketData.status == 'RESOLVED' && infoTechReview !== []">
+                    <table>
+                        <tr style="border-bottom: 2px solid gray; height: 40px;">
+                            <th width="30%">
+                                Item
+                            </th>
+                            <th width="50%">
+                                Location
+                            </th>
+                            <th width="20%">
+                                Status
+                            </th>
+                        </tr>
+                        <tr *ngFor="let info of infoTechReview" style="border-bottom: 0.5px solid rgb(192, 192, 192); height: 40px;">
+                            <td width="30%">
+                                {{info.item}}
+                                <!-- <div>
+                                    <div>•<span *ngFor="let category of categoryList">
+                                        <span *ngIf="tag.item_description == category.id">{{category.category_name}}</span>
+                                    </span></div>
+                                </div> -->
+                            </td>
+                            <td  width="50%">
+                                <ng-container *ngIf="info.location == 'AGENCY'; else warehouse">
+                                    <ng-container *ngFor="let Agency of AgencyList; let a = index">
+                                        <ng-container *ngIf="Agency.id == info.locationId">
+                                            {{Agency.name}}
+                                        </ng-container>
+                                    </ng-container>                            
+                                </ng-container>
+                            
+                            <ng-template #warehouse>
+                                <ng-container *ngFor="let warehouse of warehouses; let w = index">
+                                    <ng-container *ngIf="warehouse.id == info.locationId">
+                                        {{warehouse.name}}
+                                    </ng-container>
+                                </ng-container>
+                            </ng-template>
+                             </td>    
+                            <td  width="20%">{{info.notes_item}}</td>
+                        </tr>
+                    </table>
+
+                    <div >
+                        <div class="row">
+                            
+                            
+                        </div>
+                    </div>
+
+                </mat-container>
+                
+               </mat-card>
+
+
+            <div style="height: 30px;"></div>
+            <mat-card>
+                <mat-card-title>Technical review notes:</mat-card-title>
+                <ng-container *ngIf="theTicketData.version == 6 || theTicketData.status == 'ABORTED'">
+                    <div>
+                        {{theTicketData.assigned_tags}}
+                    </div>
+                    <mat-divider>
+                    </mat-divider>
+                    <div>
+                        <div>
+                            <h3>
+                                Uploaded Pictures
+                            </h3>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <div *ngIf="theTicketData.file1 != null && theTicketData.file1 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file1}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file1}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file2 != null && theTicketData.file2 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file2}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file2}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file3 != null && theTicketData.file3 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file3}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file3}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file4 != null && theTicketData.file4 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file4}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file4}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file5 != null  && theTicketData.file5 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file5}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file5}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file6 != null  && theTicketData.file6 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file6}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file6}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file7 != null  && theTicketData.file7 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file7}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file7}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file8 != null && theTicketData.file8 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file8}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file8}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file9 != null && theTicketData.file9 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file9}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file9}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file10 != null  && theTicketData.file10 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file10}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file10}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file11 != null && theTicketData.file11 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file11}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file11}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                            <div *ngIf="theTicketData.file12 != null && theTicketData.file12 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                <a href="http://localhost:5000/uploads/{{theTicketData.file12}}" target="_blank">
+                                    <img src="http://localhost:5000/uploads/{{theTicketData.file12}}" style="height: 100px"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                
+
+
+                <ng-container class="row" *ngIf="(theTicketData.version == 5 || theTicketData.version == 7) && theTicketData.status !== 'ABORTED'">
+                    <mat-form-field class="col-12">
+                        <mat-label>Write your observations: </mat-label>
+                        <textarea matInput name="notes" id="notes" placeholder="Notes of the ticket work" [(ngModel)]="theResolvedTicketUpdate.assigned_tags">
+                        </textarea>
+                    </mat-form-field>
+                   <!-- Opcion 1  -->
+                    <div>
+                        <label for="photos">
+                            Upload your image(s): 
+                        </label>
+                        <input name="photos" type="file" (change)="uploadMultiple($event)" multiple/>
+                            <div style="display: flex; flex-wrap: wrap;">
+                                <div *ngFor="let ar of files" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{ar.name}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{ar.name}}" style="height: 100px"/>
+                                    </a>
+                                    <button mat-mini-fab (click)="eliminafoto(ar)" style="transform: scale(0.7);">x</button>
+                                </div>
+                            </div>
+                    </div>                    
+
+                </ng-container>
+            </mat-card>
+            <div style="height: 30px;"></div>
+            <!-- FOOTER BOTTOM SECTION -->
+            <div class="container" *ngIf="theTicketData.status !== 'ABORTED'">
+                <div class="row">
+                    <div class="col">
+                        <button  mat-raised-button  (click)="rptDownload()">DOWNLOAD REPORT</button>
+                    </div>
+                    <div class="col" *ngIf="theTicketData.version == 5 || theTicketData.version == 7">
+                        <button mat-raised-button color="accent" #tooltip="matTooltip" matTooltip="Finalize Ticket Process"
+                        (click)="updateChangesItem(theTicketData.id); resolvedImagesroute(theTicketData.id); resolved(theTicketData.id);"
+                        [disabled]="theResolvedTicketUpdate.assigned_tags == '' || theResolvedTicketUpdate.assigned_tags == null">TICKET RESOLVED</button>
+                    </div>  
+                    <!-- <div class="col">
+                        <button (click)="resolvedImagesroute(theTicketData.id)">Prueba names</button>
+                    </div> -->
+                    <div class="col" *ngIf="theTicketData.version == 5 || theTicketData.version == 7">
+                        <button mat-raised-button color="warn" (click)="deleteTicket(theTicketData.id)">ABORT TICKET</button>
+                    </div>
+                </div>
+            <div style="height: 20px;"></div>
+        </div>
+        </div>
+    </div>
+    
+    <div style="position: fixed; right: 40px; bottom: 30px; display: inline-block;">
+        <div>
+            <button mat-fab color="accent" routerLink="/viewtickettech"
+            #tooltip="matTooltip"
+            matTooltip="Return to Ticket list"
+            ><mat-icon>assignment_return</mat-icon></button>
+        </div>
+    </div>
+</ng-container>
+    
+    
+    <!-- SECCION DE PDF NO MOSTRADA -->
+    <div class="rectanglecover">
+    </div>    
+    <div class="ddt" *ngIf="theTicketData">
+        <div id="dataPdfReport">
+        <!-- style="width: 95%; height: 100%; align-self: center; padding: 20px;" -->
+    <div id="bordeA4" style="left: 0; top: 0; width:195mm; height:287mm;border: 1px solid;">
+        <div style=" display: flex; flex-direction: column;">
+            <div style="border-top: 3px solid gray;">
+                <div style="display: inline-block;">
+                    <img src="assets/img/logo-lumia-2.png" alt="Logo Lumia" height="100px">
+                </div>
+                <div style="font-size: 12px; line-height: 15px; display: inline-block; vertical-align: middle;">
+                    Via Selva Di Sotto Snc, Località Cese <br>
+                    San Salvatore Telesino -Telese- 82030 (BN) Italy <br>
+                    Telefono: +39-0824-948243 <br>
+                    Fax: +39-0824-948243 <br>
+                    P.IVA / C.F. 03949540615 <br>
+                    email: info@lumiasrl.com <br>
+                </div>
+                <div style="display: inline-block; vertical-align:middle; padding-left: 30px;">
+                    <table>
+                        <tr>
+                            <td style="text-align: right;">
+                                Installation Report: 
+                            </td>
+                            <td style="text-align: left; border: 1px solid; width: 200px;">
+                                {{theTicketData.tech_assign}} /
+                                <ng-container  *ngFor="let tech of TechnicianList; let i=index">
+                                    <ng-container *ngIf="theTicketData.tech_assign == tech.id">
+                                        {{tech.name}} {{tech.surname}}
+                                    </ng-container>  
+                                  </ng-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">
+                                Installation: 
+                            </td>
+                            <td style="text-align: left; border: 1px solid;">
+                                {{theTicketData.userId}} - Ticket: {{theTicketData.id}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    <div style="border-top: 3px solid gray; width: 95%;">
+        <td style="padding-left: 20px;">
+            <h2>
+                Client
+            </h2>
+        </td>
+    </div>
+    <div style="border-top: 1.5px solid gray; width: 95%;">
+        <td colspan="4" style="padding-left: 40px;">
+            <tr>
+                <td>
+                    Agency Code: {{theTicketData.managerId}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Fiscal Code: 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Certification: {{theTicketData.certification}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Address: {{theTicketData.address}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone: {{theTicketData.phone}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email: {{theTicketData.email}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    IVA: 
+                </td>
+            </tr>
+        </td>
+    </div>
+    <div style="border-top: 3px solid gray; width: 95%;">
+        <td style="padding-left: 20px;">
+            <h2>
+                Intervento
+            </h2>
+        </td>
+    </div>
+    <div style="border-top: 1.5px solid gray; width: 95%;">
+        <td colspan="6" style="padding-left: 40px;">
+            <tr>
+                <td>
+                    Date e hora di apertura:
+                </td>
+                <td>
+                    {{theTicketData.creationDate}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Date and time of intervention: 
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Date and time finished intervention:
+                </td>
+                <td>
+                    {{theTicketData.closedDate}}
+                </td>
+            </tr>
+        </td>
+    </div>
+    <div style="border-top: 3px solid silver; width: 95%;">
+        <td  style="padding-left: 20px;" colspan="6">
+            <h2>
+                REPORT: 
+            </h2>
+        </td>
+    </div>
+    <div style="display: flex;flex-direction: column;"> <!--Container -->
+        <!--Table of item data -->
+        <div style="align-items: flex-start;">
+            <table>
+                <tr>
+                    <td style="padding-left: 20px; text-align: center; width: 150px;">Operation</td>
+                    <td style="text-align: center; width: 200px;">Item</td>
+                    <td style="text-align: center; width: 120px;">Serial number</td>
+                    <td style="text-align: center; width: 120px;">Item Status</td>
+                </tr>
+                <tr *ngFor="let tag of unserialTags; let indice = index">
+                        <td style="text-align: center;">
+                             {{theTicketData.type}}
+                        </td>
+                        <td style="padding-left: 20px; text-align: center;">
+                                {{tag.item}}
+                        </td>
+                        <td style="text-align: center;">{{tag.item_serial}}</td>
+                        <td style="text-align: center;">{{tag.status}}</td>
+                </tr>
+                <tr *ngFor="let info of infoTechReview; let indice = index">
+                        <td style="text-align: center;">
+                             {{theTicketData.type}}
+                        </td>
+                        <td style="padding-left: 20px; text-align: center;">
+                                {{info.item}}
+                        </td>
+                        <td style="text-align: center;">{{info.item_serial}}</td>
+                        <td style="text-align: center;">
+                            {{info.status}}
+                            <div>
+                                {{info.location}} - {{info.locationId}}
+                            </div>
+                        </td>
+                </tr>
+                <tr></tr>
+
+                <tr>
+                    <td colspan="3" style="padding-left: 20px;">
+                        <div>
+                            <h2>Technician Comments</h2>
+                        </div>
+                    
+                    <ng-container *ngIf="theTicketData.version == 8 || theTicketData.status == 'RESOLVED'">
+                        <div>
+                            {{theTicketData.assigned_tags}}
+                        </div>
+                        <mat-divider>
+                        </mat-divider>
+                        <div>
+                            <div>
+                                <h3>
+                                    Uploaded Pictures
+                                </h3>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap;">
+                                <div *ngIf="theTicketData.file1 != null && theTicketData.file1 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file1}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file1}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file2 != null && theTicketData.file2 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file2}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file2}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file3 != null && theTicketData.file3 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file3}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file3}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file4 != null && theTicketData.file4 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file4}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file4}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file5 != null  && theTicketData.file5 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file5}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file5}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file6 != null  && theTicketData.file6 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file6}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file6}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file7 != null  && theTicketData.file7 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file7}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file7}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file8 != null && theTicketData.file8 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file8}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file8}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file9 != null && theTicketData.file9 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file9}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file9}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file10 != null  && theTicketData.file10 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file10}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file10}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file11 != null && theTicketData.file11 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file11}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file11}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                                <div *ngIf="theTicketData.file12 != null && theTicketData.file12 != ''" style="display: flex; flex-direction: row; padding-right: 15px;">
+                                    <a href="http://localhost:5000/uploads/{{theTicketData.file12}}" target="_blank">
+                                        <img src="http://localhost:5000/uploads/{{theTicketData.file12}}" style="height: 60px"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--white space -->
+        <div style="flex:1; height: calc(100% - 30px)">
+        </div>
+
+        <!--footer -->
+        <div style="bottom: 0; margin-left: 10%; margin-right: 10%;">
+            <div>
+                        <div style="display:inline-flex; padding-top: 20px;">
+                                <div class="border border-1" style="padding: 20px;">
+                                    <span style="font-size: 12px; color: grey; width: 200px;">Technician name: {{theTicketData.tech_assign}}
+                                        <ng-container  *ngFor="let tech of TechnicianList; let i=index">
+                                            <ng-container *ngIf="theTicketData.tech_assign == tech.id">
+                                                {{tech.name}} {{tech.surname}}
+                                            </ng-container>  
+                                          </ng-container>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span style="font-size: 12px; color: grey;">Technician Signature:________________________________</span>
+                                    <br>
+                                </div>
+                                <div class="border border-1" style="width: 300px; text-align: center;">
+                                    <span style="font-size: 12px; color: grey;">Timbro e firma del cliente</span>
+                                    <br>
+                                </div>
+                        </div>
+            </div>        
+            <div>
+                        <td colspan="6" style="font-size: 10px; line-height: 10px; text-align: center; padding: 20px;">
+                                Documento Interno Amministrativo. Interventi tecnici presso clienti. Il materiale sopra descritto, fornito dal nostro tecnico nel suo intervento, è esonerato da
+                                DDT (DPR 627/78) ai sensi C.M. 5/360586 del 12/12/76
+                    
+                                <br>
+                                SCHEDAORDINE RAPPORTOINTERVENTO
+                                rev.2 del 17/12/2016
+                        </td>
+            </div>
+        </div>
+    </div>
+    
+
+
+    </div>
+    </div>
+    </div>
+    </div>

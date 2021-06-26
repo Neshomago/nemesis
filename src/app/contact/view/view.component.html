@@ -1,0 +1,231 @@
+
+<div *ngIf="theUserData">
+<div style="background-color: whitesmoke; margin: 0;">
+    <div class="forminmargin">
+            <mat-card class="example-card">
+                  <mat-card-title>User Information</mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                    <div>
+                        <div>
+                            <div color="primary" ><br>
+                                <table>
+                                    <tr>
+                                        <td colspan="1" style="width: 150px;">User Id</td>
+                                        <td>:</td>
+                                        <td colspan="1">{{theUserData.id}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" style="width: 150px;">User Name</td>
+                                        <td>:</td>
+                                        <td colspan="1">
+                                            <ng-container *ngIf="!edit">
+                                                {{theUserData.name}}
+                                            </ng-container>
+                                            <ng-container *ngIf="edit">
+                                                <mat-form-field>
+                                                    <input matInput type="text" name="name" id="name" [(ngModel)]="changes.name" autofocus>
+                                                </mat-form-field>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" style="width: 150px;">User Surname</td>
+                                        <td>:</td>
+                                        <td colspan="1">
+                                            <ng-container *ngIf="!edit">
+                                                {{theUserData.surname}}
+                                            </ng-container>
+                                            <ng-container *ngIf="edit">
+                                                <mat-form-field>
+                                                    <input matInput type="text" name="surname" id="surname" [(ngModel)]="changes.surname" autofocus>
+                                                </mat-form-field>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="1">Fiscal code</td>
+                                        <td>:</td>
+                                        <td colspan="1">
+                                            <ng-container *ngIf="!edit">
+                                                {{theUserData.taxCode}}
+                                            </ng-container>
+                                            <ng-container *ngIf="edit">
+                                                <mat-form-field>
+                                                    <input matInput type="text" name="taxCode" id="taxCode" [(ngModel)]="changes.taxCode" autofocus>
+                                                </mat-form-field>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div><br>
+                    <ng-container style="padding-top: 20px;">
+                        <mat-divider></mat-divider>
+                    </ng-container>
+                    <mat-divider></mat-divider>
+                    <div><br>
+                            <h2>User Contact</h2>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td colspan="1" style="width: 150px;">Address</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                <ng-container *ngIf="!edit">
+                                                    {{theUserData.address}}
+                                                </ng-container>
+                                                <ng-container *ngIf="edit">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" name="address" id="address" [(ngModel)]="changes.address" autofocus>
+                                                    </mat-form-field>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td colspan="1">Email</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                <ng-container *ngIf="!edit">
+                                                    {{theUserData.email}}
+                                                </ng-container>
+                                                <ng-container *ngIf="edit">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" name="phone" id="phone" [(ngModel)]="changes.email" autofocus>
+                                                    </mat-form-field>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+    
+                                        <tr>
+                                            <td colspan="1">Phone</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                <ng-container *ngIf="!edit">
+                                                    {{theUserData.phone}}
+                                                </ng-container>
+                                                <ng-container *ngIf="edit">
+                                                    <mat-form-field>
+                                                        <input matInput type="text" name="phone" id="phone" [(ngModel)]="changes.phone" autofocus>
+                                                    </mat-form-field>
+                                                </ng-container>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="1">Customer Id Contact</td>
+                                            <td>:</td>
+                                            <td colspan="1">
+                                                    {{theUserData.customerId}}
+                                            </td>
+                                        </tr>
+    
+                                    </table>
+                                </div>
+                    </div>
+<br>
+<ng-container style="padding-top: 20px;">
+    <mat-divider></mat-divider>
+</ng-container>
+<mat-divider></mat-divider>
+<div><br>
+        <h2>User Login Data</h2>
+            <div>
+                <table>
+                    <tr>
+                        <td colspan="1">Login Email</td>
+                        <td>:</td>
+                        <td colspan="1">
+                                {{theUserData.email}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1">Password</td>
+                        <td>:</td>
+                        <td colspan="1">
+                            <ng-container *ngIf="!edit">
+                                ********
+                            </ng-container>
+                            <ng-container *ngIf="edit">
+                                <mat-form-field>
+                                    <input matInput type="password" name="password" id="password" [(ngModel)]="passwordModel.password" autofocus>
+                                </mat-form-field>
+                            </ng-container>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="1">User Role: </td>
+                        <td>:</td>
+                        <td colspan="1">
+                            <ng-container *ngIf="passwordModel.RoleA == 1">
+                                Administrador -
+                            </ng-container>
+                            <ng-container *ngIf="passwordModel.RoleE == 1">
+                                Warehouse -
+                            </ng-container>
+                            <ng-container *ngIf="passwordModel.RoleT == 1">
+                                Technician -
+                            </ng-container>
+                            <ng-container *ngIf="passwordModel.RoleC == 1">
+                                Customer -
+                            </ng-container>
+                        </td>
+                    </tr>
+                    <tr *ngIf="edit">
+                        <td colspan="3">
+                            <form id="miForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                             
+                                  <div>
+                                  <section id="rol" name="rol" class="checksection">
+                                      <mat-checkbox class="checkleftmargin" name="RoleA" [(ngModel)]="passwordModel.RoleA">Administrator</mat-checkbox>
+                                      <mat-checkbox class="checkleftmargin" name="RoleT" [(ngModel)]="passwordModel.RoleT">Technician</mat-checkbox>
+                                      <mat-checkbox class="checkleftmargin" name="RoleC" [(ngModel)]="passwordModel.RoleC">Customer</mat-checkbox>
+                                      <mat-checkbox class="checkleftmargin" name="RoleE" [(ngModel)]="passwordModel.RoleE">Warehouse</mat-checkbox>
+                                  </section>
+                                  </div>
+                            
+                            </form>
+                        </td>
+                    </tr>
+                        
+
+                </table>
+            </div>
+</div>
+<br>
+                </mat-card-content>
+            </mat-card>
+            <ng-container style="padding-top: 20px;">
+                <mat-divider></mat-divider>
+            </ng-container>
+        </div>
+    </div>
+    <div style="position: fixed; right: 40px; bottom: 30px; display: inline-block;">
+        
+        <div *ngIf="!edit" style="padding-bottom: 20px;">
+            <!-- <button mat-fab [routerLink]="['/edit-ticket/', theUserData.id]"><mat-icon>edit-row</mat-icon></button> -->
+            <button mat-fab (click)="editFields()"><mat-icon>edit-row</mat-icon></button>
+        </div>
+        <div *ngIf="edit" style="padding-bottom: 20px;">
+            <button mat-fab
+            #tooltip="matTooltip"
+              matTooltip="Save changes"
+              (click)="updateChanges(theUserData.id); editFields()"
+            ><mat-icon>save</mat-icon></button>
+        <!-- [routerLink]="['/edit-ticket/', theUserData.id]" -->
+        </div>
+        <div>
+            <button mat-fab color="warn" routerLink="/contact"
+            #tooltip="matTooltip"
+            matTooltip="Return to List without changes">
+            <mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+</div>

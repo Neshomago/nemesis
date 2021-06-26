@@ -1,0 +1,215 @@
+  <div class="filterboxes">
+    <div class="row">
+      &nbsp;
+      <mat-form-field class="col-12" appearance="fill" >
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search with Serial Number" [(ngModel)]="filteredString" (keyup)="onSearchTerm()">
+      </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field class="col" >
+            <mat-label>Filter by Warehouse:</mat-label>
+            <mat-select matNativeControl id="type" name="type">
+              <mat-option value="INS">Warehouse of client</mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;    
+          <mat-form-field class="col-auto" >
+            <mat-label>State:</mat-label>
+            <mat-select matNativeControl id="type" name="type"  [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
+              <mat-option value="PENDING">PENDING</mat-option>
+              <mat-option value="OPERATIVE">OPERATIVE</mat-option>
+              <mat-option value="BROKEN">BROKEN</mat-option>
+              <mat-option value="MAINTENANCE">MAINTENANCE</mat-option>
+              <mat-option value="LOST">LOST</mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;
+          <mat-form-field class="col" >
+            <mat-label>Place:</mat-label>
+            <mat-select matNativeControl id="type" name="type" [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
+              <mat-option value="WAREHOUSE">WAREHOUSE</mat-option>
+              <mat-option value="TRANSPORT">TRANSPORT</mat-option>
+              <mat-option value="AGENCY">AGENCY</mat-option>
+            </mat-select>
+          </mat-form-field>
+          &nbsp;
+          <mat-form-field class="col" >
+            <mat-label>New / Used:</mat-label>
+            <mat-select matNativeControl id="type" name="type" [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
+              <mat-option value="0">NEW</mat-option>
+              <mat-option value="1">USED</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="table">
+        <router-outlet></router-outlet>
+<!--  -->
+<!-- FILTERS FOR SEARCHING -->
+
+<!-- START OF TABLE -->
+<!--  -->
+<ng-container *ngIf="!filter || filteredString =='' || filteredResult == null">
+  <table class="full-width table-stripped table-hover">
+    <thead>
+      <th>Resolved Warehouse Item</th>
+      <th>Warehouse Item Units</th>
+      <th>Minimum Stock</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of categoryList; let i = index" [class.active]="i == currentIndex">
+      <ng-container *ngIf="contar(item.id) != 0">
+        <td (click)="setCurrentItem(item, i)" [routerLink]="['viewitemset/',item.id]" style="cursor: pointer;">
+          <span class="Agency-name">
+            {{item.category_name}}
+          </span>
+        </td>
+        <td style="padding-left: 20px;"
+        (click)="setCurrentItem(item, i)" [routerLink]="['viewitemset/',item.id]" style="cursor: pointer;"
+        >
+          <div>
+            <div>{{contar(item.id)}} Units</div>
+            <span *ngIf="contar(item.id) >= item.minimumStock" style="color:green; line-height: 9px; font-size: 10px;">
+              <span style="font-size: 13px;" class="material-icons">done</span> Good Stock
+          </span>
+          <span *ngIf="(contar(item.id) < item.minimumStock)" style="color: darkgoldenrod; line-height: 9px; font-size: 10px;">
+              <span style="font-size: 13px;" class="material-icons">info</span> Low stock
+          </span>    
+          <span *ngIf="(contar(item.id) > 0) && (contar(item.id) < 3)" style="color: salmon;line-height: 9px; font-size: 10px;">
+            <span style="font-size: 13px;" class="material-icons">report</span> Urgent restock
+        </span>
+          <span *ngIf="contar(item.id) == 0" style="color: salmon;line-height: 9px; font-size: 10px;">
+              <span style="font-size: 13px;" class="material-icons">report</span> No Stock - Restock now!
+          </span>
+          </div>
+        </td>
+        <td colspan="1" style="height: 60px;">
+          <div class="row" *ngIf="!showstockedit">
+            <div style="display: flex;">
+              <div style="display: inline-flex; width: 26px; line-height: 40px;">
+                {{item.minimumStock}}
+              </div>
+              <div style="display: inline-flex;">
+                <button mat-mini-fab (click)="stockEdit()">
+                  <span>
+                    <mat-icon style="font-size: 20px; vertical-align: middle;">mode_edit</mat-icon>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="showstockedit">
+            <div style="display: flex;">
+              <div style="display:inline-flex;">
+                <input type="text" name="minimumStock{{i}}" [(ngModel)]="item.minimumStock" style="width:24px;" autofocus>
+              </div>
+              <div style="display: inline-flex">
+                <button mat-mini-fab (click)="updateStock();">
+                  <span>
+                    <mat-icon style="font-size: 20px; vertical-align: middle;">save</mat-icon>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+
+<ng-container *ngIf="filter">
+  <table class="full-width table-stripped table-hover">
+    <thead>
+      <th>Resolved Warehouse Item</th>
+      <th>Item Status</th>
+      <th>Warehouse Item Units</th>
+    </thead>
+    <tbody>
+      
+      
+      <tr
+      *ngFor="let dataItem of filteredResult; let i = index"
+      [class.active]="i == currentIndex"
+      (click)="setCurrentIndividualItem(dataItem, i)"
+      [routerLink]="['viewitemset/'+dataItem.categoryId+'/edit-item/', dataItem.id]"
+      style="cursor: pointer;"
+      >
+      <ng-container *ngIf="dataItem.isDelete !=1">
+        <td>
+          <span class="customer-name">
+            {{dataItem.name}}
+          </span><br>
+          <span class="customer-name">
+            Serial: {{dataItem.serial}}
+          </span>
+        </td>
+        <td>
+          <span>
+            Item Status: {{dataItem.status}} - 
+            <span *ngIf="dataItem.used == 0">
+              New
+            </span>
+            <span *ngIf="dataItem.used == 1">
+              Used
+            </span>
+          </span><br>
+          <span>
+            <ng-container *ngIf="dataItem.location == 'AGENCY'">
+              <ng-container *ngIf="dataItem.warehouseId != 0 && dataItem.isDelete != 0">
+                <span class="material-icons" style="vertical-align: middle;">store</span> {{dataItem.locationId}}
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="dataItem.location =='WAREHOUSE'">
+              <ng-container *ngIf="dataItem.warehouseId != 0">
+                <span class="material-icons" style="vertical-align: middle;">home_work</span> {{dataItem.locationId}}
+              </ng-container>
+            </ng-container>
+            
+            <ng-container *ngIf="dataItem.partOf == 'TRANSPORT' && dataItem.version == 1">
+              <ng-container *ngIf="dataItem.warehouseId != 0">
+                <span class="material-icons" style="vertical-align: middle;">local_shipping</span> {{dataItem.slot}}
+              </ng-container>
+            </ng-container>
+          </span>
+        </td>
+        <td>
+          1
+        </td>
+      </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+
+</div>
+<div>
+  <span style="display: none;">END OF WAREHOUSE LIST</span>&nbsp;
+</div>
+          
+          <!-- BOTONES DE AGREGAR -->
+          
+          <div style="position: fixed; right: 40px; bottom: 30px;">
+            <!-- <div style="padding-bottom: 20px;">
+              <button mat-fab
+              #tooltip="matTooltip"
+              matTooltip="Create Warehouse"
+              ></button>
+              <div style="display: none;">
+                <a target="_blank" href="https://icons8.com/icons/set/xls-import">Xls Import icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+              </div>
+            </div> -->
+            
+            
+            <!-- BOTON DE CREACION DE ITEMS CON CATEGORIA-->
+            <!-- <div>
+              <button mat-fab routerLink="/create-item"
+              #tooltip="matTooltip"
+              matTooltip="Add New Item to Warehouse"
+              ><mat-icon>add</mat-icon></button>
+            </div> -->
+          </div>

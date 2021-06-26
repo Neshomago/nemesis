@@ -1,0 +1,61 @@
+<div class="boxformcreate">
+  <div class="forminmargin">
+    <h1 class="h1-form">New Nemesis User</h1>
+    <form #contactForm="ngForm" (ngSubmit)="saveContact()">
+    <p>
+      
+      <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" name="name" placeholder="First Name" [(ngModel)]="contactModel.name" required>
+      </mat-form-field>
+    </p>
+    <p><mat-form-field class="full-width">
+      <mat-label>Surname</mat-label>
+      <input matInput id="surname" name="surname" placeholder="Surname" [(ngModel)]="contactModel.surname">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <mat-label>Fiscal Code</mat-label>
+      <input matInput id="FiscalCode" name="FiscalCode" placeholder="Fiscal Code" [(ngModel)]="contactModel.taxCode">
+    </mat-form-field>
+  </p>
+  <h2>Contact Customer</h2>
+  <p>
+    <mat-form-field class="full-width">
+      <mat-label>Customer</mat-label>
+      <!-- <input matInput placeholder="Customer" name="Customer" [(ngModel)]="contactModel.customerId"> -->
+      <mat-select matNativeControl name="priority" id="priority" [(ngModel)]="contactModel.customerId">
+        <mat-option *ngFor="let customer of customerList" [value]="customer.id">
+          <div style="line-height: 12px; font-weight: 400;">{{customer.name}}
+            <!-- <span style="font-size: small; font-weight: 200;">{{agency.managerId}} / {{agency.certification}}</span>
+          <br><span style="color: darkgrey; font-size: smaller;">{{agency.address}}</span> -->
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <mat-label>Contact Address</mat-label>
+      <input matInput id="Address" name="Address" placeholder="Address" [(ngModel)]="contactModel.address">
+    </mat-form-field>
+  </p>
+  
+  <p>
+    <mat-form-field class="full-width">
+      <mat-label>Contact Phone</mat-label>
+      <input matInput id="Phone" name="Phonr" placeholder="Phone" [(ngModel)]="contactModel.phone">
+    </mat-form-field>
+  </p>
+  <div class="btncenter">
+    <div>
+      <button mat-raised-button class="cancel" [routerLink]="['/contacts']"><span class="material-icons">clear</span>Cancel</button>
+    </div>
+    <div>
+      <button mat-raised-button class="savebtn" type="submit"><span class="material-icons">done</span> Save</button>
+    </div>
+  </div>
+</form>
+</div>
+</div>

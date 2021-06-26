@@ -1,1 +1,480 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Monstserrat, "Helvetica Neue", sans-serif; }
+
+.sidenav-container { height: 100%; box-shadow: 0px 2px rgba(41, 50, 60, 0.2);  }
+
+.paddingtable{ padding: 20px; }
+
+.background-nemesis{ background-image: url("/assets/img/logo-nemesisw.png"); background-repeat: no-repeat; background-position: left bottom;}
+
+.sectionform{ display: flex; align-content: center; align-items: center; height: 60px; }
+
+.material-icons-outlined,
+.material-icons.material-icons--outlined,
+.material-icons-two-tone,
+.material-icons.material-icons--two-tone,
+.material-icons-round,
+.material-icons.material-icons--round,
+.material-icons-sharp,
+.material-icons.material-icons--sharp {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  /*-webkit-font-feature-settings: 'liga';*/
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-icons-outlined,
+.material-icons.material-icons--outlined {
+  font-family: 'Material Icons Outlined';
+}
+
+.material-icons-two-tone,
+.material-icons.material-icons--two-tone {
+  font-family: 'Material Icons Two Tone';
+}
+
+.material-icons-round,
+.material-icons.material-icons--round {
+  font-family: 'Material Icons Round';
+}
+
+.material-icons-sharp,
+.material-icons.material-icons--sharp {
+  font-family: 'Material Icons Sharp';
+}
+
+.login-nemesis { background-image: linear-gradient( rgb(252, 190, 56),rgb(223, 148, 61)); height: 120%; }
+.logintitle {
+    margin:auto;
+    padding: 100px 0px 0px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Montserrat!important;
+    font-size: 3em;
+    font-weight: 100;
+    color: rgba(223, 120, 61, 0.3);
+} 
+.copyright{
+  margin:auto;
+  padding: 100px 0px 0px 10px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Montserrat!important;
+  font-size: 1em;
+  font-weight: 400;
+  color: rgba(68, 41, 25, 0.3);
+} 
+
+/* PARA PANTALLAS PEQUENAS */
+@media (min-width: 250px){
+.login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 80%;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 13px 20px rgba(0, 0, 0, 0.295);
+  max-height: 250px;
+}
+
+.boxform{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 90%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 13px 20px rgba(0, 0, 0, 0.295);
+  margin-top: 3rem;
+}
+
+}
+
+.boxformcreate{
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 13px 20px rgba(0, 0, 0, 0.295);
+  margin-top: 3rem;
+  height: auto;
+}
+
+.forminmargin{  margin: 30px;}
+
+.checksection{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.checkleftmargin{  margin: 0 10px;}
+
+
+/* PARA PANTALLAS MAYORES A CELULARES */
+.login, .registro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  max-width: 350px;
+  height: 250px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 13px 20px rgba(0, 0, 0, 0.295);
+  margin-top: 3rem;
+}
+
+.loginform, .registroform{
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.loginwidth{ width: 80%; }
+
+.mat-form-field.mat-focused .mat-form-field-ripple {  background-color: rgb(223, 148, 61); }
+
+.custom-form {
+  min-width: 220px;
+  max-width: 340px;
+  margin: 0px auto;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2rem 3rem;
+  margin: auto;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0px 13px 20px rgba(0, 0, 0, 0.295);
+  color: black;
+  margin-top: 3rem;
+}
+
+ .inputbutton {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: none;
+  font-size: 0.8rem;
+  color: #ffffff;
+  font-weight: bold;
+  background-image: linear-gradient(180deg, rgb(69,83,95),rgb(42,52,62));
+  width: 60%;
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 8px #b1b1b1;
+  cursor: pointer;
+  margin: auto;
+  margin-top: 20px;
+} 
+
+/*NavBar SideBar colors*/
+.mat-list-base .mat-list-item { color:rgba(255, 255, 255, 0.7);}
+
+.mat-toolbar.mat-primary { color: #ffffff; font-weight: 300;}
+
+.grid-container-create{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 20px 15px;
+}
+
+
+.loginname, .loginname-logout, .registroname, .registroname-logout{
+  /* display: flex;
+  flex-direction: column;
+  flex-wrap: wrap; */
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  color: white;
+}
+
+.loginname-logout a, .registroname-logout a{ color: rgb(223, 148, 61) ; }
+
+.loginname-logout a:hover, .registroname-logout a:hover{ color: white; }
+.loginname-role, .registroname-role{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: darkgrey;
+  text-transform: uppercase;
+}
+
+.logo-login{
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.table {
+  padding: 1em;
+  margin: auto;
+  width: 90%;
+  box-shadow: 1px 1px 8px rgba(41, 50, 60, 0.3);
+  border-radius: 10px;
+}
+
+.filterboxes{
+  padding: 1em;
+  margin: auto;
+  width: 90%;
+}
+
+th {  font-weight: 300;  text-transform: uppercase; }
+
+.sm-address{  font-size: 15px;  font-weight: 100;}
+
+.med-text{  font-size: 12px;}
+
+.bold{  font-weight: bold;}
+
+.xs-text{  font-size: 10px;  font-weight: 200;}
+
+.customer-name{font-weight: 300;}
+.Agency-name{  font-weight: 400; font-size: large;}
+.Agency-below{ font-size: small; font-weight: 200;}
+.agency-detailsright{font-size: small; font-weight: 400;}
+
+.h1-form{
+padding-right: 20px;
+display: flex;
+flex-wrap: wrap;
+font-weight: 100;
+}
+
+.create-form{
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1{
+  padding-top: 10px;
+  text-align: right;
+  padding-right: 1em;
+}
+
+.boxform{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  max-width: 900px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 13px 20px rgba(0, 0, 0, 0.295);
+  margin-top: 3rem;
+}
+
+.cancel{  height: 40px;  color: #ff4554;}
+
+.savebtn{  height: 40px;  color: #99c794;}
+
+.margen-boton {  position: absolute;  right: 30px;  top: 15px;}
+
+.botonflotante{
+  position: absolute;
+  background-image:linear-gradient( rgb(252, 190, 56),rgb(223, 148, 61));
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  bottom: 20px;
+  right: 20px;
+  text-align: center;
+  box-shadow: 0px 2px 8px rgba(41, 50, 60, 0.7);
+}
+
+.botonflotante a{
+display: block;
+text-decoration: none;
+font-size: 2em;
+font-weight: 100;
+  color: white;
+}
+
+.form{  min-width: 150px;  max-width: 500px;  width: 100%;}
+
+.full-width{  width: 100%;}
+
+.half-width{  width: 50%;}
+
+.s80{  width: 80%;}
+
+.formpadding{  margin-top: 30px;  margin-bottom: 30px;}
+
+.toolbar{
+  background-image:linear-gradient( rgb(252, 190, 56),rgb(223, 148, 61));
+  height: 50px;
+  border-radius: 0px 20px 20px 0px;
+  box-shadow: 0px 1px 4px black;
+}
+
+
+.menusidenav { text-decoration: none;}
+
+.menusidenav a:hover{ display: block;}
+
+#nav ul li a{
+  color: white;
+  text-decoration: none;
+}
+
+.boton-form-centrado{
+  height: 30px;
+  align-items: center;
+}
+
+.btncenter{
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+}
+
+.botonmenu{
+  padding: 40px;
+  margin: 10px;
+  width: 40px;
+  height: 40px;
+  border: none;
+}
+
+/*Notifications snackbar */
+snack-bar-container.success{
+  background-color: rgb(54, 181, 54);
+  color:#fff;
+}
+
+snack-bar-container.error{
+  background-color:#ff4554;
+  color: #fff;
+}
+
+snack-bar-container.notification simple-snack-bar{
+  font-size: 1em;
+  font-weight: 300;
+}
+
+
+/* Tickets badges styles*/
+.TicketResolved{
+  border:none;
+  border-radius:5px;
+  width:50px;
+  height:30px;
+  margin: 10px 0px 5px 0px;
+  color:white;
+  background-color: green;
+}
+
+.TicketOpened{
+  border:none;
+  border-radius:5px;
+  width:50px;
+  height:30px;
+  margin: 10px 0px 5px 0px;
+  color:black;
+  background-color:gold;
+  box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.15);
+}
+
+.TicketAborted{
+  border:none;
+  border-radius:5px;
+  width:50px;
+  height:30px;
+  margin: 10px 0px 5px 0px;
+  color:white;
+  background-color: red;
+}
+
+.TicketManaged{
+  border:none;
+  border-radius:5px;
+  width:50px;
+  height:30px;
+  margin: 10px 0px 5px 0px;
+  color:white;
+  // background-color:dodgerblue;
+  background-color:gold;
+}
+
+
+/* tickets steps circles colors */
+.step1done > .circle1{
+background-color:cornflowerblue;
+}
+
+.step2done > .circle2{
+  background-color: cornflowerblue;
+  }
+
+.step3done > .circle3{
+background-color: cornflowerblue;
+}
+
+.step4done > .circle4{
+  background-color: cornflowerblue;
+}
+
+.step5done > .circle4{
+  background-color: green;
+}
+.step5done > .circle3{
+  background-color: green;
+}
+.step5done > .circle2 {
+  background-color: green;
+}
+.step5done > .circle1{
+  background-color: green;
+}
+.circle1, .circle2, .circle3, .circle4{
+width: 5px;
+height: 5px;
+border-radius: 50%;
+background-color: #b1b1b1;
+}
+
+.rectanglecover{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 98%;
+  height: 100%;
+  z-index: -1;
+  background-color: whitesmoke;
+}
+.ddt {
+  position: fixed;
+  top: 0;
+  left: 0;
+z-index: -2;
+margin: 0 auto;
+box-sizing: border-box;
+padding: 0.3in;
+width: 8.3in;
+height: 11.7in;
+}

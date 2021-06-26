@@ -1,0 +1,82 @@
+<div class="filterboxes">
+    &nbsp;
+    <mat-form-field class="col-12" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search the Agency"  [(ngModel)]="filteredString" (keyup)="onSearchTerm()">
+    </mat-form-field>
+</div>
+<div class="table">
+<router-outlet></router-outlet>
+<ng-container *ngIf="!filter">
+    <table class="full-width table-stripped table-hover">
+        <thead>
+            <th>Agency Name</th>
+            <th>Agency Contacts</th>
+            <th>Certification</th>
+            <th>Manager ID</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataItem of AgencyList; let i = index"
+            [class.active]="i == currentIndex"
+            (click)="setCurrentAgency(dataItem, i)" [routerLink]="['viewagency/',dataItem.id]" style="cursor: pointer;"
+            > 
+                
+                <ng-container *ngIf="dataItem.isDelete != 1">
+                <td>
+                    <table>
+                        <tr><td class="customer-name" style="font-weight: 400;">{{dataItem.name}}</td></tr>
+                        <tr><td class="Agency-below">{{dataItem.address}}</td></tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr><td class="customer-name"><span class="material-icons" style="font-size: 12px; vertical-align: middle;">phone</span>{{dataItem.phone}}</td></tr>
+                        <tr><td class="Agency-below"><span class="material-icons" style="font-size: 12px; vertical-align: middle;"> mail_outline</span>{{dataItem.email}}</td></tr>
+                    </table>
+                </td>
+                <td class="customer-name">{{dataItem.certification}}</td>
+                <td class="customer-name">{{dataItem.managerId}}</td>
+            </ng-container>
+        </tr>
+        </tbody>
+    </table>
+</ng-container>
+<ng-container *ngIf="filter">
+    <table class="full-width table-stripped table-hover">
+        <thead>
+            <th>Agency Name</th>
+            <th>Agency Contacts</th>
+            <th>Certification</th>
+            <th>Manager ID</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataItem of filteredResult; let i = index"
+            [class.active]="i == currentIndex"
+            (clic)="setCurrentAgency(dataItem, i)" [routerLink]="['viewagency/',dataItem.id]" style="cursor: pointer;"
+            >
+                <td>
+                    <table>
+                        <tr><td class="customer-name" style="font-weight: 400;">{{dataItem.name}}</td></tr>
+                        <tr><td class="Agency-below">{{dataItem.address}}</td></tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr><td class="customer-name"><span class="material-icons" style="font-size: 12px; vertical-align: middle;">phone</span>{{dataItem.phone}}</td></tr>
+                        <tr><td class="Agency-below"><span class="material-icons" style="font-size: 12px; vertical-align: middle;"> mail_outline</span>{{dataItem.email}}</td></tr>
+                    </table>
+                </td>
+                <td class="customer-name">{{dataItem.certification}}</td>
+                <td class="customer-name">{{dataItem.managerId}}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+
+    <div style="position: fixed; right: 40px; bottom: 30px;">
+        <button mat-fab routerLink="/create-agency"><mat-icon>add</mat-icon></button>
+    </div>
+</div>
+<div>
+    <span style="display: none;">END OF AGENCY LIST</span>&nbsp;
+</div>
