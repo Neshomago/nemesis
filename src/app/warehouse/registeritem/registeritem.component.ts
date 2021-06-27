@@ -16,7 +16,6 @@ import { TicketService } from 'src/app/services/ticket.service';
 import { Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-
  export interface Serial{
    number: string;
  }
