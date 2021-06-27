@@ -158,7 +158,6 @@ export class RegisteritemComponent implements OnInit {
         this.arrayListItems = response.map((i:any) =>({value:i.description,viewValue:i.name}));
         this.arrayListadoItems = this.arrayListItems;
 
-
         this.filteredItem.next(this.arrayListadoItems.slice());
         this.itemFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
         this.filterItems();
