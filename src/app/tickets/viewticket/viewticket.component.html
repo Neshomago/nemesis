@@ -322,21 +322,24 @@
                                                 <mat-form-field class="full-width">
                                                     <mat-select matNativeControl name="item{{i}}" [(ngModel)]="obj.item">
                                                         <mat-option *ngFor="let tag of newtags" [value]="tag.name">
-                                                            <div class="full-width" style="line-height: 11px;">
+                                                            <div class="full-width">
                                                                 <span style="color: darkgrey;">{{tag.description}}</span> - {{tag.name}}  &nbsp;
                                                             </div>
-                                                            <div>
-                                                                <input style="display: none;" type="text" name="serial{{i}}" [(ngModel)]="obj.item_serial" [value]="tag.description" />
+                                                            <!-- <div>
+                                                                <input style="display: none;" type="text" name="serial{{i}}"
+                                                                [(ngModel)]="obj.item_serial" [value]="tag.description" />
                                                             </div>
-                                                            <div class="col-auto" *ngIf="tag.isStack >= 20" style="color:green; line-height: 9px; font-size: 10px;">
+                                                            <div class="col-auto" *ngIf="tag.isStack >= 20"
+                                                                style="color:green; line-height: 9px; font-size: 10px;">
                                                                 <span style="font-size: 13px;" class="material-icons">done</span> Good Stock: {{tag.isStack}} Units
                                                             </div>
-                                                            <div *ngIf="(tag.isStack < 20) && (tag.isStack > 5)" style="color: darkgoldenrod; line-height: 9px; font-size: 10px;">
+                                                            <div *ngIf="(tag.isStack < 20) && (tag.isStack > 5)"
+                                                                style="color: darkgoldenrod; line-height: 9px; font-size: 10px;">
                                                                 <span style="font-size: 13px;" class="material-icons">info</span> Low stock: {{tag.isStack}} Units
                                                             </div>    
                                                             <div *ngIf="tag.isStack == 0" style="color: salmon;line-height: 9px; font-size: 10px;">
                                                                 <span style="font-size: 13px;" class="material-icons">report</span> Stock: {{tag.isStack}} Units
-                                                            </div>
+                                                            </div> -->
                                                         </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
@@ -361,10 +364,6 @@
                                                 <div class="col-1">
                                                     &nbsp;
                                                 </div>
-    
-                                                <!-- <mat-form-field class="col-auto">
-                                                    <input matInput value="{{allestimentoItems.item}}" [disabled]="!showEdit2" />
-                                                </mat-form-field> -->
                                                 
                                                 <mat-form-field class="col" *ngIf="showEdit2">
                                                     <mat-label>Replace with: </mat-label>
@@ -385,7 +384,6 @@
                                                         </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
-                                                <!-- {{allestimentoItems | json}} -->
                                             </div>
                                         </div>
                                     </ng-container>
