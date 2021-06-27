@@ -334,7 +334,8 @@ getWarehouses(){
     this.tagsarray.forEach((element: any) => {
       this.service.addequipment(element).subscribe(
         (data) => { console.log('Equipment added', data);
-        this._snackBar.open("Equipment added Succesfully", "OK", { duration:3500, panelClass: "success",});
+        this._snackBar.open("Equipment added Succesfully", "OK",
+        { duration:3500, panelClass: "success",});
         if (this.tagsarray.length == (i+1)){
 
           this.allestimentoTicketList(element.ticketId);
@@ -342,8 +343,8 @@ getWarehouses(){
         i++;
       },
       (error) => { console.log('Failed to add equipment', error);
-      this._snackBar.open("Failed to add equipment", "OK", { duration:3500, panelClass: "error",}); },
-      
+      this._snackBar.open("Failed to add equipment", "OK",
+      { duration:3500, panelClass: "error",}); },
       )
       console.warn(element);  
     });
