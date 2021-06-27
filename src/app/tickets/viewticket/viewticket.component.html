@@ -298,7 +298,9 @@
                                 </div>
                                 <div class="col-md-3 ms-md-auto" *ngIf="showEdit2">
                                     <ng-container>
-                                        <button mat-icon-button (click)="updateTicketStatus2(theTicketData.id); updateEquipment(); refreshPage()"><mat-icon>save</mat-icon>Update changes</button>
+                                        <button mat-icon-button (click)="updateTicketStatus2(theTicketData.id); updateEquipment(); refreshPage()">
+                                            <mat-icon>save</mat-icon>Update changes
+                                        </button>
                                     </ng-container>
                                 </div>
                             </ng-container>
@@ -329,7 +331,7 @@
                                                             <div class="col-auto" *ngIf="tag.isStack >= 20" style="color:green; line-height: 9px; font-size: 10px;">
                                                                 <span style="font-size: 13px;" class="material-icons">done</span> Good Stock: {{tag.isStack}} Units
                                                             </div>
-                                                            <div *ngIf="tag.isStack < 20 && tag.isStack > 5" style="color: darkgoldenrod; line-height: 9px; font-size: 10px;">
+                                                            <div *ngIf="(tag.isStack < 20) && (tag.isStack > 5)" style="color: darkgoldenrod; line-height: 9px; font-size: 10px;">
                                                                 <span style="font-size: 13px;" class="material-icons">info</span> Low stock: {{tag.isStack}} Units
                                                             </div>    
                                                             <div *ngIf="tag.isStack == 0" style="color: salmon;line-height: 9px; font-size: 10px;">
@@ -337,6 +339,11 @@
                                                             </div>
                                                         </mat-option>
                                                     </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col">
+                                                <mat-form-field class="full-width">
+                                                    <input matInput placeholder="quantity" type="number" name="quantity{{i}}" [(ngModel)]="obj.quantity"/>
                                                 </mat-form-field>
                                             </div>
                                         </div>

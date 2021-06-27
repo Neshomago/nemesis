@@ -7,8 +7,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { Router} from '@angular/router';
 import { AgencyService } from '../services/agency.service';
-import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import {map, startWith, takeUntil} from 'rxjs/operators';
 import {CustomerService} from '../services/customer.service';
 
 @Component({
@@ -37,9 +37,26 @@ export class CreateTicketComponent implements OnInit {
     version: 1,
     code:'',
   }
+
+  itemCtrl: FormControl = new FormControl();
+  itemFilterCtrl: FormControl = new FormControl();
+  filteredCustomer:ReplaySubject<ListadoCustomers[]> = new ReplaySubject<ListadoCustomers[]>(1);
+  itemCtrlName: FormControl = new FormControl();
+  itemFilterCtrlName: FormControl = new FormControl();
+  filteredItemName:ReplaySubject<listadoAgenciasName[]> = new ReplaySubject<listadoAgenciasName[]>(1);
+  itemCtrlAMS: FormControl = new FormControl();
+  itemFilterCtrlAMS: FormControl = new FormControl();
+  filteredItemAMS:ReplaySubject<listadoAgenciasAMS[]> = new ReplaySubject<listadoAgenciasAMS[]>(1);
+  protected _onDestroy = new Subject<void>();
   
   listAgenciasBy: ListadoAgenciasBy[] = [];
-  
+  arrayListAgencias:any[]=[];
+  arrayListadoAgenciasNombre:listadoAgenciasName[]=[];
+  arrayListAgenciasams:any[]=[];
+  arrayListadoAgenciasAMS:listadoAgenciasAMS[]=[];
+  arrayListCustomers:any[]=[];
+  arrayListadoCustomers:ListadoCustomers[]=[];
+
   valueSelected:any;
 
   myControl = new FormControl();
@@ -58,10 +75,145 @@ export class CreateTicketComponent implements OnInit {
    }
   
   ngOnInit(): void {
-    this.getAgencyName();
-    this.getCustomerlist();
-    this.listadoAgenciasbyName()
+    //this.getAgencyName();
+    //this.getCustomerlist();
+    this.listadoAgenciasby();
+    this.getAgencyList();
+    this.getAgencyAMSList();
+    this.getCustomersToSelectAgency();
     //console.log("customerId al crear ticket: ",this.customerId);
+  }
+
+    ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
+
+  getAgencyList(){
+    let zrole = localStorage.getItem('zRoleA');
+    if (!zrole){
+      this.ticketService.getAgencyName(String(this.customerId)).subscribe(
+        response => {
+            this.arrayListAgencias = response.map((i:any) =>({value:i.id,viewValue:i.name}));
+            this.arrayListadoAgenciasNombre = this.arrayListAgencias;
+  
+            this.filteredItemName.next(this.arrayListadoAgenciasNombre.slice());
+            this.itemFilterCtrlName.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            this.filterAgenciasNombre();});
+      });
+    } else {
+      this.ticketService.getAgencyList().subscribe(
+        response => {
+            this.arrayListAgencias = response.map((i:any) =>({value:i.id,viewValue:i.name}));
+            this.arrayListadoAgenciasNombre = this.arrayListAgencias;
+    
+            this.filteredItemName.next(this.arrayListadoAgenciasNombre.slice());
+            this.itemFilterCtrlName.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            this.filterAgenciasNombre();});
+      });
+    }
+  }
+
+  getAgencyAMSList(){
+    let zrole = localStorage.getItem('zRoleA');
+    if (!zrole){
+      this.ticketService.getAgencyName(String(this.customerId)).subscribe(
+        response => {
+            this.arrayListAgenciasams = response.map((i:any) =>({value:i.managerId,viewValue:i.name+' | AMMS: '+i.managerId, idValue:i.id}));
+            this.arrayListadoAgenciasAMS = this.arrayListAgenciasams;
+
+            this.filteredItemAMS.next(this.arrayListadoAgenciasAMS.slice());
+            this.itemFilterCtrlAMS.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            this.filterAgenciasAMS();});
+      });
+    } else {
+      this.ticketService.getAgencyList().subscribe(
+        response => {
+            this.arrayListAgenciasams = response.map((i:any) =>({value:i.managerId,viewValue:i.name+' | AMMS: '+i.managerId, idValue:i.id}));
+            this.arrayListadoAgenciasAMS = this.arrayListAgenciasams;
+
+            this.filteredItemAMS.next(this.arrayListadoAgenciasAMS.slice());
+            this.itemFilterCtrlAMS.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            this.filterAgenciasAMS();});
+      });
+    }
+  }
+
+  getCustomersToSelectAgency(){
+    this.customerService.getCustomerList().subscribe(
+      response => {
+          this.arrayListCustomers = response.map((i:any) =>({value:i.id,viewValue:i.name}));
+          this.arrayListadoCustomers = this.arrayListCustomers;
+  
+  
+          this.filteredCustomer.next(this.arrayListadoCustomers.slice());
+          this.itemFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+          this.filterCustomers();
+      });
+    });
+  }
+
+  filterAgenciasNombre() 
+  {
+    if (!this.arrayListadoAgenciasNombre) 
+    {
+      return;
+    }
+    let search = this.itemFilterCtrlName.value;
+    if (!search) 
+    {
+      this.filteredItemName.next(this.arrayListadoAgenciasNombre.slice());
+      return;
+    } 
+    else 
+    {
+      search = search.toLowerCase();
+    }
+    this.filteredItemName.next(
+      this.arrayListadoAgenciasNombre.filter(i => i.viewValue.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterAgenciasAMS() 
+  {
+    if (!this.arrayListadoAgenciasAMS) 
+    {
+      return;
+    }
+    let search = this.itemFilterCtrlAMS.value;
+    if (!search) 
+    {
+      this.filteredItemAMS.next(this.arrayListadoAgenciasAMS.slice());
+      return;
+    } 
+    else 
+    {
+      search = search.toLowerCase();
+    }
+    this.filteredItemAMS.next(
+      this.arrayListadoAgenciasAMS.filter(i => i.viewValue.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+  filterCustomers() 
+  {
+    if (!this.arrayListadoCustomers) 
+    {
+      return;
+    }
+    let search = this.itemFilterCtrl.value;
+    if (!search) 
+    {
+      this.filteredCustomer.next(this.arrayListadoCustomers.slice());
+      return;
+    } 
+    else 
+    {
+      search = search.toLowerCase();
+    }
+    this.filteredCustomer.next(
+      this.arrayListadoCustomers.filter(i => i.viewValue.toLowerCase().indexOf(search) > -1)
+    );
   }
 
 
@@ -72,22 +224,22 @@ export class CreateTicketComponent implements OnInit {
       });
   }
   
-  getAgencyName(){
-    let zrole = localStorage.getItem('zRoleA');
-    if (!zrole){
-      this.ticketService.getAgencyName(String(this.customerId)).subscribe(agency => {
-      this.AgencyList = agency;
-      this.arregloAutocompletar = this.AgencyList;
-      console.log("Not: ", this.AgencyList);
-    });
-  } else{
-    this.agencyService.getAgencyList().subscribe(data =>
-        { this.AgencyList = data;
-          this.arregloAutocompletar = this.AgencyList;
-          console.log("Yes: ",this.AgencyList);
-      });
-    } 
-  }
+  // getAgencyName(){
+  //   let zrole = localStorage.getItem('zRoleA');
+  //   if (!zrole){
+  //     this.ticketService.getAgencyName(String(this.customerId)).subscribe(agency => {
+  //     this.AgencyList = agency;
+  //     this.arregloAutocompletar = this.AgencyList;
+  //     console.log("Not: ", this.AgencyList);
+  //   });
+  // } else{
+  //   this.agencyService.getAgencyList().subscribe(data =>
+  //       { this.AgencyList = data;
+  //         this.arregloAutocompletar = this.AgencyList;
+  //         console.log("Yes: ",this.AgencyList);
+  //     });
+  //   } 
+  // }
     
   filteredString: string = '';
   filter = false;
@@ -121,6 +273,11 @@ export class CreateTicketComponent implements OnInit {
 
   addTicket(){
     this.ticketModel.createdBy = String(localStorage.getItem('id'));
+    if (this.valueSelected == 'NAME'){
+      this.ticketModel.agencyId = this.itemCtrlName.value;
+    } else if (this.valueSelected == 'AAMS'){
+      this.ticketModel.agencyId = this.itemCtrlName.value;
+    }
     this.ticketService.addTicket(this.ticketModel).subscribe(
       (data) => { 
         console.log('Ticket Registered', data);
@@ -132,14 +289,10 @@ export class CreateTicketComponent implements OnInit {
     console.warn(this.ticketModel);
   }
 
-  listadoAgenciasbyName() {
+  listadoAgenciasby() {
     this.listAgenciasBy = [
       { value: 'NAME', viewValue: 'Name' },
       { value: 'AAMS', viewValue: 'AAMS' }];
-  }
-
-  consultarListadoAgencias(value:any){
-    console.log("Value ",value);
   }
 
   saveTicket(){
@@ -148,6 +301,22 @@ export class CreateTicketComponent implements OnInit {
 }
 
 interface ListadoAgenciasBy{
+  value: string;
+  viewValue: string;
+}
+
+interface listadoAgenciasName{
+  value: string;
+  viewValue: string;
+}
+
+interface listadoAgenciasAMS{
+  value: string;
+  viewValue: string;
+  idValue:string;
+}
+
+interface ListadoCustomers{
   value: string;
   viewValue: string;
 }

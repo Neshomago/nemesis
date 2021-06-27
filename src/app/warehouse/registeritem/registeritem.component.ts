@@ -78,18 +78,6 @@ export class RegisteritemComponent implements OnInit {
     status:'',
     invoice_purchase: '',
     warranty_invoiceDate:'',
-    //registerDate: new Date,
-    //statusDetails: '',
-    //userId: 0,
-    //activationCode: '',
-    //technicianNotes:'',
-    //vehicle_Id: 0,
-    //technicianId: 0,
-    //technicianAssigned: '',
-    //agencyId: 0,
-    //customerId: 0,
-    //dateofArrive: undefined,
-    //dateofRemoval: undefined
   }
 
   trackingInfo: any ={

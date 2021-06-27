@@ -49,20 +49,33 @@
       </ng-container> -->
           
         <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Customer</mat-label>
-              <mat-select matNativeControl id="CustomerOption" name="CustomerOption" [(ngModel)]="ticketModel.customerId">
-                <mat-option *ngFor="let customer of customerList; let i = index" [value]="customer.id">{{customer.name}}</mat-option>
+            <div class="col-auto">
+              <mat-form-field>
+                <mat-label>Customer</mat-label>
+                <!-- <mat-select matNativeControl id="CustomerOption" name="CustomerOption" [(ngModel)]="ticketModel.customerId">
+                  <mat-option *ngFor="let customer of customerList; let i = index" [value]="customer.id">{{customer.name}}</mat-option>
+                </mat-select> -->
+                <mat-select [formControl]="itemCtrl" #SelectItems>
+                  <mat-option>
+                      <ngx-mat-select-search [formControl]="itemFilterCtrl"
+                      placeholderLabel="Buscar"
+                      noEntriesFoundLabel="No se encontró la Información">
+                      </ngx-mat-select-search>
+                  </mat-option>
+
+                  <mat-option *ngFor="let list of filteredCustomer | async"
+                      [value]="list.value">
+                      {{list.viewValue}}
+                  </mat-option>
               </mat-select>
-            </mat-form-field>
-          </div>
+              </mat-form-field>
+            </div>
 
           <div class="col-auto">
             <mat-form-field>
               <mat-label>Agency by:</mat-label>
               <mat-select matNativeControl id="agencyOption" name="agencyOption" [(ngModel)]="valueSelected">
-                <mat-option *ngFor="let opt of listAgenciasBy" [value]="opt.value" (click)="consultarListadoAgencias(opt.value)">{{opt.viewValue}}</mat-option>
+                <mat-option *ngFor="let opt of listAgenciasBy" [value]="opt.value">{{opt.viewValue}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -70,22 +83,45 @@
           <div class="col">
             <ng-container *ngIf="valueSelected === 'NAME' || valueSelected == null">
               <mat-form-field class="full-width">
-                <input type="text" placeholder="Agency" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                <mat-select [formControl]="itemCtrlName" #SelectName>
+                  <mat-option>
+                      <ngx-mat-select-search [formControl]="itemFilterCtrlName"
+                      placeholderLabel="Buscar"
+                      noEntriesFoundLabel="No se encontró la Información">
+                      </ngx-mat-select-search>
+                  </mat-option>
+
+                  <mat-option *ngFor="let list of filteredItemName | async"
+                      [value]="list.value">
+                      {{list.viewValue}}
+                  </mat-option>
+              </mat-select>
+                <!-- <input type="text" placeholder="Agency" matInput [formControl]="myControl" [matAutocomplete]="auto"
                 [(ngModel)]="ticketModel.agencyId" (ngModelChange)="onSearchTerm($event)">
                 <mat-autocomplete #auto="matAutocomplete">
                   <mat-option *ngFor="let agency of filteredResult; let i = index " [value]="agency.id">
-                    <!-- <div style="line-height: 12px; font-weight: 400;">{{agency.name}} | <span style="font-size: small; font-weight: 200;">{{agency.managerId}} / {{agency.certification}}</span>
-                      <br><span style="color: darkgrey; font-size: smaller;">{{agency.address}}</span>
-                    </div> -->
                     <span style="line-height: 12px; font-weight: 400;">{{agency.name}} | ID: {{agency.id}}</span>
                   </mat-option>
-                </mat-autocomplete>
+                </mat-autocomplete> -->
               </mat-form-field>
             </ng-container>
 
             <ng-container *ngIf="valueSelected === 'AAMS'">
               <mat-form-field class="full-width">
-                <input type="text" placeholder="Agency" matInput [formControl]="myControl" [matAutocomplete]="auto"
+                <mat-select [formControl]="itemCtrlAMS" #SelectAMS>
+                  <mat-option>
+                      <ngx-mat-select-search [formControl]="itemFilterCtrlAMS"
+                      placeholderLabel="{{valueSelected}}"
+                      noEntriesFoundLabel="No se encontró la Información">
+                      </ngx-mat-select-search>
+                  </mat-option>
+
+                  <mat-option *ngFor="let list of filteredItemAMS | async"
+                      [value]="list.value">
+                      {{list.viewValue}}
+                  </mat-option>
+              </mat-select>
+                <!-- <input type="text" placeholder="Agency" matInput [formControl]="myControl" [matAutocomplete]="auto"
                 [(ngModel)]="ticketModel.agencyId" (ngModelChange)="onSearchTerm($event)">
                 <mat-autocomplete #auto="matAutocomplete">
                   <mat-option *ngFor="let agency of filteredResult; let i = index" [value]="agency.id">
@@ -94,7 +130,7 @@
                     </ng-container>
                     <span style="line-height: 12px; font-weight: 400;"> {{agency.name}} | Manager ID: {{agency.managerId}}</span>
                   </mat-option>
-                </mat-autocomplete>
+                </mat-autocomplete> -->
               </mat-form-field>
             </ng-container>
 
@@ -118,8 +154,6 @@
           </p>
           <input type="hidden" name="status" id="status" [(ngModel)]="ticketModel.status">
           <input type="hidden" name="createdBy" id="createdBy" [(ngModel)]="ticketModel.createdBy">
-
-          {{ticketModel | json}}
 
           <div class="btncenter">
             <div>

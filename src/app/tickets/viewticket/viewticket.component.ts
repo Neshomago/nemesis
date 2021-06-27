@@ -174,7 +174,6 @@ export class ViewticketComponent implements OnInit {
     });
   }
  
-    // customerId = 'CUSTOME581785f34f4f3';
   // AgencyList: any = [];
   getAgencyListName(){
     let customer:any = this.customerId;
@@ -216,7 +215,7 @@ getWarehouses(){
       console.log("fecha en string: ",fechastring);
       // this.technicianToUpdate.assignedDate = datePrueba;
       this.technicianToUpdate.fechaPrueba = new Date(fechastring);
-      // console.log("Prueba de techinica date: ", this.technicianToUpdate.fechaPrueba);
+      
       let agenciaSelected:any = this.AgencyList.find((a:any) => a.id === parseInt(this.theTicketUpdate.agencyId, 10));
       this.agencyToUpdate.name = agenciaSelected.name;
     },
