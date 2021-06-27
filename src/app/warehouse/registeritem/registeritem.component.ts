@@ -209,9 +209,6 @@ export class RegisteritemComponent implements OnInit {
       this.seriales.splice(index, 1);
     }
   }
-
-
-
   //fin seriales
   
   categoryList:any =[];
