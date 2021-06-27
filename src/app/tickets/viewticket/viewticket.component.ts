@@ -87,10 +87,10 @@ export class ViewticketComponent implements OnInit {
 
   techDate = new Date();
   TechnicianModel: any = {
-  tech_assign: '',
-  assignedDate: '',
-  fechaPrueba:new Date(),
-  version: 5,
+    tech_assign: '',
+    assignedDate: '',
+    fechaPrueba:new Date(),
+    version: 5,
   }
 
   newtechdate = new Date();
@@ -103,40 +103,22 @@ export class ViewticketComponent implements OnInit {
 
   itemsToConfirm:any = [];
 
-  constructor(private service:TicketService,
-    private usersService: UsersService,
-    private whservice:WarehouseService,
-    private route:ActivatedRoute,
-    private router: Router,
-    private _formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar) {
-      if(localStorage.getItem('zRoleA')) {
-        this.zRoleA = localStorage.getItem('zRoleA'); 
-      }
+  constructor(private service:TicketService, private usersService: UsersService,
+    private whservice:WarehouseService, private route:ActivatedRoute,
+    private router: Router, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
+      if(localStorage.getItem('zRoleA')) { this.zRoleA = localStorage.getItem('zRoleA'); }
 
-      if(localStorage.getItem('zRoleC')) {
-        this.zRoleC = localStorage.getItem('zRoleC'); 
-      }
+      if(localStorage.getItem('zRoleC')) { this.zRoleC = localStorage.getItem('zRoleC'); }
 
-      if(localStorage.getItem('zRoleE')) {
-        this.zRoleE = localStorage.getItem('zRoleE'); 
-      }
+      if(localStorage.getItem('zRoleE')) { this.zRoleE = localStorage.getItem('zRoleE'); }
       
-      if(localStorage.getItem('zRoleT')) {
-        this.zRoleT = localStorage.getItem('zRoleT'); 
-      }
+      if(localStorage.getItem('zRoleT')) { this.zRoleT = localStorage.getItem('zRoleT'); }
     
-      if(localStorage.getItem('nombre')) {
-        this.nombre = localStorage.getItem('nombre'); 
-      }
+      if(localStorage.getItem('nombre')) { this.nombre = localStorage.getItem('nombre'); }
     
-      if(localStorage.getItem('surname')) {
-        this.surname = localStorage.getItem('surname'); 
-      }
+      if(localStorage.getItem('surname')) { this.surname = localStorage.getItem('surname'); }
 
-      if(localStorage.getItem('id')) {
-        this.userId = localStorage.getItem('id'); 
-      }
+      if(localStorage.getItem('id')) { this.userId = localStorage.getItem('id'); }
      }
     
     public ngOnInit(): void {
@@ -158,7 +140,6 @@ export class ViewticketComponent implements OnInit {
       this.getTechnicianReviewItems(ticketId);
       this.GetItemsToConfirmTicket(ticketId);
 
-
     //formgroup for steps
     this.firstFormGroup = this._formBuilder.group({
         firstCtrl: ['', Validators.required]
@@ -177,31 +158,21 @@ export class ViewticketComponent implements OnInit {
   // AgencyList: any = [];
   getAgencyListName(){
     let customer:any = this.customerId;
-    this.service.getAgencyName(customer).subscribe(agency => {
-      this.AgencyList = agency;
-    })
+    this.service.getAgencyName(customer).subscribe(
+      agency => { this.AgencyList = agency; });
   }
 
   warehouses:any=[];
-getWarehouses(){
+  getWarehouses(){
   this.whservice.getWarehouseList().subscribe(
-    data => {this.warehouses = data}
-  );
-}
+    data => { this.warehouses = data; });
+  }
 
   // Getting General Ticket Information
-  // theTicketData : any = [];
-  // agencyToUpdate: any = {
-  //   name:'',
-  //   certification:'',
-  //   address:'',
-  //   phone:'',
-  //   email:'',
-  //   managerId:''
-  // };
 
   getTicketIndividual(id:any):any{
-    this.service.getTicketIso(id).subscribe((data)=> {
+    this.service.getTicketIso(id).subscribe(
+      (data)=> {
       this.theTicketData = data[0];
       this.theTicketUpdate.agencyId = data[0].agencyId;
       this.theTicketUpdate.code = data[0].code;
@@ -209,11 +180,11 @@ getWarehouses(){
       this.theTicketUpdate.description = data[0].description;
       this.theTicketUpdate.priority = data[0].priority;
       this.technicianToUpdate.tech_assign = data[0].tech_assign;
-      // console.log("fecha suscrita: ", data[0].assignedDate);
       let datePrueba = new Date(data[0].assignedDate);
-      let fechastring = (datePrueba.getMonth()+1)+'/'+datePrueba.getDate()+'/'+datePrueba.getFullYear();
-      console.log("fecha en string: ",fechastring);
-      // this.technicianToUpdate.assignedDate = datePrueba;
+      let fechastring = (datePrueba.getMonth()+1)
+      +'/'+datePrueba.getDate()
+      +'/'+datePrueba.getFullYear();
+
       this.technicianToUpdate.fechaPrueba = new Date(fechastring);
       
       let agenciaSelected:any = this.AgencyList.find((a:any) => a.id === parseInt(this.theTicketUpdate.agencyId, 10));
@@ -225,16 +196,14 @@ getWarehouses(){
 
   // newtags: any = [];
   getTags(){
-    this.service.getTagList().subscribe(data => {
-      this.newtags = data;
-    });
+    this.service.getTagList().subscribe(
+      data => { this.newtags = data; });
   }
   
   // TechnicianList: any = [];
   Technicians_List(){
     this.usersService.getTechnicianList().subscribe(
-      data => {this.TechnicianList = data;}
-      );
+      data => { this.TechnicianList = data; });
   }
 
   setDefaultDate(){
@@ -284,8 +253,7 @@ getWarehouses(){
       (tag) => { this.unserialTags = tag;
         this.conteoItemsporserializar = this.unserialTags.length;
         console.log("datos a serializar: ",this.unserialTags.length + " Total items: " + this.conteoItemsporserializar);
-      }
-      );
+      });
   }
 
   // warehouseData:any = [];
@@ -293,7 +261,6 @@ getWarehouses(){
     this.service.getWarehouseNameQuantity().subscribe(
       data => { this.warehouseData = data}
       );
-      console.log(this.warehouseData);
     }
 
   saveSerials(){
@@ -303,7 +270,8 @@ getWarehouses(){
         this.service.saveSerialsOfItems(element.id, element).subscribe(
           (data) => { 
             console.log('Equipment added', data);
-          this._snackBar.open("Equipment Serialized Succesfully", "OK", { duration:3500, panelClass: "success",});
+          this._snackBar.open("Equipment Serialized Succesfully", "OK", {
+            duration:3500, panelClass: "success",});
           if (this.unserialTags.length == (i+1)){
 
             this.allestimentoTicketList(element.ticketId);
@@ -311,7 +279,8 @@ getWarehouses(){
           i++;
         },
         (error) => { console.log('Failed to add equipment', error);
-        this._snackBar.open("Failed to Serialize equipment", "OK", { duration:3500, panelClass: "error",}); },
+        this._snackBar.open("Failed to Serialize equipment", "OK", {
+          duration:3500, panelClass: "error",}); },
         )
         console.warn(element);  
       });
@@ -333,21 +302,23 @@ getWarehouses(){
 
     this.tagsarray.forEach((element: any) => {
       this.service.addequipment(element).subscribe(
-        (data) => { console.log('Equipment added', data);
-        this._snackBar.open("Equipment added Succesfully", "OK",
-        { duration:3500, panelClass: "success",});
-        if (this.tagsarray.length == (i+1)){
-
-          this.allestimentoTicketList(element.ticketId);
-        }
-        i++;
-      },
-      (error) => { console.log('Failed to add equipment', error);
-      this._snackBar.open("Failed to add equipment", "OK",
-      { duration:3500, panelClass: "error",}); },
-      )
-      console.warn(element);  
+        (data) => { 
+          console.log('Equipment added', data);
+          this._snackBar.open("Equipment added Succesfully", "OK",
+          { duration:3500, panelClass: "success",});
+        
+          if (this.tagsarray.length == (i+1)){
+          this.allestimentoTicketList(element.ticketId); }
+          i++;
+          },
+        (error) => { 
+          console.log('Failed to add equipment', error);
+          this._snackBar.open("Failed to add equipment", "OK",
+          { duration:3500, panelClass: "error",}); },
+        );
+      // console.warn(element);  
     });
+    
     this.tagsarray = [];
   }
 
@@ -357,26 +328,23 @@ getWarehouses(){
     this.equipmentArrayData.forEach((element: any) => {
       this.service.updateEquipment(element.id, element).subscribe(
         (data) => { 
-          // this.equipmentArrayData.item = this.equipmentArrayData.item;
-          // this.equipmentArrayData.ticketId = this.equipmentArrayData.ticketId;
-          // console.log('Equipment updated', data);
-        this._snackBar.open(data, "OK", { duration:3500, panelClass: "success",});
-        if (this.equipmentArrayData.length == (i+1)){
-
-          this.allestimentoTicketList(element.ticketId);
-        }
-        i++;
-      },
-      (error) => { console.log('Failed to add equipment', error);
-      this._snackBar.open("Failed to add equipment", "OK", { duration:3500, panelClass: "error",}); },
-      
-      )
-      console.warn(element);  
+          this._snackBar.open(data, "OK", { duration:3500, panelClass: "success",});
+          if (this.equipmentArrayData.length == (i+1))
+          {
+            this.allestimentoTicketList(element.ticketId);
+          }
+          i++;
+        },
+        (error) => {
+          console.log('Failed to add equipment', error);
+          this._snackBar.open("Failed to add equipment", "OK", { duration:3500, panelClass: "error",}); },
+        
+        );
+      //console.warn(element);  
     });
     this.showEdit2 = false;
     this.saveEquipment();
   }
-
 
   refreshPage() {
     this.tagsarray = [];
@@ -388,10 +356,9 @@ getWarehouses(){
   allestimentoTicketList(ticketId: any){
     this.service.getTicketEquipmentList(ticketId).subscribe(
       data => {this.equipmentArrayData = data;
-      console.log(this.equipmentArrayData);}
-    );
+      //console.log(this.equipmentArrayData);
+    });
   }
-
 
   // Updating Ticket Version on each step
   // ticketVersion = { version: null, status: ''};
@@ -433,11 +400,11 @@ getWarehouses(){
   }
 
   infoTechReview:any=[];
-getTechnicianReviewItems(id:any){
-  this.whservice.GetItemAgencyReview(id).subscribe(
-    data => {this.infoTechReview = data}
-  );
-}
+  getTechnicianReviewItems(id:any){
+    this.whservice.GetItemAgencyReview(id).subscribe(
+      data => {this.infoTechReview = data}
+    );
+  }
 
   confirmResolved(id: any){
     const version = {
@@ -452,14 +419,12 @@ getTechnicianReviewItems(id:any){
     this.refreshPage();
   }
 
-
   GetItemsToConfirmTicket(legacyId:any){
     this.whservice.GetItemsToConfirmTicket(legacyId).subscribe(
       info => {this.itemsToConfirm = info;
       console.log("items para confirmar: ", info);}
     )
   }
-
 
   closeTicketItem(){
     this.itemsToConfirm.forEach((element:any) => {
@@ -476,7 +441,6 @@ getTechnicianReviewItems(id:any){
        statusDescription: 'Complete move. Item '+ element.name +' is in '+ element.location + ' - ' + element.locationId
       }
       console.warn("Item a grabar data model: ", itemLocation);
-
 
       let finalCheckResolved:any = {
         id:itemLocation.id,
@@ -561,8 +525,8 @@ getTechnicianReviewItems(id:any){
   }
 
   agencyListBindUpdate(){
-    let agenciaSelected:any = this.AgencyList.find((a:any) => a.id === parseInt(this.theTicketUpdate.agencyId, 10));
-    console.log("datos agenciaSelected: ", agenciaSelected);
+    let agenciaSelected:any = this.AgencyList.find(
+      (a:any) => a.id === parseInt(this.theTicketUpdate.agencyId, 10));
     this.theTicketData.managerId = agenciaSelected.managerId;
     this.theTicketData.address = agenciaSelected.address;
     this.theTicketData.certification = agenciaSelected.certification;
@@ -580,7 +544,7 @@ getTechnicianReviewItems(id:any){
             this.router.navigateByUrl("/tickets");
           });
       }
-}
+  }
 
   deleteOneItemEquipment(id:number){
     this.service.deleteItemEquipment(id).subscribe(

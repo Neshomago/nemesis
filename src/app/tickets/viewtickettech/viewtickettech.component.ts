@@ -35,32 +35,19 @@ export class ViewtickettechComponent implements OnInit {
   theTicketData : any;
 
   constructor(private service:TicketService, private agencyService: AgencyService,
-    private userService:UsersService,
-    public dialog:MatDialog, private _snackBar: MatSnackBar) {
-      
-      if(localStorage.getItem('zRoleA')) {
-        this.zRoleA = localStorage.getItem('zRoleA'); 
-      }
+    private userService:UsersService, public dialog:MatDialog, private _snackBar: MatSnackBar)
+    {  
+      if(localStorage.getItem('zRoleA')) { this.zRoleA = localStorage.getItem('zRoleA'); }
 
-      if(localStorage.getItem('zRoleC')) {
-        this.zRoleC = localStorage.getItem('zRoleC'); 
-      }
+      if(localStorage.getItem('zRoleC')) { this.zRoleC = localStorage.getItem('zRoleC'); }
 
-      if(localStorage.getItem('zRoleE')) {
-        this.zRoleE = localStorage.getItem('zRoleE'); 
-      }
+      if(localStorage.getItem('zRoleE')) { this.zRoleE = localStorage.getItem('zRoleE'); }
       
-      if(localStorage.getItem('zRoleT')) {
-        this.zRoleT = localStorage.getItem('zRoleT'); 
-      }
+      if(localStorage.getItem('zRoleT')) { this.zRoleT = localStorage.getItem('zRoleT');}
     
-      if(localStorage.getItem('nombre')) {
-        this.nombre = localStorage.getItem('nombre'); 
-      }
+      if(localStorage.getItem('nombre')) { this.nombre = localStorage.getItem('nombre');}
     
-      if(localStorage.getItem('surname')) {
-        this.surname = localStorage.getItem('surname'); 
-      }
+      if(localStorage.getItem('surname')) { this.surname = localStorage.getItem('surname');}
      }
 
   public FilterValue: any;
@@ -91,9 +78,7 @@ export class ViewtickettechComponent implements OnInit {
   TechnicianList:any=[];
   Technicians_List(){
     this.userService.getTechnicianList().subscribe(
-      data => {this.TechnicianList = data;
-      console.log(this.TechnicianList);}
-  );
+      data => {this.TechnicianList = data;} );
   }
 
   refresh():void{
@@ -115,8 +100,8 @@ export class ViewtickettechComponent implements OnInit {
     };
     this.service.updateTicketReject(id, version).subscribe(
       (data) => { this.theTicketData.version = 4;
-        this._snackBar.open("Ticket has been returned.", "OK", { duration:3500, panelClass: "success",});
-        console.log('Ticket has been returned. Status updated', data);
+        this._snackBar.open("Ticket has been returned.", "OK",
+        { duration:3500, panelClass: "success",});
       });
   }
 
@@ -127,9 +112,9 @@ export class ViewtickettechComponent implements OnInit {
     }
     this.service.updateTicketVersion(id, version).subscribe(
       (data) => { this.theTicketData.version = 7;
-        this._snackBar.open("Ticket has been accepted.", "OK", { duration:3500, panelClass: "success",});
-        console.log('Ticket has been accepted. Status updated', data)    }
-    );
+        this._snackBar.open("Ticket has been accepted.", "OK",
+        { duration:3500, panelClass: "success",});
+    });
   }
 
   setCurrentTicket(ticket:any, index:any): void{
@@ -140,7 +125,9 @@ export class ViewtickettechComponent implements OnInit {
   filtering = false;
   onSelectedFilter(){
     this.FilteredResult = this.TicketList.filter(
-      (ticket:any) => (ticket.status === this.FilterValue || ticket.type == this.FilterValue || ticket.priority == this.FilterValue));
+      (ticket:any) => (ticket.status === this.FilterValue
+        || ticket.type == this.FilterValue
+        || ticket.priority == this.FilterValue));
     this.filtering = true;
     if (this.FilterValue == "clear"){
       this.filtering = false;
