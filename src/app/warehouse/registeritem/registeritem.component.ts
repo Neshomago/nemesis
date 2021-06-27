@@ -10,9 +10,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TicketService } from 'src/app/services/ticket.service';
 
-/**
- * Chips for seriales
- */
+/**Chips for seriales*/
  import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
  import {MatChipInputEvent} from '@angular/material/chips';
 import { Inject } from '@angular/core';
