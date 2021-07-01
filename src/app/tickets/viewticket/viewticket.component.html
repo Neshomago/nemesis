@@ -288,7 +288,11 @@
                                     <button mat-icon-button (click)="addItem(theTicketData.id)" ><mat-icon>add</mat-icon></button>
                                 </div>
                                 <div class="col-md-3 ms-md-auto" >
-                                    <button mat-icon-button (click)="updateTicketStatus2(theTicketData.id); saveEquipment(); refreshPage()" [disabled]="tagsarray == ''"><mat-icon>save</mat-icon>Save changes</button>
+                                    <!-- <button mat-icon-button (click)="updateTicketStatus2(theTicketData.id); saveEquipment(); refreshPage()"
+                                    [disabled]="tagsarray == ''"> -->
+                                    <button mat-icon-button (click)="prueba();"
+                                    [disabled]="tagsarray == ''">
+                                    <mat-icon>save</mat-icon>Save changes</button>
                                 </div>
                             </ng-container>
                             <ng-container class="col-md-3 ms-md-auto" *ngIf="theTicketData.version >= 2">
@@ -387,10 +391,11 @@
                                             </div>
                                         </div>
                                     </ng-container>
-    
-                                    <ng-container *ngIf="theTicketData.version >= 1 && theTicketData.version < 3">
+                                    {{tagsarray | json}}
+                                    <ng-container *ngIf="(theTicketData.version >= 1) && (theTicketData.version < 3)">
                                         <div class="alert alert-info">
-                                                Advice: The Items must be serialized in order to get support.
+                                                <!-- Advice: The Items must be serialized in order to get support. -->
+                                                La Bodega verificará las existencias solicitadas.
                                         </div>
                                         <button mat-raised-button (click)="updateTicketStatus3(theTicketData.id);"
                                         #tooltip="matTooltip"

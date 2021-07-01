@@ -625,6 +625,25 @@ export class ViewticketComponent implements OnInit {
       }
   }
 
+  prueba(){
+    //let stepsToRecord;
+    let datosGrabar:any =[];
+    let producto:any = {};
+    this.tagsarray.forEach((element:any) => {
+      console.log("elemetnno: ", element.quantity);
+      let quantityPerItem = element.quantity;
+      for(let i=0; i < quantityPerItem; i++){
+        console.log("item ",i,": ");
+        producto = {
+          item: element.item,
+          ticketId: element.ticketId
+        }
+        console.log(producto);
+        datosGrabar.push(producto);
+      }
+    });
+    console.log("pruebas: ", datosGrabar);
+  }
   /** PDF creation DDT
    * npm install jspdf necessary to create PDFS from the data
    * **/
