@@ -136,7 +136,23 @@ export class TicketService {
   ticketValues(): Observable<any>{
     return this.http.get<any>(`${APIUrl}/ticket/value`);
   }
-  
+
+  //New services for item version in allestimento.
+  checkItemsforEquipmentfromWarehouse(): Observable<any>{
+  return this.http.get<any>(`${APIUrl}/warehouseitv`);
+  }
+
+  itemEquipmentVersion(id:any): Observable<any>{
+    return this.http.get(`${APIUrl}/warehouseitv/${id}`);
+  }
+
+  itemEquipmentLegacy(legacyId:any): Observable<any>{
+    return this.http.get(`${APIUrl}/warehouseitv/${legacyId}`);
+  }
+
+  updateItemEquipmentVersion(id:any): Observable<any>{
+    return this.http.get(`${APIUrl}/warehouseitv/${id}`);
+  }
 }
 
 
