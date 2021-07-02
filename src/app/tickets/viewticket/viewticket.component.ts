@@ -196,7 +196,14 @@ export class ViewticketComponent implements OnInit {
 
   // newtags: any = [];
   getTags(){
-    this.service.getTagList().subscribe(
+    /**
+     * Linea antes del cambio de metodo para traer items de bodega y no de tags
+     */
+   this.service.getTagList().subscribe(
+     /* 
+     */
+    //Lìnea con el nuevo metodo para pedir equipment segun version y version de ticket.
+    //this.service.checkItemsforEquipmentfromWarehouse().subscribe(
       data => { this.newtags = data; });
   }
   
@@ -296,11 +303,25 @@ export class ViewticketComponent implements OnInit {
     console.log(this.tagsarray);
   }
 
-
+  datosGrabar:any =[];
   saveEquipment(){
     let i=0;
-
+    let producto:any = {};
     this.tagsarray.forEach((element: any) => {
+      console.log("elemetnno: ", element.quantity);
+      let quantityPerItem = element.quantity;
+      for(let i=0; i < quantityPerItem; i++){
+        producto = {
+          item: element.item,
+          quantity: 1,
+          ticketId: element.ticketId
+        }
+        this.datosGrabar.push(producto);
+      }
+    });
+    console.table(this.datosGrabar);
+    
+    this.datosGrabar.forEach((element:any) =>{
       this.service.addequipment(element).subscribe(
         (data) => { 
           console.log('Equipment added', data);
@@ -316,10 +337,11 @@ export class ViewticketComponent implements OnInit {
           this._snackBar.open("Failed to add equipment", "OK",
           { duration:3500, panelClass: "error",}); },
         );
-      // console.warn(element);  
     });
     
     this.tagsarray = [];
+    this.datosGrabar = [];
+    setTimeout(function(){window.location.reload()}, 1000); 
   }
 
   updateEquipment(){
