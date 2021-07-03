@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ItemWarehouse } from 'src/app/tickets';
@@ -149,6 +149,8 @@ export class RegisteritemComponent implements OnInit {
     this._onDestroy.complete();
   }
 
+  @ViewChild('serialList') serialList;
+
   getItemList(){
     this.ticketService.getTagList().subscribe(
       response => {
@@ -183,20 +185,35 @@ export class RegisteritemComponent implements OnInit {
     );
   }
 
+  
+    itemSerial: any =[]
+    resultado = 0;
+    serialOk(serial:any){
+      console.log("SERIALCHECK data enviada: ", serial);
+      this.ticketService.getSerialEquipmentCheck(serial).subscribe(
+        data => { console.log("SERIALCHECK datos recibidos: ", data);
+          this.itemSerial = data[0];
+          this.itemSerial.seriales = data[0].seriales;
+          this.resultado = data[0].seriales;
+          console.log("resultadi: ", this.resultado);
+        });
+    };
 
   //metodo para agregar elementos al chips | seriales
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     const input = event.input;
+
     // Add our fruit
-    if (value) {
+    if (value && this.resultado == 1) {
       this.seriales.push({number: value});
+    } else {
+      this.serialList.errorState = true;
     }
     // Clear the input value
     if(input){
       input.value ='';
     }
-
   }
 
   remove(serial: Serial): void {
@@ -213,7 +230,7 @@ export class RegisteritemComponent implements OnInit {
     this.service.getCategories().subscribe(
       (data) => { this.categoryList = data;
     });
-  }
+  };
 
   addCategory(){
     this.service.addCategory(this.category).subscribe(
@@ -222,14 +239,14 @@ export class RegisteritemComponent implements OnInit {
       //console.log(this.category + "Was added to category list");
       this.category = [];}
     );
-  }
+  };
 
   getWarehouses(){
     this.selectedWarehouse = this.itemModel.warehouseId;
     this.service.getWarehouseList().subscribe(
       data => {this.warehouses = data}
     );
-  }
+  };
 
   agencies: any = [];
   getAgencies(){
@@ -238,7 +255,7 @@ export class RegisteritemComponent implements OnInit {
         this.agencies = data
       }
     );
-  }
+  };
   
     setDefaultDate(){
       let year, month, day, hour, minute, second;
@@ -251,7 +268,7 @@ export class RegisteritemComponent implements OnInit {
       second = this.invoiceDate.getSeconds();
   
       this.itemModel.warranty_invoiceDate = year+'-'+month+'-'+day+' '+'0'+hour+':'+'0'+minute+':'+'0'+second;
-    }
+    };
 
   addItem(){
     this.setDefaultDate();
