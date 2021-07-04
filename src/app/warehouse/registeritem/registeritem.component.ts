@@ -149,7 +149,7 @@ export class RegisteritemComponent implements OnInit {
     this._onDestroy.complete();
   }
 
-  @ViewChild('serialList') serialList;
+  @ViewChild('serialList') serialList!:any;
 
   getItemList(){
     this.ticketService.getTagList().subscribe(

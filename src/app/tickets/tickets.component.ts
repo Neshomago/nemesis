@@ -101,13 +101,19 @@ export class TicketsComponent implements OnInit {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <=57;
   }
 
+  fechabusqueda = {
+    fechainicio:'',
+    fechafinal:''
+  };
+
   onSelectedMonth(){
     let fechaInicio = moment(this.strFechaInicio, 'DD-MM-YYYY').format('DD-MM-YYYY');
     let fechaFin    = moment(this.strFechaFin, 'DD-MM-YYYY').format('DD-MM-YYYY');
-    
+
+    this.fechabusqueda.fechainicio = fechaInicio;
+    this.fechabusqueda.fechainicio = fechaFin;
     console.log(fechaInicio);
     console.log(fechaFin);
-
   }
 
   limpiarFiltro(){
@@ -121,6 +127,14 @@ export class TicketsComponent implements OnInit {
       (x:any) => x.currentDate &&  new Date(x.date).getMonth() == date.getMonth()
     );
     console.log(monthData);
+  }
+
+  getFilteredData(){
+    console.log("fecha para busqueda: ", this.fechabusqueda)
+    this.service.filterByDate(this.fechabusqueda).subscribe(
+      resp => { resp = this.fechabusqueda;
+      }
+    )
   }
 
   technicians(){

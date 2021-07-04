@@ -137,23 +137,29 @@ export class TicketService {
     return this.http.get<any>(`${APIUrl}/ticket/value`);
   }
 
+  // Ordering by date
+  filterByDate(fechabusqueda:any): Observable<any>{
+    return this.http.post(`${APIUrl}/ticket/date`, fechabusqueda);
+  }
+
   //New services for item version in allestimento.
-  checkItemsforEquipmentfromWarehouse(): Observable<any>{
-  return this.http.get<any>(`${APIUrl}/warehouseitv`);
+    checkItemsforEquipmentfromWarehouse(): Observable<any>{
+    return this.http.get<any>(`${APIUrl}/warehouseitv`);
+    }
+  
+    
+    itemEquipmentLegacy(legacyId:any): Observable<any>{
+      return this.http.get(`${APIUrl}/warehouseitv/${legacyId}`);
+    }
+    
+    updateItemEquipmentVersion(id:any, value:any): Observable<any>{
+      return this.http.post(`${APIUrl}/warehouseitvu/${id}`,value);
+    }
+    
+    //itemEquipmentVersion(id:any): Observable<any>{
+    //  return this.http.get(`${APIUrl}/warehouseitv/${id}`);
+    //}
   }
-
-  itemEquipmentVersion(id:any): Observable<any>{
-    return this.http.get(`${APIUrl}/warehouseitv/${id}`);
-  }
-
-  itemEquipmentLegacy(legacyId:any): Observable<any>{
-    return this.http.get(`${APIUrl}/warehouseitv/${legacyId}`);
-  }
-
-  updateItemEquipmentVersion(id:any): Observable<any>{
-    return this.http.get(`${APIUrl}/warehouseitv/${id}`);
-  }
-}
 
 
 // export class searchAgency{
