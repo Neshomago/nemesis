@@ -205,11 +205,12 @@ export class RegisteritemComponent implements OnInit {
     const input = event.input;
 
     // Add our fruit
-    if (value && this.resultado == 1) {
+    if (value) {
       this.seriales.push({number: value});
-    } else {
-      this.serialList.errorState = true;
     }
+    //else {
+///      this.serialList.errorState = true;
+    //}
     // Clear the input value
     if(input){
       input.value ='';

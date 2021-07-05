@@ -13,6 +13,10 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ViewChild } from '@angular/core';
 import { WarehouseService } from 'src/app/services/warehouse.service';
+import { exit } from 'process';
+import { resolve } from 'dns';
+import { rejects } from 'assert';
+import { promise } from 'protractor';
 
 
 @Component({
@@ -198,13 +202,13 @@ export class ViewticketComponent implements OnInit {
   getTags(){
     /**
      * Linea antes del cambio de metodo para traer items de bodega y no de tags
-     */
-   this.service.getTagList().subscribe(
+     *this.service.getTagList().subscribe(
      /* 
      */
     //Lìnea con el nuevo metodo para pedir equipment segun version y version de ticket.
-    //this.service.checkItemsforEquipmentfromWarehouse().subscribe(
-      data => { this.newtags = data; });
+    this.service.checkItemsforEquipmentfromWarehouse().subscribe(
+      data => { this.newtags = data;
+      console.log("tags: ", this.newtags)});
   }
   
   // TechnicianList: any = [];
@@ -296,6 +300,7 @@ export class ViewticketComponent implements OnInit {
   addItem(id:any){//método para añadir item en el viewticket.html de Additional Equipment
     const equipment = {
       item: '',
+      serial:'',
       quantity: 1,
       ticketId: id,
     };
@@ -303,51 +308,125 @@ export class ViewticketComponent implements OnInit {
     console.log(this.tagsarray);
   }
 
-  datosGrabar:any =[];
   saveEquipment(){
+    let datosGrabar:any[] =[];
     let i=0;
-    let producto:any = {};
+    let producto:any= [];
+
     this.tagsarray.forEach((element: any) => {
-      console.log("elemetnno: ", element.quantity);
+      let item = {item: element.item};
       let quantityPerItem = element.quantity;
-      for(let i=0; i < quantityPerItem; i++){
-        producto = {
-          item: element.item,
-          quantity: 1,
-          ticketId: element.ticketId
-        }
-        this.datosGrabar.push(producto);
-      }
-    });
-    console.table(this.datosGrabar);
-    
-    this.datosGrabar.forEach((element:any) =>{
-      this.service.addequipment(element).subscribe(
-        (data) => { 
-          console.log('Equipment added', data);
-          this._snackBar.open("Equipment added Succesfully", "OK",
-          { duration:3500, panelClass: "success",});
+
+        this.service.serialVerification(item).subscribe(
+          res => {
+            if (res.length == 0){
+              alert('Item no disponible');
+            }
+  
+            if (quantityPerItem > res.length){
+              alert('Stock no disponible Solo hay '+ res.length +' en existencia.');
+            }
+
+            let contador = 0;
+  
+            res.forEach((data:any) => {
+              if (contador == quantityPerItem){
+                return false;
+              } else {
+                producto = {
+                  id: data['id'],
+                  item: data['name'],
+                  quantity: 1,
+                  ticketId:element.ticketId,
+                  serial:data['serial']
+                }
+                let itemId = producto.id;
+
+                let grabar:any = {
+                  version: 1,
+                  legacyId: element.ticketId
+                }
+
+                this.service.updateItemEquipmentVersion(itemId, grabar).subscribe(
+                  update => {
+                    console.log("data a grabar: ", update);
+                  });
+
+                  let toEquipment = {
+                    item: producto.item,
+                    item_serial: producto.serial,
+                    quantity: 1,
+                    ticketId: producto.ticketId,
+                  }
+                this.service.addequipment(toEquipment).subscribe(
+                  (data) => {
+                    console.log('Equipment added', data);
+                    this._snackBar.open("Equipment added Succesfully", "OK", {
+                      duration: 3500,
+                      panelClass: "success",
+                    });
+
+                    if (this.tagsarray.length == (i + 1)) {
+                      this.allestimentoTicketList(producto.ticketId);
+                    }
+                    i++;
+                  },
+                  (error) => {
+                    console.log('Failed to add equipment', error);
+                    this._snackBar.open("Failed to add equipment", "OK", {
+                      duration: 3500,
+                      panelClass: "error",
+                    });
+                  },
+                );
+
+                console.log("grabando item: ", producto);
+              }
+              contador += 1;
+            });  
+            datosGrabar.push(producto);
+            producto=[];
+
+          });
         
-          if (this.tagsarray.length == (i+1)){
-          this.allestimentoTicketList(element.ticketId); }
-          i++;
-          },
-        (error) => { 
-          console.log('Failed to add equipment', error);
-          this._snackBar.open("Failed to add equipment", "OK",
-          { duration:3500, panelClass: "error",}); },
-        );
-    });
-    
+      });
+     
     this.tagsarray = [];
-    this.datosGrabar = [];
-    setTimeout(function(){window.location.reload()}, 1000); 
+
   }
 
   updateEquipment(){
     let i=0;
-
+    
+    
     this.equipmentArrayData.forEach((element: any) => {
+      
+      /* let item = {
+        item: element.item
+      };
+      let quantityPerItem = element.quantity;
+
+      this.service.serialVerification(item).subscribe(
+          res => {
+            if (res.length == 0) {
+              alert('Item no disponible');
+            }
+
+            if (quantityPerItem > res.length) {
+              alert('Stock no disponible Solo hay ' + res.length + ' en existencia.');
+            }*/
+
+            let grabar: any = {
+              version: 1,
+              legacyId: element.ticketId
+            }
+
+            this.service.updateItemEquipmentVersion(element.id, grabar).subscribe(
+              update => {
+                console.log("data a grabar: ", update);
+              }); 
+
+
       this.service.updateEquipment(element.id, element).subscribe(
         (data) => { 
           this._snackBar.open(data, "OK", { duration:3500, panelClass: "success",});
@@ -376,9 +455,10 @@ export class ViewticketComponent implements OnInit {
 
   // equipmentArrayData: any = [];
   allestimentoTicketList(ticketId: any){
+    console.log("ticket de consulta: ",ticketId);
     this.service.getTicketEquipmentList(ticketId).subscribe(
       data => {this.equipmentArrayData = data;
-      //console.log(this.equipmentArrayData);
+      console.log("Elementos equipment ya guardados: ", this.equipmentArrayData);
     });
   }
 
@@ -568,7 +648,17 @@ export class ViewticketComponent implements OnInit {
       }
   }
 
-  deleteOneItemEquipment(id:number){
+  deleteOneItemEquipment(id: number) {
+    let grabar: any = {
+      version: null,
+      legacyId: null
+    }
+
+    this.service.updateItemEquipmentVersion(id, grabar).subscribe(
+      update => {
+        console.log("data a grabar: ", update);
+      });
+
     this.service.deleteItemEquipment(id).subscribe(
       response => {
         console.log(response);

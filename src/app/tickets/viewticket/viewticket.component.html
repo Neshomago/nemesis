@@ -448,23 +448,26 @@
                             </ng-container>
                         </div>
                         <ng-container *ngIf="theTicketData.version > 2">
+
                             <div *ngFor="let tag of unserialTags; let indice = index">
                               
                                 <div class="row">
                                         
                                         <div class="col-auto">•</div>
-                                        <div class="col-auto">
-                                            <div name="item" style="width: 200px;">{{tag.item}}</div>
+                                        <div class="col">
+                                            <div name="item" style="width: 400px;">{{tag.item}} | Serial: {{tag.item_serial}}</div>
                                         </div>
                                         <!-- <mat-form-field class="col-auto">
                                             <input matInput type="text" name="item{{indice}}" [value]="tag.item" disabled/>
                                         </mat-form-field>
                                         &nbsp; -->
-                                        <mat-form-field class="col" *ngIf="theTicketData.version >= 4 && !showEdit3">
+
+                                        <!-- <mat-form-field class="col" *ngIf="theTicketData.version >= 4 && !showEdit3">
                                             <mat-label>Serial Number</mat-label>
-                                            <input matInput type="text" name="serial{{indice}}" [(ngModel)]="tag.item_serial" disabled required/>
-                                        </mat-form-field>
-                                        <mat-form-field class="col" *ngIf="theTicketData.version == 3 || showEdit3">
+                                            <input matInput type="text" name="serial{{indice}}" [(ngModel)]="tag.item_serial" disabled/>
+                                        </mat-form-field> -->
+
+                                        <!-- <mat-form-field class="col" *ngIf="theTicketData.version == 3 || showEdit3">
                                             <mat-label>Serial Number</mat-label>
                                             <input matInput type="text" name="serial{{indice}}" 
                                             [(ngModel)]="tag.item_serial" 
@@ -473,13 +476,13 @@
                                             <mat-error name="serialerrorempty{{indice}}" 
                                             *ngIf="itemSerial.seriales === 0">
                                             ERROR Empty serial field.
-                                            </mat-error>
+                                            </mat-error>-->
                                             <!-- <mat-error name="serialerror{{indice}}" 
                                             *ngIf="itemSerial.seriales === 1">
                                             Serial correct or not exists
                                             </mat-error> -->
                                         <!-- {{itemSerial | json}} -->
-                                        </mat-form-field>
+                                        <!-- </mat-form-field> -->
                                 </div>
                             </div>
                         </ng-container>
