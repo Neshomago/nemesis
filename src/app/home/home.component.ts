@@ -72,6 +72,9 @@ export class HomeComponent implements OnInit {
     this.no_tickets();
     this.technicians();
     this.warehouse_status();
+
+    console.log("Role A: ",this.zRoleA);
+    console.log("Role C: ",this.zRoleC);
   }
 
   ValueA = 0;

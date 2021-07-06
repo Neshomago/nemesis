@@ -79,7 +79,7 @@ export class NavbarComponent implements OnInit{
                   if(data.RoleA == '1') {
                     
                     this.zRoleA = 'Admin';
-                    localStorage.setItem('zRole', this.zRoleA);
+                    localStorage.setItem('zRoleA', this.zRoleA);
                   } 
                    if(data.RoleC == '1') {
                     this.zRoleC = 'Customer';
@@ -98,7 +98,7 @@ export class NavbarComponent implements OnInit{
               }
 
 ngOnInit(): void {
-    if (localStorage.getItem('zRole') == 'Admin') {
+    if (localStorage.getItem('zRoleA') == 'Admin') {
       this.xRoleA = true;
       this.xRoleC = false;
       this.xRoleE = false;
@@ -168,6 +168,10 @@ ngOnInit(): void {
     this.zRoleT = '';
     this.logueado = 'no';
     localStorage.setItem('logueado', this.logueado);
+    localStorage.setItem('zRoleT', this.zRoleT);
+    localStorage.setItem('zRoleC', this.zRoleC);
+    localStorage.setItem('zRoleE', this.zRoleE);
+    localStorage.setItem('zRoleA', this.zRoleA);
     this.auth.logout();
     this.router.navigateByUrl('/login');
   }
