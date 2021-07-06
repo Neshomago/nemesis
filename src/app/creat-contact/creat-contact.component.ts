@@ -57,6 +57,7 @@ export class CreatContactComponent implements OnInit {
     saveContact(){
       this.addContact();
       this.router.navigateByUrl('/contact');
+      setTimeout(function(){ window.location.reload();}, 500);
     }
     
     getCustomerList(){
