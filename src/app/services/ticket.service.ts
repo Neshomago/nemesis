@@ -149,7 +149,7 @@ export class TicketService {
   
     
     itemEquipmentLegacy(legacyId:any): Observable<any>{
-      return this.http.get(`${APIUrl}/warehouseitv/${legacyId}`);
+      return this.http.get(`${APIUrl}/warehouseitvl/${legacyId}`);
     }
     
     updateItemEquipmentVersion(id:any, value:any): Observable<any>{

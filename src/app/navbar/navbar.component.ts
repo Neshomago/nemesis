@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { from, Observable } from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
 
   text: string = '';
   imagen: any;
@@ -52,6 +53,7 @@ export class NavbarComponent {
 
                 if(localStorage.getItem('zRoleA')) {
                   this.zRoleA = localStorage.getItem('zRoleA'); 
+                  localStorage.setItem(this.zRoleA,'Admin');
                 }
 
                 if(localStorage.getItem('zRoleC')) {
@@ -70,34 +72,70 @@ export class NavbarComponent {
                   this.nombre = localStorage.getItem('nombre'); 
                 }
 
-               
-                this.usersService.getObservable().subscribe( (data) => {
+                this.usersService.getObservable().subscribe((data) => {
                   console.log('Data received right now: ', data);
                   this.nombre = data.nombre;
                   localStorage.setItem('nombre', this.nombre);
                   if(data.RoleA == '1') {
-                    this.xRoleA = true;
+                    
                     this.zRoleA = 'Admin';
-                    localStorage.setItem('zRoleA', this.zRoleA);
+                    localStorage.setItem('zRole', this.zRoleA);
                   } 
-                  if(data.RoleC == '1') {
-                    this.xRoleC = true;
+                   if(data.RoleC == '1') {
                     this.zRoleC = 'Customer';
                     localStorage.setItem('zRoleC', this.zRoleC);
                   }
                   if(data.RoleE == '1') {
-                    this.xRoleE = true;
                     this.zRoleE = 'Warehouse';
                     localStorage.setItem('zRoleE', this.zRoleE);
                   }
                   if(data.RoleT == '1'){
-                    this.xRoleT = true;
                     this.zRoleT = 'Technician';
                     localStorage.setItem('zRoleT', this.zRoleT);
                   }
                   window.location.reload();
                 });
               }
+
+ngOnInit(): void {
+    if (localStorage.getItem('zRole') == 'Admin') {
+      this.xRoleA = true;
+      this.xRoleC = false;
+      this.xRoleE = false;
+      this.xRoleT = false;
+    } else {
+      this.xRoleA = false;
+    }
+    if (localStorage.getItem('zRoleC') == 'Customer') {
+      this.xRoleA = false;
+      this.xRoleC = true;
+      this.xRoleE = false;
+      this.xRoleT = false;
+    } else {
+      this.xRoleC = false;
+    }
+    if (localStorage.getItem('zRoleE') == 'Warehouse') {
+      this.xRoleA = false;
+      this.xRoleC = false;
+      this.xRoleE = true;
+      this.xRoleT = false;
+    } else {
+      this.xRoleE = false;
+    }
+    if (localStorage.getItem('zRoleT') == 'Technician') {
+      this.xRoleA = false;
+      this.xRoleC = false;
+      this.xRoleE = false;
+      this.xRoleT = true;
+    } else {
+      this.xRoleT = false;
+    }
+ /*  console.log("Inicio de Nav");
+  this.usersService.getObservable().subscribe(res => {
+    console.log('Data received right now: ', res);
+  }); */
+  
+}
 
   changeLang(lang: string) {
     this.translate.use(lang);

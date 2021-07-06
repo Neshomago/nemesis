@@ -126,7 +126,6 @@ export class ViewticketComponent implements OnInit {
      }
     
     public ngOnInit(): void {
-
       const ticketId = this.route.snapshot.paramMap.get('id');
       this.getAgencyListName();
       this.getUnserializedItems(ticketId);

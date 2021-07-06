@@ -5,12 +5,6 @@ import { TicketService } from '../../../services/ticket.service';
 import { ActivatedRoute, Router} from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-// Uploading photos
-// import { UploadFilesService } from 'src/app/services/upload-files.service';
-// import { HttpEventType, HttpResponse } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-
-
 /* PDF IMPORTING TO SAVE*/
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -19,6 +13,7 @@ import { HttpClient, HttpEvent, HttpHandler } from '@angular/common/http';
 import { WarehouseService } from 'src/app/services/warehouse.service';
 
 import { AgencyService } from 'src/app/services/agency.service';
+import { stringify } from 'querystring';
 
 
 @Component({
@@ -41,9 +36,7 @@ export class TickettoworkComponent implements OnInit {
   equipmentArrayData: any = [];
   ticketVersion ={ version: 1, status: ''};
 
-  //currentTicket = null;
   currentIndex = -1;
-  //ticketinView: any;
 
   AgencyList: any = [];
   FilteredAgency: any = [];
@@ -64,7 +57,7 @@ export class TickettoworkComponent implements OnInit {
   };
 
   itemsreview = false;
-
+  itemLegacyId = '';
   tickStatus ={ status:'ABORTED'};
   customerId = localStorage.getItem('customerId');
   userId:any = localStorage.getItem('id');
@@ -88,7 +81,7 @@ export class TickettoworkComponent implements OnInit {
 
   ngOnInit(): void {
     const ticketId = this.route.snapshot.paramMap.get('id');
-    console.log("valor de ticket:", ticketId);
+    this.itemLegacyId = String(this.route.snapshot.paramMap.get('id'));
     this.getAgencyListName();
     this.getAgencyList();
     this.getWarehouses();
@@ -99,6 +92,7 @@ export class TickettoworkComponent implements OnInit {
     this.getTags();
     this.allestimentoTicketList(ticketId);
     this.getCategoryList();
+    this.getItemsWarehouseAssignedToTicket();
   }
 
   getAgencyListName(){
@@ -132,8 +126,6 @@ export class TickettoworkComponent implements OnInit {
         this.trackingDataChanges.locationId = data[0].locationId;
         this.trackingDataChanges.status= data[0].status;
         this.trackingDataChanges.statusDescription= data[0].statusDescription;
-      // let agenciaSelected:any = this.AgencyList.find((a:any) => a.id === parseInt(this.theTicketUpdate.agencyId, 10));
-      // this.agencyToUpdate.name = agenciaSelected.name;
       this.getAgencyItems(this.theTicketData.agencyId);
     },
     error =>{console.log(error);
@@ -163,6 +155,16 @@ export class TickettoworkComponent implements OnInit {
       (tag) => { this.unserialTags = tag;
       }
       );
+  }
+
+  itemsTicketReversion:any=[];
+  getItemsWarehouseAssignedToTicket(){
+    this.service.itemEquipmentLegacy(this.itemLegacyId).subscribe(
+      data => { 
+        this.itemsTicketReversion = data;
+        console.table(this.itemsTicketReversion);
+      }
+    )
   }
 
   allestimentoTicketList(ticketId: any){
@@ -302,6 +304,16 @@ this.tagsarray.forEach((element:any) => {
          console.log("datos a grabar en update de item: ", location);
          itemLocation = location;}
      );
+
+     let grabar: any = {
+      version: 1,
+      legacyId: this.itemLegacyId
+    }
+
+    this.service.updateItemEquipmentVersion(id, grabar).subscribe(
+      update => {
+        console.log("data a grabar: ", update);
+      });
      
       this.trackingInfo.itemId = this.nameandSerial.serial;
       this.trackingInfo.changes = itemLocation.statusDescription;
@@ -317,8 +329,6 @@ this.tagsarray.forEach((element:any) => {
         });
       });
     });
-    // this.refreshPage();
-  // });
 }
 
 infoTechReview:any=[];

@@ -6,7 +6,7 @@
 
       <ng-container *ngIf = "logueado == 'si'">
         <!-- <mat-toolbar>Menu</mat-toolbar> -->
-      <div *ngIf="zRoleA || zRoleC || zRoleE || zRoleT" class="border_nav_low"> 
+      <div *ngIf="xRoleA || xRoleC || xRoleE || xRoleT" class="border_nav_low"> 
       <!-- <div class="border_nav_low"> -->
           <div>
           <div class="align-self-center">
@@ -17,7 +17,20 @@
           <div class="text-center logged_in">{{ nombre }}</div>
 
         </div>
-        <div class="text-center logged_in_below"><!-- {{ 'navbar.roles' | translate }}:  --><span></span>{{ zRoleA || zRoleC || zRoleE || zRoleT }}-</div>
+        <div class="text-center logged_in_below"><!-- {{ 'navbar.roles' | translate }}:  --><span></span>
+          <ng-container *ngIf="xRoleA">
+              {{zRoleA}}
+          </ng-container>
+           <ng-container *ngIf="xRoleC">
+              {{zRoleC}}
+           </ng-container>
+           <ng-container *ngIf="xRoleE">
+              {{zRoleE}}
+           </ng-container>
+           <ng-container *ngIf="xRoleT">
+              {{zRoleT}}
+           </ng-container>
+        </div>
         <div class="text-center logout">
           <button mat-raised-button style="transform: scale(0.75);" (click)="salir()">
             {{ 'navbar.desconectar' | translate }}
@@ -28,14 +41,14 @@
         </div>
       </div>
       <mat-nav-list class="background-nemesis">
-        <a mat-list-item routerLink="/main" *ngIf="zRoleA || zRoleT" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >home</span> {{ 'navbar.principal' | translate }}</a>
-        <a mat-list-item routerLink="/contact" *ngIf="zRoleA || zRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >contacts</span>{{ 'navbar.usuarios' | translate }}</a>
-        <a mat-list-item routerLink="/adminpanel" *ngIf="zRoleA" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >admin_panel_settings</span>{{ 'navbar.administrador' | translate }}</a>
-        <a mat-list-item routerLink="/customers" *ngIf="zRoleA " routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >person_pin</span>{{ 'navbar.clientes' | translate }}</a>
-        <a mat-list-item routerLink="/tickets" *ngIf="zRoleA || zRoleE || zRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >local_play</span>{{ 'navbar.boletosadmin' | translate }}</a>
-        <a mat-list-item routerLink="/viewtickettech" *ngIf="xRoleT == true" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >local_play</span>Tickets</a>
-        <a mat-list-item routerLink="/agency" *ngIf="zRoleA || zRoleC || zRoleE" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >store_mall_directory</span>{{ 'navbar.agencias' | translate }}</a>
-        <a mat-list-item routerLink="/warehouse" *ngIf="zRoleA || zRoleE" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;">home_work</span>{{ 'navbar.bodegas' | translate }}</a>
+        <a mat-list-item routerLink="/main" *ngIf="xRoleA || xRoleT" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >home</span> {{ 'navbar.principal' | translate }}</a>
+        <a mat-list-item routerLink="/contact" *ngIf="xRoleA || xRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >contacts</span>{{ 'navbar.usuarios' | translate }}</a>
+        <a mat-list-item routerLink="/adminpanel" *ngIf="xRoleA" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >admin_panel_settings</span>{{ 'navbar.administrador' | translate }}</a>
+        <a mat-list-item routerLink="/customers" *ngIf="xRoleA || xRoleC " routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >person_pin</span>{{ 'navbar.clientes' | translate }}</a>
+        <a mat-list-item routerLink="/tickets" *ngIf="xRoleA || xRoleE || xRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >local_play</span>{{ 'navbar.boletosadmin' | translate }}</a>
+        <a mat-list-item routerLink="/viewtickettech" *ngIf="xRoleT" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >local_play</span>Tickets</a>
+        <a mat-list-item routerLink="/agency" *ngIf="xRoleA || xRoleC || xRoleE" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >store_mall_directory</span>{{ 'navbar.agencias' | translate }}</a>
+        <a mat-list-item routerLink="/warehouse" *ngIf="xRoleA || xRoleE" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;">home_work</span>{{ 'navbar.bodegas' | translate }}</a>
       </mat-nav-list>
     </ng-container>  
     <mat-nav-list>

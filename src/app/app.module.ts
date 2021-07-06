@@ -78,6 +78,8 @@ import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
+//import { NgxSpinnerModule } from "ngx-spinner";
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -153,6 +155,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatProgressBarModule,
     NgxMatSelectSearchModule,
+    //NgxSpinnerModule,
     APP_ROUTING,
     TranslateModule.forRoot({
       loader: {

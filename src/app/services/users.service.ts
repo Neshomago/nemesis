@@ -71,6 +71,7 @@ export class UsersService {
   }
 
   getObservable(): Subject<any> {
+    console.log("Prueba de observable: ", this.fooSubject);
     return this.fooSubject;
   }
 

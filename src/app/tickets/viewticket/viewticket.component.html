@@ -363,7 +363,12 @@
                                                     <button mat-icon-button (click)="removeItemList(i, allestimentoItems.id)"><mat-icon>delete</mat-icon></button>
                                                 </div>
                                                 <div class="col-auto">
-                                                    <div style="width: 350px;">• <span *ngFor="let tag of newtags"><span *ngIf="allestimentoItems.item == tag.name">{{tag.description}}</span></span> / <strong>{{allestimentoItems.item}}</strong></div>
+                                                    <div style="width: 350px;">•
+                                                    <!-- <span *ngFor="let tag of newtags">
+                                                        <span *ngIf="allestimentoItems.item == tag.name">{{tag.description}}</span>
+                                                    </span> /  -->
+                                                    <strong>{{allestimentoItems.item}} - {{allestimentoItems.item_serial}}</strong>
+                                                </div>
                                                 </div>
                                                 <div class="col-1">
                                                     &nbsp;
