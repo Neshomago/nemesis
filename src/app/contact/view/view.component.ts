@@ -86,10 +86,23 @@ export class ViewComponent implements OnInit {
           this.passwordModel.RoleC = dataObtained[0].RoleC;
           this.passwordModel.RoleE = dataObtained[0].RoleE;
           this.passwordModel.RoleT = dataObtained[0].RoleT;
+          if (this.passwordModel.RoleA =="1"){
+            this.RoleA = true;
+          }
+          if (this.passwordModel.RoleC =="1"){
+            this.RoleC = true;
+          }
+          if (this.passwordModel.RoleE =="1"){
+            this.RoleE = true;
+          }
+          if (this.passwordModel.RoleT =="1"){
+            this.RoleT = true;
+          }
           this.passwordModel.email = dataObtained[0].email;
           console.log("datos login: ", this.loginData)})
       );
       console.log('data user: ', this.theUserData);
+      console.log('Password Model: ', this.passwordModel);
       this.service.getUserCheck(this.changes.email).subscribe(
         (data)=>{
           console.log('another user request: ', data);
@@ -115,7 +128,39 @@ export class ViewComponent implements OnInit {
         this.theUserData.phone = this.changes.phone;
         this._snackBar.open(data, "OK", { duration:3500, panelClass: "success",});
       });
-      this.updatePasswordRole();
+      //this.updatePasswordRole();
+      this.updateRole();
+      this.getContactIndividual(id);
+  }
+
+  updateRole(){
+    let theId = this.passwordModel.id;
+    console.log(theId);
+    let admin = '',cust='',ware='',tech='';
+    this.RoleA == true ? admin='1' : admin='0';
+    this.RoleC == true ? cust='1' : cust ='0';
+    this.RoleE == true ? ware = '1' : ware ='0';
+    this.RoleT == true ? tech = '1' : tech = '0';
+
+    let roles:any ={
+      email: this.passwordModel.email,
+      password:this.passwordModel.password,
+      RoleA: admin,
+      RoleC: cust,
+      RoleE: ware,
+      RoleT: tech,
+    }
+
+    this.service.updateUserRole(theId, roles).subscribe(
+      (data) => { data = roles;
+        this._snackBar.open("Contact Registered Succesfully", "OK", { duration:3500, panelClass: "success",});
+      },
+      error => {
+        console.log('Failed to Register Contact', error);
+      this._snackBar.open("Failed to Register the Contact", "OK", { duration:3500, panelClass: "error",});
+    }
+    );
+    console.log("Data enviada: "+theId+ " <-- ID enviado\n Modelo de datos:", roles);
   }
 
   updatePasswordRole(){

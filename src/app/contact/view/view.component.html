@@ -145,7 +145,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td colspan="1">Password</td>
                         <td>:</td>
                         <td colspan="1">
@@ -158,23 +158,23 @@
                                 </mat-form-field>
                             </ng-container>
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td colspan="1">User Role: </td>
                         <td>:</td>
                         <td colspan="1">
                             <ng-container *ngIf="passwordModel.RoleA == 1">
-                                Administrador -
+                                • Administrador
                             </ng-container>
                             <ng-container *ngIf="passwordModel.RoleE == 1">
-                                Warehouse -
+                                • Warehouse
                             </ng-container>
                             <ng-container *ngIf="passwordModel.RoleT == 1">
-                                Technician -
+                                • Technician
                             </ng-container>
                             <ng-container *ngIf="passwordModel.RoleC == 1">
-                                Customer -
+                                • Customer
                             </ng-container>
                         </td>
                     </tr>
@@ -184,10 +184,10 @@
                              
                                   <div>
                                   <section id="rol" name="rol" class="checksection">
-                                      <mat-checkbox class="checkleftmargin" name="RoleA" [(ngModel)]="passwordModel.RoleA">Administrator</mat-checkbox>
-                                      <mat-checkbox class="checkleftmargin" name="RoleT" [(ngModel)]="passwordModel.RoleT">Technician</mat-checkbox>
-                                      <mat-checkbox class="checkleftmargin" name="RoleC" [(ngModel)]="passwordModel.RoleC">Customer</mat-checkbox>
-                                      <mat-checkbox class="checkleftmargin" name="RoleE" [(ngModel)]="passwordModel.RoleE">Warehouse</mat-checkbox>
+                                      <mat-checkbox class="checkleftmargin" name="RoleA" [(ngModel)]="RoleA">Administrator</mat-checkbox>
+                                      <mat-checkbox class="checkleftmargin" name="RoleT" [(ngModel)]="RoleT">Technician</mat-checkbox>
+                                      <mat-checkbox class="checkleftmargin" name="RoleC" [(ngModel)]="RoleC">Customer</mat-checkbox>
+                                      <mat-checkbox class="checkleftmargin" name="RoleE" [(ngModel)]="RoleE">Warehouse</mat-checkbox>
                                   </section>
                                   </div>
                             

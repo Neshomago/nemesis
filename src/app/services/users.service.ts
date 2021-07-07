@@ -102,4 +102,9 @@ export class UsersService {
     UpdatePasswordAndRole(id:any, val:any):Observable<any>{
       return this.http.post(`${APIUrl}/users/tomodify/${id}`, val);
     }
+
+    //Update Role of user
+    updateUserRole(id:any, val:any):Observable<any>{
+      return this.http.post(APIUrl+"/user/gettoupdate/"+id, val);
+    }
 }
