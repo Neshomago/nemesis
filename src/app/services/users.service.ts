@@ -36,6 +36,10 @@ export class UsersService {
     return this.http.post(APIUrl + '/user/add',val);
   } 
 
+  changeUserPassword(val:any): Observable<any>{
+    return this.http.post(APIUrl + '/user/changepass',val);
+  }
+
   addContact(val:any): Observable<any>{
     return this.http.post(APIUrl + '/contact/add',val);
   }

@@ -22,6 +22,8 @@ export class AuthService {
   // Para autenticarse
   // https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
 
+  // Para cambiar clave
+  // https://identitytoolkit.googleapis.com/v1/accounts:update?key=[API_KEY]
 
   constructor(private http: HttpClient) { 
     this.leerToken();
@@ -74,6 +76,28 @@ export class AuthService {
       })
     );
   }
+
+  cambiaPassword(usuario: UserFirebase) {
+    const authData = {
+      email: usuario.email,
+      password: usuario.password,
+      returnSecureToken: true
+    };
+
+    return this.http.post(
+      `${ this.url }update?key=${ this.apikey }`,
+      authData
+    ).pipe(
+      map( resp => {
+        console.log('Entro en la mapa del RXJS');
+        this.idToken = resp;
+        console.log(this.idToken['idToken']);
+        this.guardarToken( this.idToken['idToken'] );
+        return resp;
+      })
+    );
+  }
+
 
   private guardarToken(idToken: string) {
     this.userToken = idToken;
