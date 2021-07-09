@@ -28,6 +28,7 @@ export class TicketsComponent implements OnInit {
   customerId = localStorage.getItem('customerId');
   zRoleA = localStorage.getItem('RoleA');
   zRoleC = localStorage.getItem('RoleC');
+  zRoleE = localStorage.getItem('RoleE');
 
   public FilterValue: any;
   FilteredResult:any = [];
@@ -48,7 +49,7 @@ export class TicketsComponent implements OnInit {
   }
 
   refreshTicketList(){
-    if (this.zRoleA == "1"){
+    if (this.zRoleA == "1" || this.zRoleE =="1"){
       this.service.getTicketList().subscribe(data => 
         {
          this.TicketList=data;

@@ -119,7 +119,7 @@ export class CreateTicketComponent implements OnInit {
     if (!zrole){
       this.ticketService.getAgencyName(String(this.customerId)).subscribe(
         response => {
-            this.arrayListAgenciasams = response.map((i:any) =>({value:i.managerId,viewValue:i.name+' | AMMS: '+i.managerId, idValue:i.id}));
+            this.arrayListAgenciasams = response.map((i:any) =>({value:i.certification,viewValue:'AMMS: '+i.certification+' | '+i.name}));
             this.arrayListadoAgenciasAMS = this.arrayListAgenciasams;
 
             this.filteredItemAMS.next(this.arrayListadoAgenciasAMS.slice());
@@ -129,7 +129,7 @@ export class CreateTicketComponent implements OnInit {
     } else {
       this.ticketService.getAgencyList().subscribe(
         response => {
-            this.arrayListAgenciasams = response.map((i:any) =>({value:i.managerId,viewValue:i.name+' | AMMS: '+i.managerId, idValue:i.id}));
+            this.arrayListAgenciasams = response.map((i:any) =>({value:i.certification,viewValue:'AMMS: '+i.certification+' | '+i.name}));
             this.arrayListadoAgenciasAMS = this.arrayListAgenciasams;
 
             this.filteredItemAMS.next(this.arrayListadoAgenciasAMS.slice());
@@ -251,7 +251,7 @@ export class CreateTicketComponent implements OnInit {
     console.log("data agencia: ",busqueda);
 
 
-    if (this.valueSelected == 'NAME'){
+    if (this.valueSelected == 'NAME' || this.valueSelected == ''){
       let resp: any = this.AgencyList.filter( (option:any) => 
       option.name.toLowerCase().includes(busqueda.toLowerCase()));
       if (resp != null || resp != undefined || resp != "" || resp != []){
@@ -313,7 +313,6 @@ interface listadoAgenciasName{
 interface listadoAgenciasAMS{
   value: string;
   viewValue: string;
-  idValue:string;
 }
 
 interface ListadoCustomers{

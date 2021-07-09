@@ -27,6 +27,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistroUserComponent } from './registro-user/registro-user.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
+import { AdditemComponent } from './warehouse/additem/additem.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch:'full' },
@@ -58,6 +59,7 @@ const routes: Routes = [
     ]}
   ]},
   { path: 'create-item', component:RegisteritemComponent },
+  { path: 'add-item', component:AdditemComponent },
   { path: 'create-ticket', component:CreateTicketComponent },
   { path: 'create-agency', component:CreateAgencyComponent },
   { path: 'create-contact', component:CreatContactComponent },
