@@ -81,7 +81,7 @@
           </div>
 
           <div class="col">
-            <ng-container *ngIf="valueSelected === 'NAME' || valueSelected == null">
+            <ng-container *ngIf="valueSelected === 'NAME' || valueSelected == ''">
               <mat-form-field class="full-width">
                 <mat-select [formControl]="itemCtrlName" #SelectName>
                   <mat-option>

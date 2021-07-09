@@ -30,7 +30,7 @@ export class AgencyComponent implements OnInit {
   }
 
   refreshAgencyList(){
-    if (this.zRoleA == "1"){
+    if (this.zRoleA == "1" || this.zRoleE =="1"){
       this.service.getAgencyList().subscribe(data => 
         {
          this.AgencyList = data; 
