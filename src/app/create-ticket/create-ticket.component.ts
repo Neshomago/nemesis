@@ -75,7 +75,7 @@ export class CreateTicketComponent implements OnInit {
    }
   
   ngOnInit(): void {
-    //this.getAgencyName();
+    this.getAgencyName();
     //this.getCustomerlist();
     this.listadoAgenciasby();
     this.getAgencyList();
@@ -87,6 +87,24 @@ export class CreateTicketComponent implements OnInit {
     ngOnDestroy() {
     this._onDestroy.next();
     this._onDestroy.complete();
+  }
+
+  agencias:any=[];
+  getAgencyName(){
+    let zrole = localStorage.getItem('zRoleA');
+    if (!zrole){
+      this.ticketService.getAgencyName(String(this.customerId)).subscribe(agency => {
+      this.agencias = agency;
+      //this.arregloAutocompletar = this.AgencyList;
+      //console.log("Not: ", this.agencias);
+    });
+  } else{
+    this.agencyService.getAgencyList().subscribe(data =>
+        { this.agencias = data;
+          //this.arregloAutocompletar = this.AgencyList;
+          //console.log("Yes: ",this.agencias);
+      });
+    } 
   }
 
   getAgencyList(){
@@ -135,6 +153,9 @@ export class CreateTicketComponent implements OnInit {
             this.filteredItemAMS.next(this.arrayListadoAgenciasAMS.slice());
             this.itemFilterCtrlAMS.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
             this.filterAgenciasAMS();});
+            //console.log("resultado pipe: ", this.itemFilterCtrlAMS.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+            //  this.filterAgenciasAMS();}));
+            //console.table(this.arrayListadoAgenciasAMS);
       });
     }
   }
@@ -220,26 +241,9 @@ export class CreateTicketComponent implements OnInit {
   getCustomerlist(){
     this.customerService.getCustomerList().subscribe(
       clientes => { this.customerList = clientes;
-        console.log("lista clientes: ", this.customerList)
+        //console.log("lista clientes: ", this.customerList)
       });
   }
-  
-  // getAgencyName(){
-  //   let zrole = localStorage.getItem('zRoleA');
-  //   if (!zrole){
-  //     this.ticketService.getAgencyName(String(this.customerId)).subscribe(agency => {
-  //     this.AgencyList = agency;
-  //     this.arregloAutocompletar = this.AgencyList;
-  //     console.log("Not: ", this.AgencyList);
-  //   });
-  // } else{
-  //   this.agencyService.getAgencyList().subscribe(data =>
-  //       { this.AgencyList = data;
-  //         this.arregloAutocompletar = this.AgencyList;
-  //         console.log("Yes: ",this.AgencyList);
-  //     });
-  //   } 
-  // }
     
   filteredString: string = '';
   filter = false;
@@ -248,8 +252,7 @@ export class CreateTicketComponent implements OnInit {
   onSearchTerm(agency:any){
 
     const busqueda = agency;
-    console.log("data agencia: ",busqueda);
-
+    //console.log("data agencia: ",busqueda);
 
     if (this.valueSelected == 'NAME' || this.valueSelected == ''){
       let resp: any = this.AgencyList.filter( (option:any) => 
@@ -276,7 +279,11 @@ export class CreateTicketComponent implements OnInit {
     if (this.valueSelected == 'NAME'){
       this.ticketModel.agencyId = this.itemCtrlName.value;
     } else if (this.valueSelected == 'AAMS'){
-      this.ticketModel.agencyId = this.itemCtrlName.value;
+      let result = this.agencias.find(({certification}:any) => certification == this.itemCtrlAMS.value);
+      let idAMS = result['id'];
+      this.ticketModel.agencyId = idAMS;
+      //console.log("result find: ", result);
+      //console.log("ticketId: ", this.ticketModel.agencyId);
     }
     this.ticketService.addTicket(this.ticketModel).subscribe(
       (data) => { 
@@ -286,7 +293,7 @@ export class CreateTicketComponent implements OnInit {
       (error) => { console.log('Failed to Register Ticket', error);
       this._snackBar.open("Failed to Register Ticket", "OK", { duration:3500, panelClass: "error",}); },
     )
-    console.warn(this.ticketModel);
+    //console.warn(this.ticketModel);
   }
 
   listadoAgenciasby() {

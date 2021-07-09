@@ -161,7 +161,6 @@ export class TicketService {
     //}
 
     serialVerification(item:any): Observable<any>{
-      console.log("metodo verifi: ", item);
       return this.http.post(APIUrl+'/warehouseitvn',item);
     }
   }
