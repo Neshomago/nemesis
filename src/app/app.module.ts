@@ -77,6 +77,7 @@ import { RegistroUserComponent } from './registro-user/registro-user.component';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AdditemComponent } from './warehouse/additem/additem.component';
 
 //import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -118,6 +119,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegistroComponent,
     RegistroUserComponent,
     AdminpanelComponent,
+    AdditemComponent,
   ],
   entryComponents: [MassiveticketsComponent],
   imports: [
