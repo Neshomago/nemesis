@@ -75,7 +75,6 @@ export class UsersService {
   }
 
   getObservable(): Subject<any> {
-    console.log("Prueba de observable: ", this.fooSubject);
     return this.fooSubject;
   }
 
@@ -92,7 +91,6 @@ export class UsersService {
   }
 
   technicianUpdateAvailabe(id:any, val:any): Observable<any>{
-    console.log("contenido del val: ",val);
     return this.http.post(APIUrl + '/user/updateavailable/'+id, val);
   }
 
