@@ -79,6 +79,7 @@ import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { CambiapasswordComponent } from './cambiapassword/cambiapassword.component';
 import { AdditemComponent } from './warehouse/additem/additem.component';
+import { SendmailresetpwdComponent } from './sendmailresetpwd/sendmailresetpwd.component';
 
 //import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -122,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminpanelComponent,
     CambiapasswordComponent,
     AdditemComponent,
+    SendmailresetpwdComponent,
   ],
   entryComponents: [MassiveticketsComponent],
   imports: [

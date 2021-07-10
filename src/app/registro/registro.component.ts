@@ -22,6 +22,7 @@ export class RegistroComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    
     // Si quiero que en el control * input del html aparezca por default mi correo
     // this.usuario.email = 'fausto.montenegro2007@gmail.com';
   }

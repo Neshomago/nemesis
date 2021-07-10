@@ -28,6 +28,8 @@ import { RegistroUserComponent } from './registro-user/registro-user.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { AdditemComponent } from './warehouse/additem/additem.component';
+import { CambiapasswordComponent } from './cambiapassword/cambiapassword.component';
+import { SendmailresetpwdComponent } from './sendmailresetpwd/sendmailresetpwd.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch:'full' },
@@ -66,6 +68,8 @@ const routes: Routes = [
   { path: 'create-customer', component:CreateCustomerComponent },
   { path: 'edit-customer/:id', component: EditcustomerComponent },
   { path: 'registro', component:RegistroComponent },
+  { path: 'sendmailresetpwd', component: SendmailresetpwdComponent},
+  { path: 'cambiapassword/:email', component:CambiapasswordComponent },
   { path: 'login', component:LoginComponent },
   { path: 'registro-user', component:RegistroUserComponent },
   { path:'viewtickettech', children:[

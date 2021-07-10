@@ -60,7 +60,7 @@ export class ViewComponent implements OnInit {
 
     passwordModel:any={
       id:0,
-      password:'',
+      //password:'',
       RoleA:'',
       RoleC:'',
       RoleE:'',
@@ -81,7 +81,7 @@ export class ViewComponent implements OnInit {
       this.service.getUsertoUpdate(this.idUser.id).subscribe(
         ((dataObtained:any) => { this.loginData = dataObtained;
           this.passwordModel.id = dataObtained[0].id;
-          this.passwordModel.password = dataObtained[0].password;
+          //this.passwordModel.password = dataObtained[0].password;
           this.passwordModel.RoleA = dataObtained[0].RoleA;
           this.passwordModel.RoleC = dataObtained[0].RoleC;
           this.passwordModel.RoleE = dataObtained[0].RoleE;
@@ -124,7 +124,7 @@ export class ViewComponent implements OnInit {
         this.theUserData.surname = this.changes.surname;
         this.theUserData.taxCode = this.changes.taxCode;
         this.theUserData.address = this.changes.address;
-        this.theUserData.email = this.changes.email;
+        //this.theUserData.email = this.changes.email;
         this.theUserData.phone = this.changes.phone;
         this._snackBar.open(data, "OK", { duration:3500, panelClass: "success",});
       });
@@ -143,8 +143,8 @@ export class ViewComponent implements OnInit {
     this.RoleT == true ? tech = '1' : tech = '0';
 
     let roles:any ={
-      email: this.passwordModel.email,
-      password:this.passwordModel.password,
+      //email: this.passwordModel.email,
+      //password:this.passwordModel.password,
       RoleA: admin,
       RoleC: cust,
       RoleE: ware,
@@ -238,5 +238,5 @@ export class ViewComponent implements OnInit {
           text: err.error.error.message
         });
     });
-  }
+  } 
 }
