@@ -12,6 +12,10 @@ import { RegisteritemComponent } from '../registeritem/registeritem.component';
 })
 export class ViewitemsetComponent implements OnInit {
 
+  filteredString: string = '';
+  public FilterValue: any;
+  filter = false;
+
   id: number | undefined;
   itemListtotal: any =[];
   currentIndex = -1;
@@ -52,6 +56,35 @@ export class ViewitemsetComponent implements OnInit {
   getWarehouses(){
     this.wrhsService.getWarehouseList().subscribe(
       data => {this.warehouses = data;})
+  }
+
+  //Filter searchbox
+  filteredResult: any = [];
+  onSearchTerm(){
+    let resp: any = this.itemListtotal.filter(
+      (item:any) => item.serial.toLowerCase().indexOf(
+        this.filteredString.toLowerCase()) !== -1);
+
+        if (resp != null || resp != undefined || resp != "" || resp != []){
+          this.filter = true;
+          this.filteredResult = resp;
+          // return resp;
+        }
+        if (resp == "" || resp == null || resp == undefined || resp === [] || resp==='' || resp=="clear"){
+            this.filteredResult = [];
+            this.filter = false;
+        }
+  }
+
+  //Filter Boxes
+  onSelectedFilter(){
+    this.filteredResult = this.itemListtotal.filter(
+      (ticket:any) => (ticket.used === this.FilterValue || ticket.status == this.FilterValue || ticket.used == this.FilterValue || ticket.location == this.FilterValue));
+    this.filter = true;
+    if (this.FilterValue == "clear" || this.FilterValue == ''){
+      this.filter = false;
+      this.filteredResult = [];
+    }
   }
 
   setCurrentIndividualItem(item:any, index:any): void{
