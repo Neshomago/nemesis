@@ -25,6 +25,15 @@ export class AuthService {
   // Para cambiar clave
   // https://identitytoolkit.googleapis.com/v1/accounts:update?key=[API_KEY]
 
+  // Enviar correo electronico de restablecimiento de clave
+  // https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=[API_KEY]
+
+  // Verificar codigo de restablecimiento de clave
+  // https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=[API_KEY]
+ 
+  // Confirmar el cambio de clave
+  // https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=[API_KEY]
+ 
   constructor(private http: HttpClient) { 
     this.leerToken();
   }
@@ -77,13 +86,38 @@ export class AuthService {
     );
   }
 
-  cambiaPassword(usuario: UserFirebase) {
+  /* Funcion para resetear la clave mediante un mail de reset */
+  SendPasswordResetEmail(usuario: any) {
+    const authData = {
+      requestType: "PASSWORD_RESET",
+      email: usuario.email
+    };
+    console.log("autData", authData);
+
+    return this.http.post(
+      `${ this.url }sendOobCode?key=${ this.apikey }`,
+      authData
+    )
+  }
+
+  /* Funcion para confirmar el cambio de la clave */
+  VerifyPasswordResetEmail(body: object) {
+ 
+    return this.http.post(
+      `${ this.url }resetPassword?key=${ this.apikey }`,
+      body
+    )
+
+  }
+
+  cambiaPassword(usuario: any) {
     const authData = {
       email: usuario.email,
       password: usuario.password,
       returnSecureToken: true
     };
-
+    console.log("autgData", authData);
+  
     return this.http.post(
       `${ this.url }update?key=${ this.apikey }`,
       authData

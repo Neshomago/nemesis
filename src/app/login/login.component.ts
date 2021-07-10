@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { UsuarioModel, UserFirebase } from '../contact';
 import { AuthService } from '../services/auth.service';
@@ -21,18 +21,25 @@ export class LoginComponent implements OnInit {
   recordarme = true;
   visibility: boolean = true;
   logueado: any;
+  
 
   constructor(private auth: AuthService,
               private router: Router,
-              private userService: UsersService) { }
+              private userService: UsersService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.usuario.email = '';
+    this.usuario.password = '';
     if(localStorage.getItem('email')) {
       this.usuario.email = localStorage.getItem('email');
       this.usuario.password = localStorage.getItem('password');
       this.recordarme = false;
       this.router.navigateByUrl('/main');
     }
+
+
+
   }
 
   login(form: NgForm) {
@@ -115,6 +122,10 @@ export class LoginComponent implements OnInit {
     });
 
 
+  }
+
+  sendmailpwd(){
+    this.router.navigateByUrl('/sendmailresetpwd');
   }
 
 }

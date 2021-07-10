@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserFirebase } from '../contact';
 import { AuthService } from '../services/auth.service';
+import { UsersService } from '../services/users.service';
 
 import Swal from 'sweetalert2';
 
@@ -16,14 +17,24 @@ import Swal from 'sweetalert2';
 
 export class CambiapasswordComponent implements OnInit {
 
-  usuario: UserFirebase = new UserFirebase('','');
+  // usuario: UserFirebase = new UserFirebase('','');
+  
+  usuario:  any = {
+    password: ''
+  }
+
   recordarme = true;
 
 
   constructor(private auth: AuthService,
-    private router: Router) { }
+              private router: Router,
+              private usersService: UsersService,
+              private route:ActivatedRoute,) { }
 
   ngOnInit(): void {
+    const email = this.route.snapshot.paramMap.get('email');
+    //this.usuario.email = "";
+    //this.usuario.password = "";
   }
 
   onSubmit(form: NgForm) {
@@ -45,6 +56,12 @@ export class CambiapasswordComponent implements OnInit {
           localStorage.setItem('xemail', this.usuario.email);
           localStorage.setItem('xpassword', this.usuario.password);
         }
+
+        this.usersService.changeUserPassword(this.usuario)
+        .subscribe( resp1 => {
+          console.log(resp1);
+          Swal.close();          
+        })
         this.router.navigateByUrl('/contact');
       }, (err) => {
         console.log(err.console.error.error.message);
