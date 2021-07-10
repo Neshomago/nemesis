@@ -16,9 +16,17 @@
                     <mat-label>PASSWORD</mat-label>
                     <input matInput type="password" name="password" [(ngModel)]="usuario.password" value=" " autocomplete="Password" required minLength="6" placeholder="Password" value=""><br>
                 </mat-form-field>
-                <input class="inputbutton" type="submit" value="login"><br>
-                <!-- <a class="nav-link" [routerlink]="['/sendmailresetpwd']">Forgot Password?</a> -->
-                <button class="btn btn-outline-primary" (click)= "sendmailpwd()" type="button">Forgot Password?</button>
+                
+                    
+                        <button mat-raised-button class="inputbutton" type="submit">Login</button>
+                        <!-- <input class="inputbutton" type="submit" value="login"><br> -->
+                    
+                    <div>&nbsp;<br></div>
+                    
+                        <button mat-button (click)= "sendmailpwd()" type="button">Forgot Password?</button>
+                    
+                    <!-- <a class="nav-link" [routerlink]="['/sendmailresetpwd']">Forgot Password?</a> -->
+                
             </form>
         </div>
         <div class="copyright">
