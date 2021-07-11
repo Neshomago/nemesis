@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { WarehouseService } from 'src/app/services/warehouse.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewitemsetComponent } from 'src/app/warehouse/viewitemset/viewitemset.component';
+import { AgencyService } from '../services/agency.service';
 
 @Component({
   selector: 'app-warehouse',
@@ -24,13 +25,16 @@ export class WarehouseComponent implements OnInit {
     minimumStock:''
   }
   constructor(private whsservice: WarehouseService,
-    public dialog:MatDialog) { }
+    public dialog:MatDialog,
+    private agencyService:AgencyService,
+    private wrhsService:WarehouseService) { }
 
   
   ngOnInit(): void {
     this.getListofItemsinWarehouse();
     this.getCategoryList();
-
+    this.getAgencyList();
+    this.getWarehouses();
   }
   
   // Getting general info of Items
@@ -39,6 +43,21 @@ export class WarehouseComponent implements OnInit {
       data => { this.TheGeneralList = data;
         console.log(this.TheGeneralList);
     });
+  }
+
+  AgencyList: any = [];
+  getAgencyList(){
+    this.agencyService.getAgencyList().subscribe(
+      data => {this.AgencyList = data;
+      }
+    );
+  }
+
+  warehouses:any = [];
+  getWarehouses(){
+    this.wrhsService.getWarehouseList().subscribe(
+      data => {this.warehouses = data;
+        console.log("item de bodega: ", this.warehouses[0]);})
   }
 
   categoryList:any =[];
@@ -85,7 +104,6 @@ export class WarehouseComponent implements OnInit {
   this.stockEdit();
 }
 
-
   //Filter searchbox
   filteredResult: any = [];
   onSearchTerm(){
@@ -93,26 +111,37 @@ export class WarehouseComponent implements OnInit {
       (item:any) => item.serial.toLowerCase().indexOf(
         this.filteredString.toLowerCase()) !== -1);
 
-        if (resp != null || resp != undefined || resp != "" || resp != []){
+        if (resp != null || resp != undefined || resp !== "" || resp !== []){
           this.filter = true;
           this.filteredResult = resp;
           // return resp;
         }
-        if (resp == "" || resp == null || resp == undefined || resp === [] || resp==='' || resp=="clear"){
-            this.filteredResult = [];
-            this.filter = false;
+        if (resp === '' || resp == null || resp == undefined || resp === [] || resp===''){
+          this.filter = false;
+          this.filteredResult = [];
         }
   }
 
   //Filter Boxes
   onSelectedFilter(){
     this.filteredResult = this.TheGeneralList.filter(
-      (ticket:any) => (ticket.used === this.FilterValue || ticket.status == this.FilterValue || ticket.used == this.FilterValue || ticket.location == this.FilterValue));
-    this.filter = true;
-    if (this.FilterValue == "clear" || this.FilterValue == ''){
+      (ticket:any) => (ticket.used === this.FilterValue 
+        || ticket.status == this.FilterValue 
+        || ticket.used == this.FilterValue 
+        || ticket.location == this.FilterValue
+        || ticket.warehouseId == this.FilterValue));
+    
+      this.filter = true;
+    if (this.FilterValue == "clear"){
       this.filter = false;
       this.filteredResult = [];
     }
+  }
+
+  limpiarFiltro(){
+    this.FilterValue = "";
+      this.filter = false;
+      this.filteredResult = [];
   }
 
   setCurrentIndividualItem(item:any, index:any): void{

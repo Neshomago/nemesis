@@ -3,20 +3,27 @@
       &nbsp;
       <mat-form-field class="col-12" appearance="fill" >
         <mat-label>Search</mat-label>
-        <input matInput placeholder="Search with Serial Number" [(ngModel)]="filteredString" (keyup)="onSearchTerm()">
+        <input matInput placeholder="Search with Serial Number"
+        [(ngModel)]="filteredString" (keyup)="onSearchTerm()">
       </mat-form-field>
     </div>
     <div class="row">
         <mat-form-field class="col" >
             <mat-label>Filter by Warehouse:</mat-label>
-            <mat-select matNativeControl id="type" name="type">
-              <mat-option value="INS">Warehouse of client</mat-option>
+            <mat-select matNativeControl id="type" name="type"
+            [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
+              <ng-container *ngFor="let item of warehouses;">
+                <mat-option value="item.id">
+                  {{item.name}}  
+                </mat-option>
+              </ng-container>
             </mat-select>
           </mat-form-field>
           &nbsp;    
-          <mat-form-field class="col-auto" >
+          <mat-form-field class="col">
             <mat-label>State:</mat-label>
-            <mat-select matNativeControl id="type" name="type"  [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
+            <mat-select matNativeControl id="type" name="type" 
+            [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
               <mat-option value="PENDING">PENDING</mat-option>
               <mat-option value="OPERATIVE">OPERATIVE</mat-option>
               <mat-option value="BROKEN">BROKEN</mat-option>
@@ -27,7 +34,8 @@
           &nbsp;
           <mat-form-field class="col" >
             <mat-label>Place:</mat-label>
-            <mat-select matNativeControl id="type" name="type" [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
+            <mat-select matNativeControl id="type" name="type"
+            [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
               <mat-option value="WAREHOUSE">WAREHOUSE</mat-option>
               <mat-option value="TRANSPORT">TRANSPORT</mat-option>
               <mat-option value="AGENCY">AGENCY</mat-option>
@@ -36,13 +44,20 @@
           &nbsp;
           <mat-form-field class="col" >
             <mat-label>New / Used:</mat-label>
-            <mat-select matNativeControl id="type" name="type" [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
+            <mat-select matNativeControl id="type" name="type"
+            [(ngModel)]="FilterValue" (selectionChange)="onSelectedFilter()">
               <mat-option value="0">NEW</mat-option>
               <mat-option value="1">USED</mat-option>
             </mat-select>
           </mat-form-field>
+          <div class="col-auto">
+            <button mat-icon-button (click)="limpiarFiltro()"
+            #tooltip="matTooltip"
+            matTooltip="Clear Filter">
+            <mat-icon>backspace</mat-icon></button>
         </div>
-      </div>
+    </div>
+  </div>
       <div class="table">
         <router-outlet></router-outlet>
 <!--  -->
@@ -50,7 +65,7 @@
 
 <!-- START OF TABLE -->
 <!--  -->
-<ng-container *ngIf="!filter || filteredString =='' || filteredResult == null">
+<ng-container *ngIf="filter===false || filteredString == '' || filteredString === null">
   <table class="full-width table-stripped table-hover">
     <thead>
       <th>Resolved Warehouse Item</th>
@@ -121,7 +136,7 @@
 </ng-container>
 
 
-<ng-container *ngIf="filter">
+<ng-container *ngIf="filter===true">
   <table class="full-width table-stripped table-hover">
     <thead>
       <th>Resolved Warehouse Item</th>
@@ -143,8 +158,8 @@
           <span class="customer-name">
             {{dataItem.name}}
           </span><br>
-          <span class="customer-name">
-            Serial: {{dataItem.serial}}
+          <span style="font-size: 11px;">
+            Serial: {{dataItem.serial}} • 2° Serial: {{dataItem.secondSerial}}
           </span>
         </td>
         <td>
@@ -158,7 +173,7 @@
             </span>
           </span><br>
           <span>
-            <ng-container *ngIf="dataItem.location == 'AGENCY'">
+<!--             <ng-container *ngIf="dataItem.location == 'AGENCY'">
               <ng-container *ngIf="dataItem.warehouseId != 0 && dataItem.isDelete != 0">
                 <span class="material-icons" style="vertical-align: middle;">store</span> {{dataItem.locationId}}
               </ng-container>
@@ -172,6 +187,42 @@
             <ng-container *ngIf="dataItem.partOf == 'TRANSPORT' && dataItem.version == 1">
               <ng-container *ngIf="dataItem.warehouseId != 0">
                 <span class="material-icons" style="vertical-align: middle;">local_shipping</span> {{dataItem.slot}}
+              </ng-container>
+            </ng-container> -->
+            <ng-container *ngIf="dataItem.location == 'AGENCY'">
+              <ng-container *ngIf="dataItem.warehouseId !=0">
+                <span class="material-icons" style="vertical-align: middle;">store</span>
+                <span style="font-size: 11px;">
+                  <!-- {{dataItem.warehouseId}} -->
+                  <ng-container *ngFor="let item of AgencyList; let i=index">
+                    <ng-container *ngIf="item.id == dataItem.locationId">
+                      {{item.name}}
+                    </ng-container>
+                  </ng-container>
+                </span>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="dataItem.location == 'WAREHOUSE'">
+              <ng-container *ngIf="dataItem.warehouseId !=0">
+                <span class="material-icons" style="vertical-align: middle;">home_work</span>
+                <span style="font-size: 11px;">
+                  <!-- {{dataItem.warehouseId}} -->
+                  <ng-container *ngFor="let item of warehouses; let i=index">
+                    <ng-container *ngIf="item.id == dataItem.locationId">
+                      {{item.name}}
+                    </ng-container>
+                  </ng-container>
+                </span>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="dataItem.location == 'TRANSPORT' && dataItem.version == 1">
+              <ng-container *ngIf="dataItem.warehouseId != 0">
+                <span class="material-icons" style="vertical-align: middle;">local_shipping</span>
+                <span style="font-size: 11px;">
+                  {{dataItem.locationId}}
+                </span>
               </ng-container>
             </ng-container>
           </span>
@@ -191,25 +242,13 @@
   <span style="display: none;">END OF WAREHOUSE LIST</span>&nbsp;
 </div>
           
-          <!-- BOTONES DE AGREGAR -->
-          
-          <div style="position: fixed; right: 40px; bottom: 30px;">
-            <!-- <div style="padding-bottom: 20px;">
-              <button mat-fab
-              #tooltip="matTooltip"
-              matTooltip="Create Warehouse"
-              ></button>
-              <div style="display: none;">
-                <a target="_blank" href="https://icons8.com/icons/set/xls-import">Xls Import icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-              </div>
-            </div> -->
-            
-            
-            <!-- BOTON DE CREACION DE ITEMS CON CATEGORIA-->
-            <div>
-              <button mat-fab routerLink="/add-item"
-              #tooltip="matTooltip"
-              matTooltip="Add New Item to Warehouse"
-              ><mat-icon>add</mat-icon></button>
-            </div>
-          </div>
+  <!-- BOTONES DE AGREGAR -->
+  <div style="position: fixed; right: 40px; bottom: 30px;">
+    <!-- BOTON DE CREACION DE ITEMS CON CATEGORIA-->
+    <div>
+      <button mat-fab routerLink="/add-item"
+      #tooltip="matTooltip"
+      matTooltip="Add New Item to Warehouse">
+      <mat-icon>add</mat-icon></button>
+    </div>
+  </div>
