@@ -66,7 +66,7 @@ export class SendmailresetpwdComponent implements OnInit {
 
     this.auth.SendPasswordResetEmail(this.usuario)
       .subscribe( resp => {
-        console.log(resp);
+        console.log("resp",resp);
 
         this.xemail = resp;
 
