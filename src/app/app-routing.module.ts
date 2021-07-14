@@ -30,6 +30,7 @@ import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { AdditemComponent } from './warehouse/additem/additem.component';
 import { CambiapasswordComponent } from './cambiapassword/cambiapassword.component';
 import { SendmailresetpwdComponent } from './sendmailresetpwd/sendmailresetpwd.component';
+import { CreateCategoryComponent } from './warehouse/create-category/create-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch:'full' },
@@ -66,6 +67,7 @@ const routes: Routes = [
   { path: 'create-agency', component:CreateAgencyComponent },
   { path: 'create-contact', component:CreatContactComponent },
   { path: 'create-customer', component:CreateCustomerComponent },
+  { path: 'create-category', component:CreateCategoryComponent },
   { path: 'edit-customer/:id', component: EditcustomerComponent },
   { path: 'registro', component:RegistroComponent },
   { path: 'sendmailresetpwd', component: SendmailresetpwdComponent},

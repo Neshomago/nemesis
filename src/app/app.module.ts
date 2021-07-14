@@ -80,6 +80,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { CambiapasswordComponent } from './cambiapassword/cambiapassword.component';
 import { AdditemComponent } from './warehouse/additem/additem.component';
 import { SendmailresetpwdComponent } from './sendmailresetpwd/sendmailresetpwd.component';
+import { CreateCategoryComponent } from './warehouse/create-category/create-category.component';
+import {ScrollingModule} from '@angular/cdk/scrolling'
 
 //import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -124,6 +126,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CambiapasswordComponent,
     AdditemComponent,
     SendmailresetpwdComponent,
+    CreateCategoryComponent,
   ],
   entryComponents: [MassiveticketsComponent],
   imports: [
@@ -161,6 +164,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDialogModule,
     MatProgressBarModule,
     NgxMatSelectSearchModule,
+    ScrollingModule,
     //NgxSpinnerModule,
     APP_ROUTING,
     TranslateModule.forRoot({
