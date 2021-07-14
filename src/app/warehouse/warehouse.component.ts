@@ -4,6 +4,7 @@ import { WarehouseService } from 'src/app/services/warehouse.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewitemsetComponent } from 'src/app/warehouse/viewitemset/viewitemset.component';
 import { AgencyService } from '../services/agency.service';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 
 @Component({
   selector: 'app-warehouse',
@@ -142,6 +143,10 @@ export class WarehouseComponent implements OnInit {
     this.FilterValue = "";
       this.filter = false;
       this.filteredResult = [];
+  }
+
+  openDialogCategory(){
+    this.dialog.open(CreateCategoryComponent);
   }
 
   setCurrentIndividualItem(item:any, index:any): void{
