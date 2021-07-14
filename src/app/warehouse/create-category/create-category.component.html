@@ -1,0 +1,29 @@
+<!-- <div class="logo-registro" style="display: inline-flex ;align-self: center;"><img width=300 src="assets/img/logo-nemesisfull.png" /></div> -->
+    <h1  style="text-align: center; padding-top: 30px;">Category management</h1>
+    <div class="row">
+        <div class="col">
+            <form class="registroform" id="registro" (ngSubmit)="addCategory()" #f="ngForm">
+                <mat-form-field class="registrowidth">
+                    <mat-label>Category Name: </mat-label>
+                    <input matInput type="text" name="category" [(ngModel)]="category.category_name" email required autofocus placeholder="Category name"><br>
+                </mat-form-field>
+                <button mat-raised-button class="savebtn" type="submit"><span class="material-icons">
+                    done
+                    </span> Add Category</button><br>
+            </form>
+        </div>
+        <div class="col">
+            <mat-label>Existing Categories</mat-label>
+            <cdk-virtual-scroll-viewport itemSize="80" class="viewport">
+            <mat-selection-list #shoes [multiple]="false">
+                <ng-container *cdkVirtualFor="let category of categoryList" >
+                    <mat-list-option [value]="category">
+                            <span style="color: black;">
+                                {{category.category_name}}
+                            </span>
+                        </mat-list-option>
+                    </ng-container>
+                </mat-selection-list>
+            </cdk-virtual-scroll-viewport>
+        </div>
+    </div>

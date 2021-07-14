@@ -53,7 +53,7 @@ export class TicketsComponent implements OnInit {
       this.service.getTicketList().subscribe(data => 
         {
          this.TicketList=data;
-         console.log("ticket data: ", this.TicketList);
+         //console.log("ticket data: ", this.TicketList);
          //let result = this.TicketList.map((a:any) => a.creationDate);
          //console.log("solo fechas: ", result);
         })
@@ -63,7 +63,7 @@ export class TicketsComponent implements OnInit {
     this.agencyService.getAgencyList().subscribe(agency=>
       {
         this.AgencyList = agency;
-        console.log("Agency Data: ", this.AgencyList);
+        //console.log("Agency Data: ", this.AgencyList);
       });
   }
 
@@ -108,8 +108,8 @@ export class TicketsComponent implements OnInit {
   };
 
   onSelectedMonth(){
-    let fechaInicio = moment(this.strFechaInicio, 'DD-MM-YYYY').format('DD-MM-YYYY');
-    let fechaFin    = moment(this.strFechaFin, 'DD-MM-YYYY').format('DD-MM-YYYY');
+    let fechaInicio = moment(this.strFechaInicio, 'DD-MM-YYYY').format('YYYY/MM/DD');
+    let fechaFin    = moment(this.strFechaFin, 'DD-MM-YYYY').format('YYYY/MM/DD');
 
     this.fechabusqueda.fechainicio = fechaInicio;
     this.fechabusqueda.fechainicio = fechaFin;
@@ -127,11 +127,11 @@ export class TicketsComponent implements OnInit {
     var monthData = this.TicketList.filter(
       (x:any) => x.currentDate &&  new Date(x.date).getMonth() == date.getMonth()
     );
-    console.log(monthData);
+    //console.log(monthData);
   }
 
   getFilteredData(){
-    console.log("fecha para busqueda: ", this.fechabusqueda)
+    //console.log("fecha para busqueda: ", this.fechabusqueda)
     this.service.filterByDate(this.fechabusqueda).subscribe(
       resp => { resp = this.fechabusqueda;
       }
@@ -150,7 +150,7 @@ export class TicketsComponent implements OnInit {
     this.service.getTicketList_customer(customerId_param).subscribe(
       res => {
         this.TicketList = res;
-        console.log("Lista de tickets de cliente: ", this.TicketList);
+        //console.log("Lista de tickets de cliente: ", this.TicketList);
       }
     )
   }

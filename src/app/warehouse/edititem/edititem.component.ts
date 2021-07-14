@@ -21,6 +21,7 @@ export class EdititemComponent implements OnInit {
   
   changesItem: any = {
     serial:'',
+    secondSerial:'',
     activation:'',
     warehouserId:5,
     used:0,
@@ -106,6 +107,7 @@ export class EdititemComponent implements OnInit {
         this.changesItem.name = data[0].name;
         this.changesItem.categoryId = data[0].categoryId;
         this.changesItem.serial = data[0].serial;
+        this.changesItem.secondSerial = data[0].secondSerial;
         this.changesItem.activation = data[0].activation;
         this.changesItem.warehouseId = data[0].warehouseId;
         this.changesItem.used = data[0].used;
@@ -148,6 +150,7 @@ export class EdititemComponent implements OnInit {
         this.theItemWarehouse.name = this.changesItem.name;
         this.theItemWarehouse.categoryId = this.changesItem.categoryId;
         this.theItemWarehouse.serial = this.changesItem.serial;
+        this.theItemWarehouse.secondSerial = this.changesItem.secondSerial;
         this.theItemWarehouse.activation = this.changesItem.activation;
         this.theItemWarehouse.warehouseId = this.changesItem.warehouseId;
         this.theItemWarehouse.used = this.changesItem.used;
