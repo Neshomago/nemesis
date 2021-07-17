@@ -2,13 +2,14 @@
     <div class="forminmargin">
       <h1 class="h1-form">REGISTER NEW ITEM</h1>
       <form #ticketForm="ngForm" (ngSubmit)="saveItem();">
-          <!-- {{itemModel | json}} -->
+          {{itemModel | json}}
           <div class="row">
 
               <div class="col">
                     <mat-form-field class="full-width">
                         <mat-label>Item name:</mat-label>
-                        <mat-select [formControl]="itemCtrl" #SelectItems>
+                        <input matInput name="name" id="name" [(ngModel)]="itemModel.name" />
+                        <!-- <mat-select [formControl]="itemCtrl" #SelectItems>
                             <mat-option>
                                 <ngx-mat-select-search [formControl]="itemFilterCtrl"
                                 placeholderLabel="Buscar"
@@ -20,7 +21,7 @@
                                 [value]="list.value">
                                 {{list.viewValue}}
                             </mat-option>
-                        </mat-select>
+                        </mat-select> -->
                     </mat-form-field>
                 </div>
                 <div class="col">
@@ -39,12 +40,12 @@
                     <mat-form-field class="full-width">
                         <mat-label>Category</mat-label>
                         <mat-select matInput name="category" id="category" [(ngModel)]="itemModel.categoryId">
-                            <div class="full-width">
+                            <!-- <div class="full-width">
                                 <input type="text" name="categorynew" style="border: 0; height: 40px; width: 90%;" placeholder="Add new category" [(ngModel)]="category.category_name"/>
                                 <button style="border: none; width: 40px; height: 40px; flex: auto;" (click)="addCategory()">
                                     <mat-icon>add</mat-icon>
                                 </button>
-                            </div>
+                            </div> -->
                             <mat-option *ngFor="let category of categoryList" [value]="category.id">{{category.category_name}}</mat-option>
                         </mat-select>
                     </mat-form-field>

@@ -59,7 +59,8 @@ export class RegisteritemComponent implements OnInit {
 
   invoiceDate=new Date();
   itemModel: any = {
-    name:this.itemCtrl.value,
+    //name:this.itemCtrl.value,
+    name:'',
     description:'',
     serial: '',
     warehouseId: 5,
@@ -274,7 +275,7 @@ export class RegisteritemComponent implements OnInit {
   addItem(){
     this.setDefaultDate();
     this.seriales.forEach((item:any) => {
-      this.itemModel.name = this.itemCtrl.value;
+      //this.itemModel.name = this.itemCtrl.value;
       this.itemModel.serial = item.number;
       this.itemModel.categoryId = this.categoryId;
       //newarray.push({'serial':this.itemModel.serial});

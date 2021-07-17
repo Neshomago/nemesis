@@ -8,7 +8,8 @@
               <div class="col">
                     <mat-form-field>
                         <mat-label>Item name:</mat-label>
-                        <mat-select [formControl]="itemCtrl" #SelectItems>
+                        <input matInput name="description" id="descripton" [(ngModel)]="itemModel.name" />
+                        <!-- <mat-select [formControl]="itemCtrl" #SelectItems>
                             <mat-option>
                                 <ngx-mat-select-search [formControl]="itemFilterCtrl"
                                 placeholderLabel="Buscar"
@@ -20,7 +21,8 @@
                                 [value]="list.value">
                                 {{list.viewValue}}
                             </mat-option>
-                        </mat-select>
+                        </mat-select> -->
+
                     </mat-form-field>
                 </div>
                 <div class="col">

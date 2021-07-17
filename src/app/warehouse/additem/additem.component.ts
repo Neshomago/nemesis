@@ -59,7 +59,8 @@ export class AdditemComponent implements OnInit {
 
   invoiceDate=new Date();
   itemModel: any = {
-    name:this.itemCtrl.value,
+    //name:this.itemCtrl.value,
+    name:'',
     description:'',
     serial: '',
     warehouseId: 5,
@@ -162,6 +163,7 @@ export class AdditemComponent implements OnInit {
       });
   }
 
+  newItemName="";
   filterItems() 
   {
     if (!this.arrayListadoItems) 
@@ -171,7 +173,9 @@ export class AdditemComponent implements OnInit {
     let search = this.itemFilterCtrl.value;
     if (!search) 
     {
-      this.filteredItem.next(this.arrayListadoItems.slice());
+      //this.filteredItem.next(this.arrayListadoItems.slice());
+      this.newItemName = search;
+      console.log("termino a no encontrado: ",this.newItemName);
       return;
     } 
     else 
@@ -272,9 +276,9 @@ export class AdditemComponent implements OnInit {
   addItem(){
     this.setDefaultDate();
     this.seriales.forEach((item:any) => {
-      this.itemModel.name = this.itemCtrl.value;
+      //this.itemModel.name = this.itemCtrl.value;
       this.itemModel.serial = item.number;
-      this.itemModel.categoryId = this.categoryId;
+      //this.itemModel.categoryId = this.categoryId;
       //newarray.push({'serial':this.itemModel.serial});
       //console.log(newarray);
       this.service.addItemWarehouse(this.itemModel).subscribe(
