@@ -25,7 +25,23 @@
                     <td>
                         <table>
                             <tr><td class="Agency-name">{{dataItem.name}} {{dataItem.surname}}</td></tr>
-                            <tr><td class="Agency-below">{{dataItem.taxCode}}</td></tr>
+                            <tr>
+                                <td class="Agency-below">{{dataItem.taxCode}}</td>
+                                <td class="Agency-below">• Role:
+                                    <ng-container *ngIf="dataItem.RoleA == 1">
+                                        Administrador •
+                                    </ng-container>
+                                    <ng-container *ngIf="dataItem.RoleE == 1">
+                                        Warehouse •
+                                    </ng-container>
+                                    <ng-container *ngIf="dataItem.RoleT == 1">
+                                        Technician •
+                                    </ng-container>
+                                    <ng-container *ngIf="dataItem.RoleC == 1">
+                                        Customer
+                                    </ng-container>
+                                </td>
+                            </tr> 
                         </table>
                     </td>
                     <td>
