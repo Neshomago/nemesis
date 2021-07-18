@@ -63,7 +63,7 @@ export class ViewitemsetComponent implements OnInit {
   onSearchTerm(){
     let resp: any = this.itemListtotal.filter(
       (item:any) => item.serial.toLowerCase().indexOf(
-        this.filteredString.toLowerCase()) !== -1);
+        this.filteredString.toLowerCase()) !== -1 || item.secondSerial.toLowerCase().indexOf(this.filteredString.toLowerCase()) !== -1);
 
         if (resp != null || resp != undefined || resp != "" || resp != []){
           this.filter = true;

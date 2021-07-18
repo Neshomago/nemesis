@@ -110,16 +110,16 @@ export class WarehouseComponent implements OnInit {
   onSearchTerm(){
     let resp: any = this.TheGeneralList.filter(
       (item:any) => item.serial.toLowerCase().indexOf(
-        this.filteredString.toLowerCase()) !== -1);
+        this.filteredString.toLowerCase()) !== -1 || item.secondSerial.toLowerCase().indexOf(this.filteredString.toLowerCase()) !== -1);
 
-        if (resp != null || resp != undefined || resp !== "" || resp !== []){
+        if (resp != null || resp != undefined || resp != "" || resp != []){
           this.filter = true;
           this.filteredResult = resp;
           // return resp;
         }
-        if (resp === '' || resp == null || resp == undefined || resp === [] || resp===''){
-          this.filter = false;
+        if (resp == "" || resp == null || resp == undefined || resp === [] || resp===''){
           this.filteredResult = [];
+          this.filter = false;
         }
   }
 

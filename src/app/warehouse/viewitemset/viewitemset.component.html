@@ -2,7 +2,7 @@
     <div class="row">
       &nbsp;
       <mat-form-field class="col-12" appearance="fill">
-        <mat-label>Search</mat-label>
+        <mat-label>Search in this category</mat-label>
         <input matInput placeholder="Search the ticket" [(ngModel)]="filteredString" (keyup)="onSearchTerm()">
       </mat-form-field>
     </div>
@@ -56,12 +56,12 @@
 
               <ng-container *ngIf="dataItem.location == 'WAREHOUSE'">
                 <ng-container *ngIf="dataItem.warehouseId !=0">
-                  <span class="material-icons" style="vertical-align: middle;">store</span>
+                  <span class="material-icons" style="vertical-align: middle;">home_work</span>
                   <span style="font-size: 11px;">
                     <!-- {{dataItem.warehouseId}} -->
                     <ng-container *ngFor="let item of warehouses; let i=index">
                       <ng-container *ngIf="item.id == dataItem.locationId">
-                        {{item.name}}
+                        {{item.name}} • AAMS: {{item.certification}}
                       </ng-container>
                     </ng-container>
                   </span>
@@ -156,12 +156,12 @@
   
                 <ng-container *ngIf="dataItem.location == 'WAREHOUSE'">
                   <ng-container *ngIf="dataItem.warehouseId !=0">
-                    <span class="material-icons" style="vertical-align: middle;">store</span>
+                    <span class="material-icons" style="vertical-align: middle;">home_work</span>
                     <span style="font-size: 11px;">
                       <!-- {{dataItem.warehouseId}} -->
                       <ng-container *ngFor="let item of warehouses; let i=index">
                         <ng-container *ngIf="item.id == dataItem.locationId">
-                          {{item.name}}
+                          {{item.name}} • AAMS: {{item.certification}}
                         </ng-container>
                       </ng-container>
                     </span>
