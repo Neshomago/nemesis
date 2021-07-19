@@ -79,7 +79,13 @@
 <!--  -->
 
 <ng-container *ngIf="!filtering">
-    
+    <!-- Spinner before load data -->
+    <!-- <div id="loading" class="d-flex justify-content-center">
+        <div role="status" >
+          <span class="sr-only"></span>
+        </div>
+      </div> -->
+
     <table class="full-width table-stripped table-hover">
         <thead>
             <th>{{ "tickets.ticketId" | translate}}</th>
@@ -94,7 +100,7 @@
             (clic)="setCurrentTicket(dataItem, i)" [routerLink]="['viewticket/',dataItem.id]" style="cursor: pointer;"> 
             <ng-container *ngIf="(dataItem.status != 'ABORTED')">
                 <td class="col-1" >
-                        <div>{{dataItem.id}}</div>
+                        <div>TCK{{dataItem.customerId}}{{dataItem.agencyId}}{{dataItem.id}}</div>
                 </td>
                     <td class="row" *ngIf="dataItem.status != 'ABORTED'"  >
                         <div class="col-auto">
@@ -138,18 +144,21 @@
                     </td>
                     <td class="med-text" *ngIf="dataItem.status != 'ABORTED'" ><span>{{dataItem.description}}</span>
                     <br><span class="xs-text" [ngStyle]="{'color': dataItem.priority === 'LOW'? 'green':'black'}">{{ "tickets.prioridad" | translate}}: {{dataItem.priority}}</span>
+                    <ng-container *ngIf="zRoleC!='1'">
                     <br><ng-container style="font-weight: 400px; font-size: xx-small;"> <strong>{{ "tickets.tecnico" | translate}}:</strong> 
-                        <ng-container *ngIf="dataItem.tech_assign; else notassign">
-                            ({{dataItem.tech_assign}})
-                            <ng-container *ngFor="let item of technicianCount; let i = index">
-                                <ng-container *ngIf="dataItem.tech_assign == item.id">
-                                    {{item.name}} {{item.surname}}
+                            <ng-container *ngIf="dataItem.tech_assign; else notassign">
+                                ({{dataItem.tech_assign}})
+                                <ng-container *ngFor="let item of technicianCount; let i = index">
+                                    <ng-container *ngIf="dataItem.tech_assign == item.id">
+                                        {{item.name}} {{item.surname}}
+                                    </ng-container>
                                 </ng-container>
                             </ng-container>
+                            
+                            <ng-template #notassign>
+                                {{ "tickets.noasignado" | translate}}
+                            </ng-template>
                         </ng-container>
-                        <ng-template #notassign>
-                            {{ "tickets.noasignado" | translate}}
-                        </ng-template>
                     </ng-container>
                     </td>
                     <td class="med-text">
@@ -180,7 +189,7 @@
             [class.active]="i == currentIndex"
             (clic)="setCurrentTicket(dataItem, i)" [routerLink]="['viewticket/',dataItem.id]" style="cursor: pointer;">
                 <td class="col-1">
-                        <div>{{dataItem.id}}</div>
+                        <div>TCK{{dataItem.customerId}}{{dataItem.agencyId}}{{dataItem.id}}</div>
                 </td>
                     <td class="row">
                         <div class="col-auto">

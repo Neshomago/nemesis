@@ -15,33 +15,33 @@ import * as moment from 'moment';
   styleUrls: ['./tickets.component.scss']
 })
 export class TicketsComponent implements OnInit {
-
+  
   constructor(private service:TicketService, private agencyService: AgencyService,
     public dialog:MatDialog, private user: UsersService) { }
-
-  strFechaInicio='';
-  strFechaFin='';
-  TicketList:any=[];
-  AgencyList:any=[];
-  currentTicket = null;
-  currentIndex = -1;
-  customerId = localStorage.getItem('customerId');
-  zRoleA = localStorage.getItem('RoleA');
-  zRoleC = localStorage.getItem('RoleC');
-  zRoleE = localStorage.getItem('RoleE');
-
-  public FilterValue: any;
-  FilteredResult:any = [];
-
-  technicianCount:any = [];
-
-  customerTicketList: any = [];
-
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl()
-  });
-
+    
+    strFechaInicio='';
+    strFechaFin='';
+    TicketList:any=[];
+    AgencyList:any=[];
+    currentTicket = null;
+    currentIndex = -1;
+    customerId = localStorage.getItem('customerId');
+    zRoleA = localStorage.getItem('RoleA');
+    zRoleC = localStorage.getItem('RoleC');
+    zRoleE = localStorage.getItem('RoleE');
+    
+    public FilterValue: any;
+    FilteredResult:any = [];
+    
+    technicianCount:any = [];
+    
+    customerTicketList: any = [];
+    
+    range = new FormGroup({
+      start: new FormControl(),
+      end: new FormControl()
+    });
+    
   ngOnInit(): void {
     this.refreshTicketList();
     // this.getCustomerTicketList(this.customerId);
