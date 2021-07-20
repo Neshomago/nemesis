@@ -1,4 +1,4 @@
-<div class="boxformcreate">
+<!-- <div class="boxformcreate"> -->
     <div class="forminmargin">
       <h1 class="h1-form">REGISTER NEW ITEM</h1>
       <form #ticketForm="ngForm" (ngSubmit)="saveItem();">
@@ -56,6 +56,7 @@
                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                 [matChipInputAddOnBlur]="addOnBlur"
                                 (matChipInputTokenEnd)="add($event)"
+                                (paste)="paste($event)"
                                 name="code" id="code"/>
                             </mat-chip-list>
                             <mat-error>Serial already existing</mat-error>
@@ -143,4 +144,4 @@
             </form>
             
         </div>
-    </div>
+    <!-- </div> -->

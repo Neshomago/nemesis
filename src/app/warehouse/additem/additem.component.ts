@@ -201,6 +201,22 @@ export class AdditemComponent implements OnInit {
         });
     };
 
+    paste(event: ClipboardEvent): void {
+      event.preventDefault();
+      var clipboard = event.clipboardData;
+
+      clipboard
+        ?.getData('Text')
+        .split(/;|,|\n/)
+        .forEach(value => {
+          if (value.trim()) {
+            this.seriales.push({
+              number: value.trim()
+            });
+          }
+        })
+    }
+
   //metodo para agregar elementos al chips | seriales
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();

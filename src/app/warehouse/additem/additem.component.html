@@ -68,6 +68,7 @@
                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                 [matChipInputAddOnBlur]="addOnBlur"
                                 (matChipInputTokenEnd)="add($event)"
+                                (paste)="paste($event)"
                                 name="code" id="code"/>
                             </mat-chip-list>
                             <mat-error>Serial already existing</mat-error>
