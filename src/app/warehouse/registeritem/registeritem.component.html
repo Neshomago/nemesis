@@ -6,7 +6,7 @@
           <div class="row">
 
               <div class="col">
-                    <mat-form-field>
+                    <mat-form-field class="full-width">
                         <mat-label>Item name:</mat-label>
                         <input matInput name="description" id="descripton" [(ngModel)]="itemModel.name" />
                         <!-- <mat-select [formControl]="itemCtrl" #SelectItems>
@@ -27,11 +27,17 @@
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width" >
+                        <mat-label>Category</mat-label>
+                                <input matInput name="category" id="category" [ngModel]="categoria.category_name" disabled/>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="full-width" >
                         <mat-label>Description / Model</mat-label>
                         <input matInput name="description" id="descripton" [(ngModel)]="itemModel.description" />
                     </mat-form-field>
                 </div>
-                <div class="col-auto">
+                <div class="col">
                     <mat-form-field class="full-width" >
                         <mat-label>Supplier</mat-label>
                         <input matInput name="supplier" id="supplier" [(ngModel)]="itemModel.supplier" />
@@ -59,7 +65,7 @@
                                 (paste)="paste($event)"
                                 name="code" id="code"/>
                             </mat-chip-list>
-                            <mat-error>Serial already existing</mat-error>
+                            <mat-error>Last Serial already exists! Please check or change</mat-error>
                             <mat-hint>Input your serials with space or comma</mat-hint>
                         </mat-form-field>
                     </div>

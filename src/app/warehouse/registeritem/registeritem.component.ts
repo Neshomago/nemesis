@@ -95,6 +95,7 @@ export class RegisteritemComponent implements OnInit {
  selectedWarehouse = '';
 
  categoryId=0;
+ categoria:any=[];
 
   constructor(private _snackBar:MatSnackBar, private router:Router, private service:WarehouseService,
     private agencyService: AgencyService,
@@ -141,8 +142,6 @@ export class RegisteritemComponent implements OnInit {
 
 
     this.getItemList();
-
-    console.log(this.categoryId);
   }
 
   ngOnDestroy() {
@@ -221,13 +220,14 @@ export class RegisteritemComponent implements OnInit {
     const value = (event.value || '').trim();
     const input = event.input;
 
-    // Add our fruit
-    if (value) {
+    this.serialOk(value);
+    if (this.resultado == 1){
+      this.serialList.errorState = true;
+    } else if (value && this.resultado==0) {
+      // Add our serial
+      this.serialList.errorState = false;
       this.seriales.push({number: value});
     }
-    //else {
-///      this.serialList.errorState = true;
-    //}
     // Clear the input value
     if(input){
       input.value ='';
@@ -247,6 +247,10 @@ export class RegisteritemComponent implements OnInit {
   getCategoryList(){
     this.service.getCategories().subscribe(
       (data) => { this.categoryList = data;
+        console.log("Lista: ",this.categoryList);
+
+        this.categoria = this.categoryList.find( (cat:any) => cat.id === this.categoryId);
+        console.log("categoria: ", this.categoria);
     });
   };
 

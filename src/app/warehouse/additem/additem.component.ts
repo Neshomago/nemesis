@@ -222,13 +222,14 @@ export class AdditemComponent implements OnInit {
     const value = (event.value || '').trim();
     const input = event.input;
 
-    // Add our fruit
-    if (value) {
+    this.serialOk(value);
+    if (this.resultado == 1){
+      this.serialList.errorState = true;
+    } else if (value && this.resultado==0) {
+      // Add our serial
+      this.serialList.errorState = false;
       this.seriales.push({number: value});
     }
-    //else {
-///      this.serialList.errorState = true;
-    //}
     // Clear the input value
     if(input){
       input.value ='';
