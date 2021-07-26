@@ -42,7 +42,7 @@
       </div>
       <mat-nav-list class="background-nemesis">
         <a mat-list-item routerLink="/main" *ngIf="xRoleA || xRoleT" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >home</span> {{ 'navbar.principal' | translate }}</a>
-        <a mat-list-item routerLink="/contact" *ngIf="xRoleA || xRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >contacts</span>{{ 'navbar.usuarios' | translate }}</a>
+        <a mat-list-item routerLink="/contact" *ngIf="xRoleA" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >contacts</span>{{ 'navbar.usuarios' | translate }}</a>
         <a mat-list-item routerLink="/adminpanel" *ngIf="xRoleA" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >admin_panel_settings</span>{{ 'navbar.administrador' | translate }}</a>
         <a mat-list-item routerLink="/customers" *ngIf="xRoleA" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >person_pin</span>{{ 'navbar.clientes' | translate }}</a>
         <a mat-list-item routerLink="/tickets" *ngIf="xRoleA || xRoleE || xRoleC" routerLinkActive="active-link"><span class="material-icons" style="padding-right: 20px;" >local_play</span>{{ 'navbar.boletosadmin' | translate }}</a>
