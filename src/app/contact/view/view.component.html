@@ -210,12 +210,18 @@
     <div style="position: fixed; right: 40px; bottom: 30px; display: inline-block;">
         
         <div *ngIf="!edit" style="padding-bottom: 20px;">
-            <button mat-fab [routerLink]="['/cambiapassword/', theUserData.email]"><mat-icon>edit-row</mat-icon></button>
+            <button mat-fab
+            #tooltip="matTooltip"
+            matTooltip="Change user password"
+            [routerLink]="['/cambiapassword/', theUserData.email]"><mat-icon>password</mat-icon></button>
             <!--<button mat-fab (click)="editFields()"><mat-icon>edit-row</mat-icon></button> -->
         </div>
         <div *ngIf="!edit" style="padding-bottom: 20px;">
             <!-- <button mat-fab [routerLink]="['/edit-ticket/', theUserData.id]"><mat-icon>edit-row</mat-icon></button> -->
-            <button mat-fab (click)="editFields()"><mat-icon>edit-row</mat-icon></button>
+            <button mat-fab
+            #tooltip="matTooltip"
+            matTooltip="Edit User Info"
+              (click)="editFields()"><mat-icon>edit-row</mat-icon></button>
         </div>
         <div *ngIf="edit" style="padding-bottom: 20px;">
             <button mat-fab
