@@ -28,6 +28,8 @@ import { promise } from 'protractor';
 
 
 export class ViewticketComponent implements OnInit {
+
+  publicIp = "http://217.133.14.152:5000";
   id: number | undefined;
   showEdit1 = false;
   showEdit2 = false;
