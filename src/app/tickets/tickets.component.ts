@@ -8,6 +8,7 @@ import { tick } from '@angular/core/testing';
 import { UsersService } from '../services/users.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tickets',
@@ -17,7 +18,8 @@ import * as moment from 'moment';
 export class TicketsComponent implements OnInit {
   
   constructor(private service:TicketService, private agencyService: AgencyService,
-    public dialog:MatDialog, private user: UsersService) { }
+    public dialog:MatDialog, private user: UsersService,
+    private _snackBar:MatSnackBar) { }
     
     strFechaInicio='';
     strFechaFin='';
@@ -107,14 +109,28 @@ export class TicketsComponent implements OnInit {
     fechafinal:''
   };
 
+  resultadoBusquedaFecha:any=[];
   onSelectedMonth(){
     let fechaInicio = moment(this.strFechaInicio, 'DD-MM-YYYY').format('YYYY/MM/DD');
     let fechaFin    = moment(this.strFechaFin, 'DD-MM-YYYY').format('YYYY/MM/DD');
 
     this.fechabusqueda.fechainicio = fechaInicio;
     this.fechabusqueda.fechainicio = fechaFin;
-    console.log(fechaInicio);
-    console.log(fechaFin);
+    
+    let dateRange:any={
+      strFechaInicio:fechaInicio,
+      strFechaFin:fechaFin
+    }
+    
+    this.service.filterDateSearch(dateRange).subscribe(
+      (data:any) => {this.resultadoBusquedaFecha = data
+      this.filtering = true;
+      this.FilteredResult = this.resultadoBusquedaFecha;
+    
+    },
+      (error) => { console.log('Incorrect Date range', error);
+      this._snackBar.open(error, "Undestood", { duration:3500, panelClass: "error",}); }
+    );
   }
 
   limpiarFiltro(){

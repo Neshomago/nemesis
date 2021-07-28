@@ -107,6 +107,20 @@ export class CreateTicketComponent implements OnInit {
     } 
   }
 
+  getCustomersToSelectAgency(){
+    this.customerService.getCustomerList().subscribe(
+      response => {
+          this.arrayListCustomers = response.map((i:any) =>({value:i.id,viewValue:i.name}));
+          this.arrayListadoCustomers = this.arrayListCustomers;
+  
+  
+          this.filteredCustomer.next(this.arrayListadoCustomers.slice());
+          this.itemFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
+          this.filterCustomers();
+      });
+    });
+  }
+  
   getAgencyList(){
     let zrole = localStorage.getItem('zRoleA');
     if (!zrole){
@@ -160,19 +174,7 @@ export class CreateTicketComponent implements OnInit {
     }
   }
 
-  getCustomersToSelectAgency(){
-    this.customerService.getCustomerList().subscribe(
-      response => {
-          this.arrayListCustomers = response.map((i:any) =>({value:i.id,viewValue:i.name}));
-          this.arrayListadoCustomers = this.arrayListCustomers;
-  
-  
-          this.filteredCustomer.next(this.arrayListadoCustomers.slice());
-          this.itemFilterCtrl.valueChanges.pipe(takeUntil(this._onDestroy)).subscribe(() => {
-          this.filterCustomers();
-      });
-    });
-  }
+
 
   filterAgenciasNombre() 
   {

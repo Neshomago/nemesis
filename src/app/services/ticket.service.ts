@@ -163,6 +163,10 @@ export class TicketService {
     serialVerification(item:any): Observable<any>{
       return this.http.post(APIUrl+'/warehouseitvn',item);
     }
+
+    filterDateSearch(val:any):Observable<any>{
+      return this.http.post(`${APIUrl}/ticketdaterange/`,val);
+    }
   }
 
 
