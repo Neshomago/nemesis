@@ -27,6 +27,8 @@ export class TickettoworkComponent implements OnInit {
   id: number | undefined;
   theTicketData : any;
 
+  publicIp = "http://217.133.14.152:5000";
+
   newtags: any = [];
   TechnicianList: any = [];
   unserialTags: any = [];
@@ -433,7 +435,7 @@ uploadMultiple(event: any) {
   console.log('Nombre de Archivo: ', this.rutaFile);
 
   this.httpClient
-    .post('http://localhost:5000/uploader', formdata)
+    .post(this.publicIp+'/uploader', formdata)
     .subscribe(
       (d) => {
         console.log('post image: ', d);
@@ -446,7 +448,7 @@ uploadMultiple(event: any) {
 
 eliminafoto(file:any){
   this.httpClient
-  .post('http://localhost:5000/downfoto', file.name)
+  .post(this.publicIp+'/downfoto', file.name)
   .subscribe(
     (d) => {
       console.log(d);
