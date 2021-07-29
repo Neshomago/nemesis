@@ -65,7 +65,7 @@
 
 <!-- START OF TABLE -->
 <!--  -->
-<ng-container *ngIf="filter===false || filteredString == '' || filteredString === null">
+<ng-container *ngIf="!filter || filteredString == '' || filteredString === null">
   <table class="full-width table-stripped table-hover">
     <thead>
       <th>Resolved Warehouse Item</th>
@@ -136,7 +136,7 @@
 </ng-container>
 
 
-<ng-container *ngIf="filter===true">
+<ng-container *ngIf="filter">
   <table class="full-width table-stripped table-hover">
     <thead>
       <th>Resolved Warehouse Item</th>

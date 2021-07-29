@@ -126,14 +126,13 @@ export class WarehouseComponent implements OnInit {
   //Filter Boxes
   onSelectedFilter(){
     this.filteredResult = this.TheGeneralList.filter(
-      (ticket:any) => (ticket.used === this.FilterValue 
+      (ticket:any) => (ticket.used == this.FilterValue 
         || ticket.status == this.FilterValue 
-        || ticket.used == this.FilterValue 
         || ticket.location == this.FilterValue
         || ticket.warehouseId == this.FilterValue));
     
       this.filter = true;
-    if (this.FilterValue == "clear"){
+    if (this.FilterValue == "clear" || this.FilterValue==''){
       this.filter = false;
       this.filteredResult = [];
     }
